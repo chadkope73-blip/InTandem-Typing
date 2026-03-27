@@ -15,14 +15,12 @@
       --text-main: #f2eee5;
       --text-soft: #b8d2cf;
       --accent: #d1a04b;
-      --accent-soft: rgba(209, 160, 75, 0.22);
       --pending: rgba(184, 210, 207, 0.42);
       --correct: #f2eee5;
       --incorrect: #f4c980;
       --shadow: 0 18px 50px rgba(0, 0, 0, 0.22);
       --radius-xl: 28px;
       --radius-lg: 20px;
-      --radius-md: 14px;
     }
 
     * { box-sizing: border-box; }
@@ -118,9 +116,7 @@
       flex: 0 0 auto;
     }
 
-    .brand-text {
-      min-width: 0;
-    }
+    .brand-text { min-width: 0; }
 
     .brand-title {
       font-size: clamp(1.55rem, 1.9vw, 2rem);
@@ -210,14 +206,15 @@
     }
 
     .flag-wrap,
-    .genre-wrap {
+    .genre-wrap,
+    .mode-wrap {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
       align-items: center;
     }
 
-    .flag-btn, .genre-btn, .action-btn {
+    .flag-btn, .genre-btn, .mode-btn, .action-btn {
       appearance: none;
       border: 1px solid var(--line-soft);
       background: rgba(61, 53, 93, 0.34);
@@ -228,8 +225,8 @@
       font: inherit;
     }
 
-    .flag-btn:hover, .genre-btn:hover, .action-btn:hover,
-    .flag-btn:focus-visible, .genre-btn:focus-visible, .action-btn:focus-visible {
+    .flag-btn:hover, .genre-btn:hover, .mode-btn:hover, .action-btn:hover,
+    .flag-btn:focus-visible, .genre-btn:focus-visible, .mode-btn:focus-visible, .action-btn:focus-visible {
       outline: none;
       transform: translateY(-1px);
       border-color: var(--line);
@@ -250,7 +247,8 @@
     .flag-btn.featured { font-size: 1.45rem; min-width: 58px; }
 
     .flag-btn.active,
-    .genre-btn.active {
+    .genre-btn.active,
+    .mode-btn.active {
       color: var(--accent);
       border-color: rgba(209, 160, 75, 0.46);
       background: rgba(209, 160, 75, 0.12);
@@ -264,12 +262,14 @@
       margin: 10px 0 4px;
       color: var(--text-soft);
       font-size: 0.95rem;
+      flex-wrap: wrap;
     }
 
     .selected-country .big-flag { font-size: 1.55rem; }
     .selected-country .country-name { color: var(--text-main); font-weight: 700; }
 
-    .genre-bar {
+    .genre-bar,
+    .mode-bar {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
@@ -278,14 +278,15 @@
       margin-top: 14px;
     }
 
-    .genre-group {
+    .genre-group,
+    .mode-group {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
       flex: 1 1 auto;
     }
 
-    .genre-btn {
+    .genre-btn, .mode-btn {
       border-radius: 14px;
       padding: 10px 14px;
       font-weight: 600;
@@ -343,19 +344,50 @@
     }
 
     .typing-shell {
-      padding: 22px;
+      padding: 18px;
       margin-bottom: 16px;
     }
 
-    .typing-text {
-      min-height: 280px;
-      font-size: clamp(1.3rem, 2vw, 1.7rem);
-      line-height: 1.88;
-      letter-spacing: 0.01em;
-      user-select: none;
-      cursor: text;
-      white-space: pre-wrap;
+    .story-window {
+      display: grid;
+      gap: 10px;
+      min-height: 214px;
+      padding: 16px;
+      border: 1px solid rgba(110,168,168,0.22);
+      border-radius: var(--radius-lg);
+      background: rgba(20, 26, 38, 0.18);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
+    }
+
+    .story-line {
+      border-radius: 14px;
+      padding: 12px 14px;
+      line-height: 1.75;
+      transition: 180ms ease;
       word-break: break-word;
+      white-space: pre-wrap;
+    }
+
+    .story-line.previous {
+      color: rgba(184, 210, 207, 0.52);
+      font-size: 0.98rem;
+      background: rgba(255,255,255,0.025);
+      min-height: 56px;
+    }
+
+    .story-line.current {
+      color: var(--text-main);
+      font-size: clamp(1.16rem, 2vw, 1.45rem);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(110,168,168,0.2);
+      min-height: 82px;
+    }
+
+    .story-line.next {
+      color: rgba(184, 210, 207, 0.72);
+      font-size: 1rem;
+      background: rgba(255,255,255,0.02);
+      min-height: 56px;
     }
 
     .char.pending { color: var(--pending); }
@@ -369,7 +401,7 @@
 
     .typing-input {
       width: 100%;
-      min-height: 140px;
+      min-height: 120px;
       resize: vertical;
       border: 1px solid var(--line);
       border-radius: var(--radius-lg);
@@ -397,6 +429,7 @@
       gap: 14px;
       color: var(--text-soft);
       font-size: 0.94rem;
+      flex-wrap: wrap;
     }
 
     .result {
@@ -440,10 +473,9 @@
       }
 
       .stat { text-align: left; }
-      .genre-bar { align-items: stretch; }
+      .genre-bar, .mode-bar { align-items: stretch; }
       .action-btn { width: 100%; }
       .statusbar { flex-direction: column; align-items: flex-start; }
-      .typing-text { min-height: 240px; }
     }
 
     @media (max-width: 560px) {
@@ -451,7 +483,11 @@
       .brand img { width: 48px; height: 48px; }
       .brand-title { font-size: 1.35rem; }
       .typing-shell, .metrics, .toolbar, .statusbar, .hero { padding: 14px; }
-      .typing-text { font-size: 1.16rem; line-height: 1.8; }
+      .story-window { min-height: 200px; padding: 12px; }
+      .story-line.current { font-size: 1.08rem; line-height: 1.7; }
+      .story-line.previous,
+      .story-line.next { font-size: 0.95rem; line-height: 1.65; }
+      .typing-input { min-height: 110px; }
     }
   </style>
 </head>
@@ -502,7 +538,11 @@
 
       <div class="genre-bar">
         <div class="genre-group" id="genreWrap" aria-label="Genre selector"></div>
-        <button class="action-btn" id="generateBtn" type="button">Generate New Passage</button>
+        <button class="action-btn" id="generateBtn" type="button">Generate New Story</button>
+      </div>
+
+      <div class="mode-bar">
+        <div class="mode-group" id="modeWrap" aria-label="Mode selector"></div>
       </div>
     </section>
 
@@ -525,7 +565,11 @@
     </section>
 
     <section class="typing-shell panel">
-      <div id="typingText" class="typing-text" tabindex="0" aria-label="Typing passage"></div>
+      <div class="story-window" id="storyWindow" tabindex="0" aria-label="Typing story window">
+        <div class="story-line previous" id="previousLine">Previous line will appear here.</div>
+        <div class="story-line current" id="currentLine"></div>
+        <div class="story-line next" id="nextLine">Next line preview will appear here.</div>
+      </div>
 
       <div class="input-wrap">
         <textarea id="typingInput" class="typing-input" placeholder="Click here and start typing" spellcheck="false" autocapitalize="off" autocorrect="off"></textarea>
@@ -534,7 +578,8 @@
 
     <section class="statusbar panel">
       <div id="progressText">Progress 0%</div>
-      <div id="languageText">🇺🇸 English • AI Learning story mode</div>
+      <div id="languageText">🇺🇸 English • AI Learning</div>
+      <div id="modeText">Mode: Story</div>
     </section>
 
     <section class="result panel" id="resultBox">
@@ -600,122 +645,106 @@
           "By nightfall, the road no longer felt like a passage into danger, but into capability. AI could help people learn faster, draft more clearly, test more ideas, and reach farther than they could alone. The point was not to fear the tool or worship it. The point was to understand it well enough to use it responsibly, creatively, and with purpose."
         ]
       ],
-      french: [
-        [
-          "Au-delà de la vitre d’observation, un étudiant regarda une station dériver au-dessus d’un monde violet et comprit que l’intelligence artificielle n’était pas un esprit mystérieux dans une machine. C’était un outil construit avec des mathématiques, des données et une intention humaine. La vieille peur d’une magie inconnue commença à se dissiper pour laisser place à une vérité plus utile : ces systèmes apprennent des schémas, répondent à des consignes et ne deviennent vraiment précieux que lorsqu’ils sont guidés par des personnes qui savent ce qu’elles veulent créer.",
-          "En approfondissant sa lecture, l’étudiant vit le système davantage comme un compagnon de route dans une longue quête que comme un rival menaçant. Un modèle de langage pouvait résumer un article, expliquer du code, comparer des idées, générer des questions d’entraînement et transformer l’incertitude en progression. Mais il ne remplaçait pas le jugement. Il fallait toujours de la direction, de l’évaluation et de l’éthique. Les êtres humains restaient ceux qui définissaient la mission, vérifiaient la carte et choisissaient le chemin digne d’être suivi.",
-          "C’était là le tournant encourageant du récit. L’IA n’avait pas à devenir une machine de peur. Elle pouvait être un outil de terrain pour apprendre, prototyper, rechercher et imaginer avec discipline. Pour les constructeurs, les étudiants et les esprits curieux, la vraie force n’était pas d’abandonner la pensée au modèle, mais d’unir l’intention humaine à la vitesse de la machine. À partir de ce moment, l’avenir ressemblait moins à un avertissement qu’à une route ouverte."
-        ]
-      ],
-      german: [
-        [
-          "Hinter dem Sichtfenster beobachtete ein Student, wie eine Station über einer violetten Welt trieb, und erkannte, dass künstliche Intelligenz kein Geist in der Maschine war. Sie war ein Werkzeug, gebaut aus Mathematik, Daten und menschlicher Absicht. Die alte Angst vor einer unbegreiflichen Magie begann zu verschwinden und machte einer nützlicheren Wahrheit Platz: Solche Systeme lernen Muster, reagieren auf Eingaben und werden erst dann wirklich wertvoll, wenn Menschen sie mit klarem Ziel einsetzen.",
-          "Je weiter der Student las, desto mehr erschien das System wie ein guter Begleiter auf einer langen Reise statt wie ein dunkler Rivale. Ein Sprachmodell konnte einen Aufsatz zusammenfassen, Code erklären, Ideen vergleichen, Übungsfragen erzeugen und Verwirrung in Fortschritt verwandeln. Aber es ersetzte kein Urteilsvermögen. Es brauchte weiterhin Richtung, Bewertung und Ethik. Menschen blieben diejenigen, die die Aufgabe festlegten, die Karte prüften und entschieden, welchem Weg man folgen sollte.",
-          "Darin lag die hoffnungsvolle Wendung der Geschichte. KI musste kein Werkzeug der Angst sein. Sie konnte ein Feldinstrument für Lernen, Prototyping, Forschung und disziplinierte Vorstellungskraft sein. Für Entwickler, Studierende und neugierige Entdecker lag die eigentliche Stärke nicht darin, das Denken an das Modell abzugeben, sondern menschliche Absicht mit maschineller Geschwindigkeit zu verbinden. Von da an wirkte die Zukunft weniger wie eine Warnung und mehr wie eine offene Straße."
-        ]
-      ],
-      italian: [
-        [
-          "Oltre il vetro d’osservazione, uno studente guardò una stazione orbitare sopra un mondo violaceo e capì che l’intelligenza artificiale non era un fantasma nella macchina. Era uno strumento costruito con matematica, dati e intenzione umana. La vecchia paura di una magia incomprensibile cominciò a svanire, sostituita da una verità più utile: questi sistemi apprendono schemi, rispondono ai prompt e diventano davvero preziosi solo quando sono guidati da persone che sanno che cosa vogliono costruire.",
-          "Più lo studente leggeva, più il sistema somigliava a un buon compagno di viaggio in una lunga campagna invece che a un rivale oscuro. Un modello linguistico poteva riassumere un articolo, spiegare codice, confrontare idee, generare domande di esercizio e trasformare la confusione in slancio. Ma non sostituiva il giudizio. Servivano ancora direzione, valutazione ed etica. Gli esseri umani restavano coloro che fissavano la missione, controllavano la mappa e decidevano quale sentiero meritasse di essere seguito.",
-          "Quella era la svolta incoraggiante della storia. L’IA non doveva essere una macchina della paura. Poteva essere uno strumento sul campo per imparare, prototipare, fare ricerca e immaginare con disciplina. Per costruttori, studenti e curiosi avventurieri, il vero potere non stava nell’abbandonare il pensiero al modello, ma nell’unire lo scopo umano alla velocità della macchina. Da quel momento, il futuro sembrò meno un avvertimento e più una strada aperta."
-        ]
-      ],
-      spanish: [
-        [
-          "Más allá del cristal de observación, un estudiante miró cómo una estación se deslizaba sobre un mundo violeta y comprendió que la inteligencia artificial no era un fantasma dentro de la máquina. Era una herramienta construida con matemáticas, datos e intención humana. El viejo temor a una magia desconocida comenzó a desvanecerse y dejó paso a una verdad más útil: estos sistemas aprenden patrones, responden a indicaciones y sólo se vuelven realmente valiosos cuando son guiados por personas que saben lo que quieren construir.",
-          "Cuanto más leía el estudiante, más se parecía el sistema a un buen compañero de campaña que a un rival oscuro. Un modelo de lenguaje podía resumir un artículo, explicar código, comparar ideas, generar preguntas de práctica y convertir la confusión en impulso. Pero no reemplazaba el juicio. Seguían haciendo falta dirección, evaluación y ética. Los seres humanos seguían siendo quienes marcaban la misión, revisaban el mapa y decidían qué camino valía la pena seguir.",
-          "Ahí estaba el giro esperanzador de la historia. La IA no tenía por qué ser una máquina del miedo. Podía ser una herramienta de campo para aprender, prototipar, investigar e imaginar con disciplina. Para constructores, estudiantes y aventureros curiosos, el verdadero poder no consistía en entregar el pensamiento al modelo, sino en unir el propósito humano con la velocidad de la máquina. A partir de ahí, el futuro parecía menos una advertencia y más un camino abierto."
-        ]
-      ],
-      polish: [
-        [
-          "Za szybą obserwacyjną student patrzył, jak stacja dryfuje nad fioletowym światem, i zrozumiał, że sztuczna inteligencja nie jest duchem w maszynie. To narzędzie zbudowane z matematyki, danych i ludzkiej intencji. Dawny lęk przed nieznaną magią zaczął ustępować miejsca bardziej użytecznej prawdzie: takie systemy uczą się wzorców, reagują na polecenia i stają się naprawdę wartościowe dopiero wtedy, gdy kierują nimi ludzie wiedzący, co chcą zbudować.",
-          "Im głębiej student czytał, tym bardziej system przypominał dobrego towarzysza długiej wyprawy, a nie mrocznego rywala. Model językowy potrafił streścić artykuł, wyjaśnić kod, porównać pomysły, wygenerować pytania do ćwiczeń i zamienić niepewność w postęp. Nie zastępował jednak osądu. Nadal potrzebne były kierunek, ocena i etyka. To człowiek wyznaczał misję, sprawdzał mapę i decydował, którą drogą warto pójść.",
-          "W tym tkwił budujący zwrot całej opowieści. AI nie musiała być maszyną strachu. Mogła stać się narzędziem terenowym do nauki, prototypowania, badań i zdyscyplinowanej wyobraźni. Dla twórców, studentów i ciekawych świata wędrowców prawdziwa siła nie polegała na oddaniu myślenia modelowi, lecz na połączeniu ludzkiego celu z szybkością maszyny. Od tej chwili przyszłość wydawała się mniej ostrzeżeniem, a bardziej otwartą drogą."
-        ]
-      ],
-      dutch: [
-        [
-          "Achter het observatieglas keek een student naar een station dat boven een paarse wereld dreef en begreep dat kunstmatige intelligentie geen geest in een machine was. Het was een hulpmiddel, opgebouwd uit wiskunde, data en menselijke bedoeling. De oude angst voor onbegrijpelijke magie begon te verdwijnen en maakte plaats voor een nuttigere waarheid: zulke systemen leren patronen, reageren op aanwijzingen en worden pas echt waardevol wanneer mensen met een duidelijk doel ze sturen.",
-          "Hoe verder de student las, hoe meer het systeem leek op een goede metgezel tijdens een lange tocht in plaats van op een donkere rivaal. Een taalmodel kon een artikel samenvatten, code uitleggen, ideeën vergelijken, oefenvragen maken en verwarring omzetten in voortgang. Maar het verving geen oordeel. Richting, evaluatie en ethiek bleven nodig. Mensen bleven degenen die de missie bepaalden, de kaart controleerden en kozen welk pad de moeite waard was.",
-          "Daar lag de hoopvolle wending van het verhaal. AI hoefde geen machine van angst te zijn. Het kon een veldhulpmiddel zijn voor leren, prototypen, onderzoek en gedisciplineerde verbeelding. Voor bouwers, studenten en nieuwsgierige avonturiers lag de echte kracht niet in het overdragen van denken aan het model, maar in het verbinden van menselijk doel met machinesnelheid. Vanaf dat moment voelde de toekomst minder als een waarschuwing en meer als een open weg."
-        ]
-      ],
-      danish: [
-        [
-          "Bag observationsruden så en studerende en station drive over en violet verden og forstod, at kunstig intelligens ikke var et spøgelse i maskinen. Det var et værktøj bygget af matematik, data og menneskelig hensigt. Den gamle frygt for ukendt magi begyndte at forsvinde og blev erstattet af en mere nyttig sandhed: disse systemer lærer mønstre, reagerer på prompts og bliver først virkelig værdifulde, når mennesker med klare mål styrer dem.",
-          "Jo mere den studerende læste, desto mere lignede systemet en god ledsager på en lang rejse snarere end en mørk rival. En sprogmodel kunne opsummere en artikel, forklare kode, sammenligne idéer, lave øvelsesspørgsmål og gøre forvirring til fremdrift. Men den erstattede ikke dømmekraft. Retning, evaluering og etik var stadig nødvendige. Det var stadig mennesker, der fastsatte missionen, kontrollerede kortet og valgte, hvilken vej der var værd at følge.",
-          "Det var historiens håbefulde drejning. AI behøvede ikke at være en maskine for frygt. Den kunne være et felthjælpemiddel til læring, prototyper, forskning og disciplineret fantasi. For byggere, studerende og nysgerrige eventyrere lå den virkelige styrke ikke i at overgive tænkningen til modellen, men i at forbinde menneskeligt formål med maskinens hastighed. Fra det øjeblik lignede fremtiden mindre en advarsel og mere en åben vej."
-        ]
-      ],
-      norwegian: [
-        [
-          "Bak observasjonsglasset så en student en stasjon drive over en fiolett verden og forsto at kunstig intelligens ikke var et spøkelse i maskinen. Det var et verktøy bygget av matematikk, data og menneskelig hensikt. Den gamle frykten for ukjent magi begynte å slippe taket og ble erstattet av en mer nyttig sannhet: slike systemer lærer mønstre, reagerer på instrukser og blir virkelig verdifulle først når mennesker med klare mål styrer dem.",
-          "Jo mer studenten leste, desto mer lignet systemet en god følgesvenn på en lang ferd i stedet for en mørk rival. En språkmodell kunne oppsummere en artikkel, forklare kode, sammenligne ideer, lage øvingsspørsmål og gjøre forvirring om til framdrift. Men den erstattet ikke dømmekraft. Retning, evaluering og etikk var fortsatt nødvendig. Det var fortsatt mennesker som satte oppdraget, sjekket kartet og bestemte hvilken vei som var verdt å følge.",
-          "Der lå historiens håpefulle vending. AI trengte ikke være en maskin for frykt. Den kunne være et feltverktøy for læring, prototyping, forskning og disiplinert fantasi. For byggere, studenter og nysgjerrige eventyrere lå den virkelige styrken ikke i å overlate tenkningen til modellen, men i å koble menneskelig formål til maskinens hastighet. Da føltes framtiden mindre som en advarsel og mer som en åpen vei."
-        ]
-      ],
-      portuguese: [
-        [
-          "Além do vidro de observação, um estudante viu uma estação flutuar sobre um mundo violeta e percebeu que a inteligência artificial não era um fantasma dentro da máquina. Era uma ferramenta construída com matemática, dados e intenção humana. O velho medo de uma magia incompreensível começou a desaparecer, dando lugar a uma verdade mais útil: esses sistemas aprendem padrões, respondem a prompts e só se tornam realmente valiosos quando são guiados por pessoas que sabem o que querem construir.",
-          "Quanto mais o estudante lia, mais o sistema se parecia com um bom companheiro de jornada, e não com um rival sombrio. Um modelo de linguagem podia resumir um artigo, explicar código, comparar ideias, gerar perguntas de prática e transformar confusão em impulso. Mas ele não substituía o julgamento. Direção, avaliação e ética continuavam necessárias. Os seres humanos ainda eram aqueles que definiam a missão, conferiam o mapa e decidiam qual caminho valia a pena seguir.",
-          "Aí estava a virada esperançosa da história. A IA não precisava ser uma máquina de medo. Ela podia ser uma ferramenta de campo para aprender, prototipar, pesquisar e imaginar com disciplina. Para construtores, estudantes e aventureiros curiosos, o verdadeiro poder não estava em entregar o pensamento ao modelo, mas em unir propósito humano à velocidade da máquina. A partir dali, o futuro parecia menos um aviso e mais uma estrada aberta."
-        ]
-      ],
-      czech: [
-        [
-          "Za pozorovacím sklem sledoval student stanici plující nad fialovým světem a pochopil, že umělá inteligence není žádný duch ve stroji. Je to nástroj vytvořený z matematiky, dat a lidského záměru. Starý strach z nepochopitelné magie začal mizet a ustoupil užitečnější pravdě: tyto systémy se učí vzorce, reagují na zadání a skutečně cennými se stávají teprve tehdy, když je vedou lidé s jasným cílem.",
-          "Čím déle student četl, tím více systém připomínal dobrého společníka na dlouhé výpravě než temného soupeře. Jazykový model dokázal shrnout článek, vysvětlit kód, porovnat nápady, vytvořit procvičovací otázky a proměnit zmatek v posun vpřed. Nenahrazoval však úsudek. Směr, vyhodnocení a etika byly stále nezbytné. Lidé zůstávali těmi, kdo určovali úkol, kontrolovali mapu a rozhodovali, která cesta stojí za následování.",
-          "Právě v tom byl povzbudivý obrat příběhu. AI nemusela být strojem strachu. Mohla se stát terénním nástrojem pro učení, prototypování, výzkum a disciplinovanou představivost. Pro tvůrce, studenty a zvídavé dobrodruhy nespočívala skutečná síla v tom, že by přenechali myšlení modelu, ale v propojení lidského záměru s rychlostí stroje. Od té chvíle působila budoucnost méně jako varování a více jako otevřená cesta."
-        ]
-      ],
-      romanian: [
-        [
-          "Dincolo de geamul de observație, un student privea o stație plutind deasupra unei lumi violet și a înțeles că inteligența artificială nu era o fantomă în mașină. Era un instrument construit din matematică, date și intenție umană. Vechea teamă de o magie de neînțeles a început să se risipească și a fost înlocuită de un adevăr mai util: aceste sisteme învață tipare, răspund la prompturi și devin cu adevărat valoroase doar atunci când sunt ghidate de oameni care știu ce vor să construiască.",
-          "Cu cât studentul citea mai mult, cu atât sistemul semăna mai mult cu un bun companion de campanie decât cu un rival întunecat. Un model lingvistic putea rezuma un articol, explica cod, compara idei, genera întrebări de exercițiu și transforma confuzia în progres. Dar nu înlocuia judecata. Direcția, evaluarea și etica rămâneau necesare. Oamenii erau în continuare cei care stabileau misiunea, verificau harta și decideau ce drum merita urmat.",
-          "Aici se afla întorsătura plină de speranță a poveștii. IA nu trebuia să fie o mașină a fricii. Putea deveni un instrument de teren pentru învățare, prototipare, cercetare și imaginație disciplinată. Pentru constructori, studenți și aventurieri curioși, puterea adevărată nu însemna să cedeze gândirea modelului, ci să unească scopul uman cu viteza mașinii. Din acel moment, viitorul părea mai puțin un avertisment și mai mult un drum deschis."
-        ]
-      ],
-      greek: [
-        [
-          "Πίσω από το γυαλί παρατήρησης, ένας φοιτητής έβλεπε έναν σταθμό να ταξιδεύει πάνω από έναν μωβ κόσμο και κατάλαβε ότι η τεχνητή νοημοσύνη δεν ήταν κάποιο φάντασμα μέσα στη μηχανή. Ήταν ένα εργαλείο χτισμένο από μαθηματικά, δεδομένα και ανθρώπινη πρόθεση. Ο παλιός φόβος μιας ακατανόητης μαγείας άρχισε να υποχωρεί και έδωσε τη θέση του σε μια πιο χρήσιμη αλήθεια: αυτά τα συστήματα μαθαίνουν μοτίβα, ανταποκρίνονται σε prompts και γίνονται πραγματικά πολύτιμα μόνο όταν καθοδηγούνται από ανθρώπους που ξέρουν τι θέλουν να χτίσουν.",
-          "Όσο περισσότερο διάβαζε ο φοιτητής, τόσο περισσότερο το σύστημα έμοιαζε με καλό σύντροφο σε μια μακρά εκστρατεία και όχι με σκοτεινό αντίπαλο. Ένα γλωσσικό μοντέλο μπορούσε να συνοψίσει ένα άρθρο, να εξηγήσει κώδικα, να συγκρίνει ιδέες, να δημιουργήσει ερωτήσεις εξάσκησης και να μετατρέψει τη σύγχυση σε πρόοδο. Όμως δεν αντικαθιστούσε την κρίση. Η κατεύθυνση, η αξιολόγηση και η ηθική παρέμεναν απαραίτητες. Οι άνθρωποι συνέχιζαν να είναι εκείνοι που όριζαν την αποστολή, έλεγχαν τον χάρτη και αποφάσιζαν ποιο μονοπάτι άξιζε να ακολουθηθεί.",
-          "Εκεί βρισκόταν η ελπιδοφόρα στροφή της ιστορίας. Η ΑΙ δεν χρειαζόταν να είναι μια μηχανή φόβου. Μπορούσε να γίνει ένα εργαλείο πεδίου για μάθηση, πρωτοτυποποίηση, έρευνα και πειθαρχημένη φαντασία. Για δημιουργούς, φοιτητές και περίεργους εξερευνητές, η πραγματική δύναμη δεν βρισκόταν στο να παραδώσουν τη σκέψη στο μοντέλο, αλλά στο να ενώσουν τον ανθρώπινο σκοπό με την ταχύτητα της μηχανής. Από εκεί και πέρα, το μέλλον έμοιαζε λιγότερο με προειδοποίηση και περισσότερο με ανοιχτό δρόμο."
-        ]
-      ],
-      turkish: [
-        [
-          "Gözlem camının ötesinde bir öğrenci, mor bir dünyanın üzerinde süzülen istasyonu izlerken yapay zekânın makinenin içindeki bir hayalet olmadığını anladı. O, matematik, veri ve insan niyetiyle inşa edilmiş bir araçtı. Anlaşılmaz bir büyü korkusu yavaş yavaş dağıldı ve yerini daha yararlı bir gerçeğe bıraktı: bu sistemler örüntü öğrenir, istemlere yanıt verir ve ancak ne inşa etmek istediğini bilen insanlar tarafından yönlendirildiğinde gerçekten değer kazanır.",
-          "Öğrenci okumaya devam ettikçe sistem, karanlık bir rakipten çok uzun bir seferin iyi bir yoldaşı gibi görünmeye başladı. Bir dil modeli makale özetleyebilir, kod açıklayabilir, fikirleri karşılaştırabilir, alıştırma soruları üretebilir ve kafa karışıklığını ilerlemeye dönüştürebilirdi. Ama yargının yerini alamazdı. Yön, değerlendirme ve etik hâlâ gerekliydi. Görevi belirleyen, haritayı kontrol eden ve hangi yolun izlenmeye değer olduğuna karar veren yine insanlardı.",
-          "Hikâyenin umut veren dönüşü tam da buydu. Yapay zekâ bir korku makinesi olmak zorunda değildi. Öğrenme, prototipleme, araştırma ve disiplinli hayal gücü için bir saha aracı olabilirdi. Üretenler, öğrenciler ve meraklı maceracılar için gerçek güç, düşünceyi modele bırakmakta değil, insan amacını makinenin hızıyla birleştirmekteydi. O andan sonra gelecek bir uyarıdan çok açık bir yol gibi görünüyordu."
-        ]
-      ],
-      japanese: [
-        [
-          "観測窓の向こうで、ひとりの学生は紫の惑星の上を漂うステーションを見つめながら、AI は機械の中の幽霊ではないのだと理解した。AI は数学とデータ、そして人の意図から組み上げられた道具だった。得体の知れない魔法のような恐れはしだいに薄れ、もっと役に立つ真実へと置き換わっていった。こうした仕組みはパターンを学び、プロンプトに応答し、何を作りたいのか分かっている人に導かれてこそ本当に価値を持つのだ。",
-          "読み進めるほどに、その仕組みは暗い競争相手というより、長い冒険を共にする頼れる仲間のように見えてきた。言語モデルは論文を要約し、コードを説明し、アイデアを比較し、練習問題を作り、混乱を前進へ変える助けになった。けれども判断そのものを置き換えるわけではなかった。方向づけも、評価も、倫理も、やはり必要だった。任務を決め、地図を確かめ、どの道を進むべきかを選ぶのは、最後まで人間だった。",
-          "そこにこの物語の希望があった。AI は恐怖の機械である必要はない。学習、試作、研究、そして規律ある想像力のための現場道具になれる。作る人、学ぶ人、好奇心ある冒険者にとって本当の力は、思考をモデルに預けることではなく、人の目的と機械の速さを結びつけることにあった。そう気づいたとき、未来は警告ではなく、開かれた道のように見えてきた。"
-        ]
-      ],
-      korean: [
-        [
-          "관측창 너머에서 한 학생은 보랏빛 행성 위를 떠도는 정거장을 바라보며 인공지능이 기계 속 유령이 아니라는 사실을 깨달았다. 그것은 수학과 데이터, 그리고 인간의 의도로 만들어진 도구였다. 알 수 없는 마법 같은 두려움은 서서히 사라지고 더 유용한 진실로 바뀌기 시작했다. 이런 시스템은 패턴을 학습하고 프롬프트에 반응하며, 무엇을 만들고 싶은지 아는 사람들이 이끌 때 비로소 진짜 가치를 가진다는 사실이었다.",
-          "학생이 더 읽어 갈수록 그 시스템은 어두운 경쟁자라기보다 긴 여정을 함께하는 믿을 만한 동료처럼 느껴졌다. 언어 모델은 논문을 요약하고, 코드를 설명하고, 아이디어를 비교하고, 연습 문제를 만들고, 혼란을 전진으로 바꾸는 데 도움을 줄 수 있었다. 하지만 판단 자체를 대신하지는 못했다. 방향 설정도, 평가도, 윤리도 여전히 필요했다. 임무를 정하고, 지도를 확인하고, 어떤 길을 따라갈지 결정하는 일은 끝까지 인간의 몫이었다.",
-          "바로 거기에 이 이야기의 희망이 있었다. AI 는 두려움의 기계일 필요가 없었다. 그것은 학습과 프로토타이핑, 연구와 절제된 상상력을 위한 현장 도구가 될 수 있었다. 만드는 사람들, 배우는 사람들, 그리고 호기심 많은 탐험가들에게 진짜 힘은 사고를 모델에 넘기는 데 있는 것이 아니라, 인간의 목적과 기계의 속도를 결합하는 데 있었다. 그렇게 이해하고 나자 미래는 경고가 아니라 열린 길처럼 보이기 시작했다."
-        ]
-      ]
+      french: [[
+        "Au-delà de la vitre d’observation, un étudiant regarda une station dériver au-dessus d’un monde violet et comprit que l’intelligence artificielle n’était pas un esprit mystérieux dans une machine. C’était un outil construit avec des mathématiques, des données et une intention humaine. La vieille peur d’une magie inconnue commença à se dissiper pour laisser place à une vérité plus utile : ces systèmes apprennent des schémas, répondent à des consignes et ne deviennent vraiment précieux que lorsqu’ils sont guidés par des personnes qui savent ce qu’elles veulent créer.",
+        "En approfondissant sa lecture, l’étudiant vit le système davantage comme un compagnon de route dans une longue quête que comme un rival menaçant. Un modèle de langage pouvait résumer un article, expliquer du code, comparer des idées, générer des questions d’entraînement et transformer l’incertitude en progression. Mais il ne remplaçait pas le jugement. Il fallait toujours de la direction, de l’évaluation et de l’éthique. Les êtres humains restaient ceux qui définissaient la mission, vérifiaient la carte et choisissaient le chemin digne d’être suivi.",
+        "C’était là le tournant encourageant du récit. L’IA n’avait pas à devenir une machine de peur. Elle pouvait être un outil de terrain pour apprendre, prototyper, rechercher et imaginer avec discipline. Pour les constructeurs, les étudiants et les esprits curieux, la vraie force n’était pas d’abandonner la pensée au modèle, mais d’unir l’intention humaine à la vitesse de la machine. À partir de ce moment, l’avenir ressemblait moins à un avertissement qu’à une route ouverte."
+      ]],
+      german: [[
+        "Hinter dem Sichtfenster beobachtete ein Student, wie eine Station über einer violetten Welt trieb, und erkannte, dass künstliche Intelligenz kein Geist in der Maschine war. Sie war ein Werkzeug, gebaut aus Mathematik, Daten und menschlicher Absicht. Die alte Angst vor einer unbegreiflichen Magie begann zu verschwinden und machte einer nützlicheren Wahrheit Platz: Solche Systeme lernen Muster, reagieren auf Eingaben und werden erst dann wirklich wertvoll, wenn Menschen sie mit klarem Ziel einsetzen.",
+        "Je weiter der Student las, desto mehr erschien das System wie ein guter Begleiter auf einer langen Reise statt wie ein dunkler Rivale. Ein Sprachmodell konnte einen Aufsatz zusammenfassen, Code erklären, Ideen vergleichen, Übungsfragen erzeugen und Verwirrung in Fortschritt verwandeln. Aber es ersetzte kein Urteilsvermögen. Es brauchte weiterhin Richtung, Bewertung und Ethik. Menschen blieben diejenigen, die die Aufgabe festlegten, die Karte prüften und entschieden, welchem Weg man folgen sollte.",
+        "Darin lag die hoffnungsvolle Wendung der Geschichte. KI musste kein Werkzeug der Angst sein. Sie konnte ein Feldinstrument für Lernen, Prototyping, Forschung und disziplinierte Vorstellungskraft sein. Für Entwickler, Studierende und neugierige Entdecker lag die eigentliche Stärke nicht darin, das Denken an das Modell abzugeben, sondern menschliche Absicht mit maschineller Geschwindigkeit zu verbinden. Von da an wirkte die Zukunft weniger wie eine Warnung und mehr wie eine offene Straße."
+      ]],
+      italian: [[
+        "Oltre il vetro d’osservazione, uno studente guardò una stazione orbitare sopra un mondo violaceo e capì che l’intelligenza artificiale non era un fantasma nella macchina. Era uno strumento costruito con matematica, dati e intenzione umana. La vecchia paura di una magia incomprensibile cominciò a svanire, sostituita da una verità più utile: questi sistemi apprendono schemi, rispondono ai prompt e diventano davvero preziosi solo quando sono guidati da persone che sanno che cosa vogliono costruire.",
+        "Più lo studente leggeva, più il sistema somigliava a un buon compagno di viaggio in una lunga campagna invece che a un rivale oscuro. Un modello linguistico poteva riassumere un articolo, spiegare codice, confrontare idee, generare domande di esercizio e trasformare la confusione in slancio. Ma non sostituiva il giudizio. Servivano ancora direzione, valutazione ed etica. Gli esseri umani restavano coloro che fissavano la missione, controllavano la mappa e decidevano quale sentiero meritasse di essere seguito.",
+        "Quella era la svolta incoraggiante della storia. L’IA non doveva essere una macchina della paura. Poteva essere uno strumento sul campo per imparare, prototipare, fare ricerca e immaginare con disciplina. Per costruttori, studenti e curiosi avventurieri, il vero potere non stava nell’abbandonare il pensiero al modello, ma nell’unire lo scopo umano alla velocità della macchina. Da quel momento, il futuro sembrò meno un avvertimento e più una strada aperta."
+      ]],
+      spanish: [[
+        "Más allá del cristal de observación, un estudiante miró cómo una estación se deslizaba sobre un mundo violeta y comprendió que la inteligencia artificial no era un fantasma dentro de la máquina. Era una herramienta construida con matemáticas, datos e intención humana. El viejo temor a una magia desconocida comenzó a desvanecerse y dejó paso a una verdad más útil: estos sistemas aprenden patrones, responden a indicaciones y sólo se vuelven realmente valiosos cuando son guiados por personas que saben lo que quieren construir.",
+        "Cuanto más leía el estudiante, más se parecía el sistema a un buen compañero de campaña que a un rival oscuro. Un modelo de lenguaje podía resumir un artículo, explicar código, comparar ideas, generar preguntas de práctica y convertir la confusión en impulso. Pero no reemplazaba el juicio. Seguían haciendo falta dirección, evaluación y ética. Los seres humanos seguían siendo quienes marcaban la misión, revisaban el mapa y decidían qué camino valía la pena seguir.",
+        "Ahí estaba el giro esperanzador de la historia. La IA no tenía por qué ser una máquina del miedo. Podía ser una herramienta de campo para aprender, prototipar, investigar e imaginar con disciplina. Para constructores, estudiantes y aventureros curiosos, el verdadero poder no consistía en entregar el pensamiento al modelo, sino en unir el propósito humano con la velocidad de la máquina. A partir de ahí, el futuro parecía menos una advertencia y más un camino abierto."
+      ]],
+      polish: [[
+        "Za szybą obserwacyjną student patrzył, jak stacja dryfuje nad fioletowym światem, i zrozumiał, że sztuczna inteligencja nie jest duchem w maszynie. To narzędzie zbudowane z matematyki, danych i ludzkiej intencji. Dawny lęk przed nieznaną magią zaczął ustępować miejsca bardziej użytecznej prawdzie: takie systemy uczą się wzorców, reagują na polecenia i stają się naprawdę wartościowe dopiero wtedy, gdy kierują nimi ludzie wiedzący, co chcą zbudować.",
+        "Im głębiej student czytał, tym bardziej system przypominał dobrego towarzysza długiej wyprawy, a nie mrocznego rywala. Model językowy potrafił streścić artykuł, wyjaśnić kod, porównać pomysły, wygenerować pytania do ćwiczeń i zamienić niepewność w postęp. Nie zastępował jednak osądu. Nadal potrzebne były kierunek, ocena i etyka. To człowiek wyznaczał misję, sprawdzał mapę i decydował, którą drogą warto pójść.",
+        "W tym tkwił budujący zwrot całej opowieści. AI nie musiała być maszyną strachu. Mogła stać się narzędziem terenowym do nauki, prototypowania, badań i zdyscyplinowanej wyobraźni. Dla twórców, studentów i ciekawych świata wędrowców prawdziwa siła nie polegała na oddaniu myślenia modelowi, lecz na połączeniu ludzkiego celu z szybkością maszyny. Od tej chwili przyszłość wydawała się mniej ostrzeżeniem, a bardziej otwartą drogą."
+      ]],
+      dutch: [[
+        "Achter het observatieglas keek een student naar een station dat boven een paarse wereld dreef en begreep dat kunstmatige intelligentie geen geest in een machine was. Het was een hulpmiddel, opgebouwd uit wiskunde, data en menselijke bedoeling. De oude angst voor onbegrijpelijke magie begon te verdwijnen en maakte plaats voor een nuttigere waarheid: zulke systemen leren patronen, reageren op aanwijzingen en worden pas echt waardevol wanneer mensen met een duidelijk doel ze sturen.",
+        "Hoe verder de student las, hoe meer het systeem leek op een goede metgezel tijdens een lange tocht in plaats van op een donkere rivaal. Een taalmodel kon een artikel samenvatten, code uitleggen, ideeën vergelijken, oefenvragen maken en verwarring omzetten in voortgang. Maar het verving geen oordeel. Richting, evaluatie en ethiek bleven nodig. Mensen bleven degenen die de missie bepaalden, de kaart controleerden en kozen welk pad de moeite waard was.",
+        "Daar lag de hoopvolle wending van het verhaal. AI hoefde geen machine van angst te zijn. Het kon een veldhulpmiddel zijn voor leren, prototypen, onderzoek en gedisciplineerde verbeelding. Voor bouwers, studenten en nieuwsgierige avonturiers lag de echte kracht niet in het overdragen van denken aan het model, maar in het verbinden van menselijk doel met machinesnelheid. Vanaf dat moment voelde de toekomst minder als een waarschuwing en meer als een open weg."
+      ]],
+      danish: [[
+        "Bag observationsruden så en studerende en station drive over en violet verden og forstod, at kunstig intelligens ikke var et spøgelse i maskinen. Det var et værktøj bygget af matematik, data og menneskelig hensigt. Den gamle frygt for ukendt magi begyndte at forsvinde og blev erstattet af en mere nyttig sandhed: disse systemer lærer mønstre, reagerer på prompts og bliver først virkelig værdifulde, når mennesker med klare mål styrer dem.",
+        "Jo mere den studerende læste, desto mere lignede systemet en god ledsager på en lang rejse snarere end en mørk rival. En sprogmodel kunne opsummere en artikel, forklare kode, sammenligne idéer, lave øvelsesspørgsmål og gøre forvirring til fremdrift. Men den erstattede ikke dømmekraft. Retning, evaluering og etik var stadig nødvendige. Det var stadig mennesker, der fastsatte missionen, kontrollerede kortet og valgte, hvilken vej der var værd at følge.",
+        "Det var historiens håbefulde drejning. AI behøvede ikke at være en maskine for frygt. Den kunne være et felthjælpemiddel til læring, prototyper, forskning og disciplineret fantasi. For byggere, studerende og nysgerrige eventyrere lå den virkelige styrke ikke i at overgive tænkningen til modellen, men i at forbinde menneskeligt formål med maskinens hastighed. Fra det øjeblik lignede fremtiden mindre en advarsel og mere en åben vej."
+      ]],
+      norwegian: [[
+        "Bak observasjonsglasset så en student en stasjon drive over en fiolett verden og forsto at kunstig intelligens ikke var et spøkelse i maskinen. Det var et verktøy bygget av matematikk, data og menneskelig hensikt. Den gamle frykten for ukjent magi begynte å slippe taket og ble erstattet av en mer nyttig sannhet: slike systemer lærer mønstre, reagerer på instrukser og blir virkelig verdifulle først når mennesker med klare mål styrer dem.",
+        "Jo mer studenten leste, desto mer lignet systemet en god følgesvenn på en lang ferd i stedet for en mørk rival. En språkmodell kunne oppsummere en artikkel, forklare kode, sammenligne ideer, lage øvingsspørsmål og gjøre forvirring om til framdrift. Men den erstattet ikke dømmekraft. Retning, evaluering og etikk var fortsatt nødvendig. Det var fortsatt mennesker som satte oppdraget, sjekket kartet og bestemte hvilken vei som var verdt å følge.",
+        "Der lå historiens håpefulle vending. AI trengte ikke være en maskin for frykt. Den kunne være et feltverktøy for læring, prototyping, forskning og disiplinert fantasi. For byggere, studenter og nysgjerrige eventyrere lå den virkelige styrken ikke i å overlate tenkningen til modellen, men i å koble menneskelig formål til maskinens hastighet. Da føltes framtiden mindre som en advarsel og mer som en åpen vei."
+      ]],
+      portuguese: [[
+        "Além do vidro de observação, um estudante viu uma estação flutuar sobre um mundo violeta e percebeu que a inteligência artificial não era um fantasma dentro da máquina. Era uma ferramenta construída com matemática, dados e intenção humana. O velho medo de uma magia incompreensível começou a desaparecer, dando lugar a uma verdade mais útil: esses sistemas aprendem padrões, respondem a prompts e só se tornam realmente valiosos quando são guiados por pessoas que sabem o que querem construir.",
+        "Quanto mais o estudante lia, mais o sistema se parecia com um bom companheiro de jornada, e não com um rival sombrio. Um modelo de linguagem podia resumir um artigo, explicar código, comparar ideias, gerar perguntas de prática e transformar confusão em impulso. Mas ele não substituía o julgamento. Direção, avaliação e ética continuavam necessárias. Os seres humanos ainda eram aqueles que definiam a missão, conferiam o mapa e decidiam qual caminho valia a pena seguir.",
+        "Aí estava a virada esperançosa da história. A IA não precisava ser uma máquina de medo. Ela podia ser uma ferramenta de campo para aprender, prototipar, pesquisar e imaginar com disciplina. Para construtores, estudantes e aventureiros curiosos, o verdadeiro poder não estava em entregar o pensamento ao modelo, mas em unir propósito humano à velocidade da máquina. A partir dali, o futuro parecia menos um aviso e mais uma estrada aberta."
+      ]],
+      czech: [[
+        "Za pozorovacím sklem sledoval student stanici plující nad fialovým světem a pochopil, že umělá inteligence není žádný duch ve stroji. Je to nástroj vytvořený z matematiky, dat a lidského záměru. Starý strach z nepochopitelné magie začal mizet a ustoupil užitečnější pravdě: tyto systémy se učí vzorce, reagují na zadání a skutečně cennými se stávají teprve tehdy, když je vedou lidé s jasným cílem.",
+        "Čím déle student četl, tím více systém připomínal dobrého společníka na dlouhé výpravě než temného soupeře. Jazykový model dokázal shrnout článek, vysvětlit kód, porovnat nápady, vytvořit procvičovací otázky a proměnit zmatek v posun vpřed. Nenahrazoval však úsudek. Směr, vyhodnocení a etika byly stále nezbytné. Lidé zůstávali těmi, kdo určovali úkol, kontrolovali mapu a rozhodovali, která cesta stojí za následování.",
+        "Právě v tom byl povzbudivý obrat příběhu. AI nemusela být strojem strachu. Mohla se stát terénním nástrojem pro učení, prototypování, výzkum a disciplinovanou představivost. Pro tvůrce, studenty a zvídavé dobrodruhy nespočívala skutečná síla v tom, že by přenechali myšlení modelu, ale v propojení lidského záměru s rychlostí stroje. Od té chvíle působila budoucnost méně jako varování a více jako otevřená cesta."
+      ]],
+      romanian: [[
+        "Dincolo de geamul de observație, un student privea o stație plutind deasupra unei lumi violet și a înțeles că inteligența artificială nu era o fantomă în mașină. Era un instrument construit din matematică, date și intenție umană. Vechea teamă de o magie de neînțeles a început să se risipească și a fost înlocuită de un adevăr mai util: aceste sisteme învață tipare, răspund la prompturi și devin cu adevărat valoroase doar atunci când sunt ghidate de oameni care știu ce vor să construiască.",
+        "Cu cât studentul citea mai mult, cu atât sistemul semăna mai mult cu un bun companion de campanie decât cu un rival întunecat. Un model lingvistic putea rezuma un articol, explica cod, compara idei, genera întrebări de exercițiu și transforma confuzia în progres. Dar nu înlocuia judecata. Direcția, evaluarea și etica rămâneau necesare. Oamenii erau în continuare cei care stabileau misiunea, verificau harta și decideau ce drum merita urmat.",
+        "Aici se afla întorsătura plină de speranță a poveștii. IA nu trebuia să fie o mașină a fricii. Putea deveni un instrument de teren pentru învățare, prototipare, cercetare și imaginație disciplinată. Pentru constructori, studenți și aventurieri curioși, puterea adevărată nu însemna să cedeze gândirea modelului, ci să unească scopul uman cu viteza mașinii. Din acel moment, viitorul părea mai puțin un avertisment și mai mult un drum deschis."
+      ]],
+      greek: [[
+        "Πίσω από το γυαλί παρατήρησης, ένας φοιτητής έβλεπε έναν σταθμό να ταξιδεύει πάνω από έναν μωβ κόσμο και κατάλαβε ότι η τεχνητή νοημοσύνη δεν ήταν κάποιο φάντασμα μέσα στη μηχανή. Ήταν ένα εργαλείο χτισμένο από μαθηματικά, δεδομένα και ανθρώπινη πρόθεση. Ο παλιός φόβος μιας ακατανόητης μαγείας άρχισε να υποχωρεί και έδωσε τη θέση του σε μια πιο χρήσιμη αλήθεια: αυτά τα συστήματα μαθαίνουν μοτίβα, ανταποκρίνονται σε prompts και γίνονται πραγματικά πολύτιμα μόνο όταν καθοδηγούνται από ανθρώπους που ξέρουν τι θέλουν να χτίσουν.",
+        "Όσο περισσότερο διάβαζε ο φοιτητής, τόσο περισσότερο το σύστημα έμοιαζε με καλό σύντροφο σε μια μακρά εκστρατεία και όχι με σκοτεινό αντίπαλο. Ένα γλωσσικό μοντέλο μπορούσε να συνοψίσει ένα άρθρο, να εξηγήσει κώδικα, να συγκρίνει ιδέες, να δημιουργήσει ερωτήσεις εξάσκησης και να μετατρέψει τη σύγχυση σε πρόοδο. Όμως δεν αντικαθιστούσε την κρίση. Η κατεύθυνση, η αξιολόγηση και η ηθική παρέμεναν απαραίτητες. Οι άνθρωποι συνέχιζαν να είναι εκείνοι που όριζαν την αποστολή, έλεγχαν τον χάρτη και αποφάσιζαν ποιο μονοπάτι άξιζε να ακολουθηθεί.",
+        "Εκεί βρισκόταν η ελπιδοφόρα στροφή της ιστορίας. Η ΑΙ δεν χρειαζόταν να είναι μια μηχανή φόβου. Μπορούσε να γίνει ένα εργαλείο πεδίου για μάθηση, πρωτοτυποποίηση, έρευνα και πειθαρχημένη φαντασία. Για δημιουργούς, φοιτητές και περίεργους εξερευνητές, η πραγματική δύναμη δεν βρισκόταν στο να παραδώσουν τη σκέψη στο μοντέλο, αλλά στο να ενώσουν τον ανθρώπινο σκοπό με την ταχύτητα της μηχανής. Από εκεί και πέρα, το μέλλον έμοιαζε λιγότερο με προειδοποίηση και περισσότερο με ανοιχτό δρόμο."
+      ]],
+      turkish: [[
+        "Gözlem camının ötesinde bir öğrenci, mor bir dünyanın üzerinde süzülen istasyonu izlerken yapay zekânın makinenin içindeki bir hayalet olmadığını anladı. O, matematik, veri ve insan niyetiyle inşa edilmiş bir araçtı. Anlaşılmaz bir büyü korkusu yavaş yavaş dağıldı ve yerini daha yararlı bir gerçeğe bıraktı: bu sistemler örüntü öğrenir, istemlere yanıt verir ve ancak ne inşa etmek istediğini bilen insanlar tarafından yönlendirildiğinde gerçekten değer kazanır.",
+        "Öğrenci okumaya devam ettikçe sistem, karanlık bir rakipten çok uzun bir seferin iyi bir yoldaşı gibi görünmeye başladı. Bir dil modeli makale özetleyebilir, kod açıklayabilir, fikirleri karşılaştırabilir, alıştırma soruları üretebilir ve kafa karışıklığını ilerlemeye dönüştürebilirdi. Ama yargının yerini alamazdı. Yön, değerlendirme ve etik hâlâ gerekliydi. Görevi belirleyen, haritayı kontrol eden ve hangi yolun izlenmeye değer olduğuna karar veren yine insanlardı.",
+        "Hikâyenin umut veren dönüşü tam da buydu. Yapay zekâ bir korku makinesi olmak zorunda değildi. Öğrenme, prototipleme, araştırma ve disiplinli hayal gücü için bir saha aracı olabilirdi. Üretenler, öğrenciler ve meraklı maceracılar için gerçek güç, düşünceyi modele bırakmakta değil, insan amacını makinenin hızıyla birleştirmekteydi. O andan sonra gelecek bir uyarıdan çok açık bir yol gibi görünüyordu."
+      ]],
+      japanese: [[
+        "観測窓の向こうで、ひとりの学生は紫の惑星の上を漂うステーションを見つめながら、AI は機械の中の幽霊ではないのだと理解した。AI は数学とデータ、そして人の意図から組み上げられた道具だった。得体の知れない魔法のような恐れはしだいに薄れ、もっと役に立つ真実へと置き換わっていった。こうした仕組みはパターンを学び、プロンプトに応答し、何を作りたいのか分かっている人に導かれてこそ本当に価値を持つのだ。",
+        "読み進めるほどに、その仕組みは暗い競争相手というより、長い冒険を共にする頼れる仲間のように見えてきた。言語モデルは論文を要約し、コードを説明し、アイデアを比較し、練習問題を作り、混乱を前進へ変える助けになった。けれども判断そのものを置き換えるわけではなかった。方向づけも、評価も、倫理も、やはり必要だった。任務を決め、地図を確かめ、どの道を進むべきかを選ぶのは、最後まで人間だった。",
+        "そこにこの物語の希望があった。AI は恐怖の機械である必要はない。学習、試作、研究、そして規律ある想像力のための現場道具になれる。作る人、学ぶ人、好奇心ある冒険者にとって本当の力は、思考をモデルに預けることではなく、人の目的と機械の速さを結びつけることにあった。そう気づいたとき、未来は警告ではなく、開かれた道のように見えてきた。"
+      ]],
+      korean: [[
+        "관측창 너머에서 한 학생은 보랏빛 행성 위를 떠도는 정거장을 바라보며 인공지능이 기계 속 유령이 아니라는 사실을 깨달았다. 그것은 수학과 데이터, 그리고 인간의 의도로 만들어진 도구였다. 알 수 없는 마법 같은 두려움은 서서히 사라지고 더 유용한 진실로 바뀌기 시작했다. 이런 시스템은 패턴을 학습하고 프롬프트에 반응하며, 무엇을 만들고 싶은지 아는 사람들이 이끌 때 비로소 진짜 가치를 가진다는 사실이었다.",
+        "학생이 더 읽어 갈수록 그 시스템은 어두운 경쟁자라기보다 긴 여정을 함께하는 믿을 만한 동료처럼 느껴졌다. 언어 모델은 논문을 요약하고, 코드를 설명하고, 아이디어를 비교하고, 연습 문제를 만들고, 혼란을 전진으로 바꾸는 데 도움을 줄 수 있었다. 하지만 판단 자체를 대신하지는 못했다. 방향 설정도, 평가도, 윤리도 여전히 필요했다. 임무를 정하고, 지도를 확인하고, 어떤 길을 따라갈지 결정하는 일은 끝까지 인간의 몫이었다.",
+        "바로 거기에 이 이야기의 희망이 있었다. AI 는 두려움의 기계일 필요가 없었다. 그것은 학습과 프로토타이핑, 연구와 절제된 상상력을 위한 현장 도구가 될 수 있었다. 만드는 사람들, 배우는 사람들, 그리고 호기심 많은 탐험가들에게 진짜 힘은 사고를 모델에 넘기는 데 있는 것이 아니라, 인간의 목적과 기계의 속도를 결합하는 데 있었다. 그렇게 이해하고 나자 미래는 경고가 아니라 열린 길처럼 보이기 시작했다."
+      ]]
+    };
+
+    const GENRE_BANK = {
+      aiLearning: { label: "AI Learning" }
+    };
+
+    const MODE_BANK = {
+      story: { label: "Story", duration: null },
+      timed30: { label: "30 sec", duration: 30 },
+      timed60: { label: "1 min", duration: 60 }
     };
 
     const els = {
       flagWrap: document.getElementById('flagWrap'),
       selectedCountry: document.getElementById('selectedCountry'),
       genreWrap: document.getElementById('genreWrap'),
+      modeWrap: document.getElementById('modeWrap'),
       generateBtn: document.getElementById('generateBtn'),
-      typingText: document.getElementById('typingText'),
+      previousLine: document.getElementById('previousLine'),
+      currentLine: document.getElementById('currentLine'),
+      nextLine: document.getElementById('nextLine'),
       typingInput: document.getElementById('typingInput'),
       progressText: document.getElementById('progressText'),
       languageText: document.getElementById('languageText'),
+      modeText: document.getElementById('modeText'),
       topWpm: document.getElementById('topWpm'),
       topAcc: document.getElementById('topAcc'),
       topTime: document.getElementById('topTime'),
@@ -731,16 +760,18 @@
     const state = {
       countryCode: 'us',
       genreKey: 'aiLearning',
-      passage: '',
+      modeKey: 'story',
+      storyText: '',
+      chunks: [],
+      chunkIndex: 0,
       typed: '',
       startedAt: null,
       elapsed: 0,
       timer: null,
-      finished: false
-    };
-
-    const GENRE_BANK = {
-      aiLearning: { label: "AI Learning" }
+      finished: false,
+      totalTypedChars: 0,
+      totalCorrectChars: 0,
+      totalCompletedChars: 0
     };
 
     function selectedCountry() {
@@ -777,24 +808,229 @@
       return arr[Math.floor(Math.random() * arr.length)];
     }
 
-    function buildPassage() {
+    function buildStory() {
       const languageKey = getLanguageKey(state.countryCode);
       const stories = STORY_VARIANTS[languageKey] || STORY_VARIANTS.english;
       const selectedStory = randomItem(stories);
-      return selectedStory.join("\n\n");
+      return selectedStory.join(" ");
+    }
+
+    function splitIntoSentences(text) {
+      const normalized = text.replace(/\s+/g, ' ').trim();
+      if (!normalized) return [];
+      const parts = normalized.match(/[^.!?]+[.!?]+|[^.!?]+$/g) || [];
+      return parts.map(part => part.trim()).filter(Boolean);
+    }
+
+    function splitLongSentence(sentence, maxLength = 150) {
+      if (sentence.length <= maxLength) return [sentence];
+
+      const words = sentence.split(' ');
+      const chunks = [];
+      let current = '';
+
+      for (const word of words) {
+        const candidate = current ? `${current} ${word}` : word;
+        if (candidate.length <= maxLength) {
+          current = candidate;
+        } else {
+          if (current) chunks.push(current.trim());
+          current = word;
+        }
+      }
+
+      if (current) chunks.push(current.trim());
+      return chunks;
+    }
+
+    function buildChunks(text) {
+      const sentences = splitIntoSentences(text);
+      const chunks = [];
+      for (const sentence of sentences) {
+        chunks.push(...splitLongSentence(sentence, 150));
+      }
+      return chunks;
+    }
+
+    function escapeHtml(value) {
+      return value
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+    }
+
+    function countCorrectChars(typed, target) {
+      let correct = 0;
+      const len = Math.min(typed.length, target.length);
+      for (let i = 0; i < len; i++) {
+        if (typed[i] === target[i]) correct++;
+      }
+      return correct;
+    }
+
+    function renderCurrentChunk() {
+      const chunk = state.chunks[state.chunkIndex] || '';
+      const typed = state.typed;
+      let html = '';
+
+      for (let i = 0; i < chunk.length; i++) {
+        const ch = chunk[i];
+        const typedChar = typed[i];
+        let className = 'char pending';
+
+        if (typedChar != null) {
+          className = typedChar === ch ? 'char correct' : 'char incorrect';
+        }
+
+        html += `<span class="${className}">${escapeHtml(ch)}</span>`;
+      }
+
+      els.currentLine.innerHTML = html || 'Story complete.';
+    }
+
+    function renderStoryWindow() {
+      els.previousLine.textContent = state.chunkIndex > 0
+        ? state.chunks[state.chunkIndex - 1]
+        : 'Previous line will appear here.';
+
+      els.nextLine.textContent = state.chunkIndex < state.chunks.length - 1
+        ? state.chunks[state.chunkIndex + 1]
+        : 'Next line preview will appear here.';
+
+      renderCurrentChunk();
     }
 
     function calculateStats() {
-      const target = state.passage;
-      const typed = state.typed;
-      let correct = 0;
-      for (let i = 0; i < typed.length; i++) {
-        if (typed[i] === target[i]) correct += 1;
-      }
-      const accuracy = typed.length ? Math.max(0, Math.round((correct / typed.length) * 100)) : 100;
-      const wpm = state.elapsed > 0 ? Math.round(((typed.length / 5) / state.elapsed) * 60) : 0;
-      const progress = target.length ? Math.min(100, Math.round((typed.length / target.length) * 100)) : 0;
+      const currentChunk = state.chunks[state.chunkIndex] || '';
+      const liveCorrect = countCorrectChars(state.typed, currentChunk);
+      const totalTyped = state.totalTypedChars + state.typed.length;
+      const totalCorrect = state.totalCorrectChars + liveCorrect;
+      const accuracy = totalTyped ? Math.max(0, Math.round((totalCorrect / totalTyped) * 100)) : 100;
+      const wpm = state.elapsed > 0 ? Math.round(((totalCorrect / 5) / state.elapsed) * 60) : 0;
+
+      const totalLength = state.chunks.reduce((sum, chunk) => sum + chunk.length, 0);
+      const liveProgress = state.totalCompletedChars + Math.min(state.typed.length, currentChunk.length);
+      const progress = totalLength ? Math.min(100, Math.round((liveProgress / totalLength) * 100)) : 0;
+
       return { accuracy, wpm, progress };
+    }
+
+    function formatTimeDisplay() {
+      const mode = MODE_BANK[state.modeKey];
+      if (mode.duration == null) return `${state.elapsed.toFixed(1)}s`;
+      const remaining = Math.max(0, mode.duration - state.elapsed);
+      return `${remaining.toFixed(1)}s`;
+    }
+
+    function updateStatsUI() {
+      const stats = calculateStats();
+      const timeText = formatTimeDisplay();
+
+      els.topWpm.textContent = stats.wpm;
+      els.topAcc.textContent = `${stats.accuracy}%`;
+      els.topTime.textContent = timeText;
+
+      els.metricWpm.textContent = stats.wpm;
+      els.metricAcc.textContent = `${stats.accuracy}%`;
+      els.metricTime.textContent = timeText;
+
+      els.progressText.textContent = `Progress ${stats.progress}%`;
+
+      if (state.finished) {
+        els.resultBox.classList.add('show');
+        els.resultWpm.textContent = stats.wpm;
+        els.resultAcc.textContent = `${stats.accuracy}%`;
+        els.resultTime.textContent = `${state.elapsed.toFixed(1)}s`;
+      } else {
+        els.resultBox.classList.remove('show');
+      }
+    }
+
+    function updateStatus() {
+      const country = selectedCountry();
+      const mode = MODE_BANK[state.modeKey];
+      els.languageText.textContent = `${country.flag} ${country.language} • AI Learning`;
+      els.modeText.textContent = `Mode: ${mode.label}`;
+    }
+
+    function stopTimer() {
+      if (state.timer) {
+        clearInterval(state.timer);
+        state.timer = null;
+      }
+    }
+
+    function finishTest() {
+      if (state.finished) return;
+      state.finished = true;
+      stopTimer();
+      els.typingInput.blur();
+      updateStatsUI();
+      renderStoryWindow();
+    }
+
+    function startTimer() {
+      if (state.timer || state.finished) return;
+
+      state.startedAt = Date.now() - (state.elapsed * 1000);
+      state.timer = setInterval(() => {
+        state.elapsed = (Date.now() - state.startedAt) / 1000;
+
+        const mode = MODE_BANK[state.modeKey];
+        if (mode.duration != null && state.elapsed >= mode.duration) {
+          state.elapsed = mode.duration;
+          finishTest();
+          return;
+        }
+
+        updateStatsUI();
+      }, 100);
+    }
+
+    function moveToNextChunk() {
+      const currentChunk = state.chunks[state.chunkIndex] || '';
+      const correctInChunk = countCorrectChars(state.typed, currentChunk);
+
+      state.totalTypedChars += state.typed.length;
+      state.totalCorrectChars += correctInChunk;
+      state.totalCompletedChars += currentChunk.length;
+
+      state.chunkIndex += 1;
+      state.typed = '';
+      els.typingInput.value = '';
+
+      if (state.chunkIndex >= state.chunks.length) {
+        finishTest();
+        return;
+      }
+
+      renderStoryWindow();
+      updateStatsUI();
+    }
+
+    function resetTest(makeNewStory = false) {
+      stopTimer();
+
+      state.chunkIndex = 0;
+      state.typed = '';
+      state.startedAt = null;
+      state.elapsed = 0;
+      state.finished = false;
+      state.totalTypedChars = 0;
+      state.totalCorrectChars = 0;
+      state.totalCompletedChars = 0;
+
+      if (makeNewStory || !state.storyText) {
+        state.storyText = buildStory();
+        state.chunks = buildChunks(state.storyText);
+      }
+
+      els.typingInput.value = '';
+      renderStoryWindow();
+      updateStatus();
+      updateStatsUI();
+
+      requestAnimationFrame(() => els.typingInput.focus());
     }
 
     function renderFlags() {
@@ -843,116 +1079,56 @@
       });
     }
 
-    function renderPassage() {
-      els.typingText.innerHTML = '';
-      for (let i = 0; i < state.passage.length; i++) {
-        const ch = state.passage[i];
-
-        if (ch === '\n') {
-          els.typingText.appendChild(document.createElement('br'));
-          continue;
-        }
-
-        const span = document.createElement('span');
-        span.className = 'char pending';
-
-        const typedChar = state.typed[i];
-        if (typedChar != null) {
-          span.className = typedChar === ch ? 'char correct' : 'char incorrect';
-        }
-
-        span.textContent = ch;
-        els.typingText.appendChild(span);
-      }
-    }
-
-    function updateStatsUI() {
-      const stats = calculateStats();
-      const timeText = `${state.elapsed.toFixed(1)}s`;
-
-      els.topWpm.textContent = stats.wpm;
-      els.topAcc.textContent = `${stats.accuracy}%`;
-      els.topTime.textContent = timeText;
-
-      els.metricWpm.textContent = stats.wpm;
-      els.metricAcc.textContent = `${stats.accuracy}%`;
-      els.metricTime.textContent = timeText;
-
-      els.progressText.textContent = `Progress ${stats.progress}%`;
-
-      if (state.finished) {
-        els.resultBox.classList.add('show');
-        els.resultWpm.textContent = stats.wpm;
-        els.resultAcc.textContent = `${stats.accuracy}%`;
-        els.resultTime.textContent = timeText;
-      } else {
-        els.resultBox.classList.remove('show');
-      }
-    }
-
-    function updateStatus() {
-      const country = selectedCountry();
-      els.languageText.textContent = `${country.flag} ${country.language} • AI Learning story mode`;
-    }
-
-    function stopTimer() {
-      if (state.timer) {
-        clearInterval(state.timer);
-        state.timer = null;
-      }
-    }
-
-    function startTimer() {
-      if (state.timer || state.finished) return;
-      state.startedAt = Date.now();
-      state.timer = setInterval(() => {
-        state.elapsed = (Date.now() - state.startedAt) / 1000;
-        updateStatsUI();
-      }, 100);
-    }
-
-    function resetTest(makeNewPassage = false) {
-      stopTimer();
-      state.typed = '';
-      state.startedAt = null;
-      state.elapsed = 0;
-      state.finished = false;
-
-      if (makeNewPassage || !state.passage) {
-        state.passage = buildPassage();
-      }
-
-      els.typingInput.value = '';
-      renderPassage();
-      updateStatsUI();
-      updateStatus();
-      requestAnimationFrame(() => els.typingInput.focus());
+    function renderModes() {
+      els.modeWrap.innerHTML = '';
+      Object.entries(MODE_BANK).forEach(([key, mode]) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = `mode-btn ${key === state.modeKey ? 'active' : ''}`;
+        button.textContent = mode.label;
+        button.addEventListener('click', () => {
+          state.modeKey = key;
+          renderModes();
+          updateStatus();
+          resetTest(false);
+        });
+        els.modeWrap.appendChild(button);
+      });
     }
 
     function handleInput(event) {
       if (state.finished) return;
 
-      const value = event.target.value;
+      const currentChunk = state.chunks[state.chunkIndex] || '';
+      let value = event.target.value;
+
       if (!state.startedAt && value.length > 0) startTimer();
 
-      state.typed = value;
-      renderPassage();
-
-      if (state.typed === state.passage && state.passage.length > 0) {
-        state.finished = true;
-        stopTimer();
+      if (value.length > currentChunk.length) {
+        value = value.slice(0, currentChunk.length);
+        event.target.value = value;
       }
 
-      updateStatsUI();
+      state.typed = value;
+      renderCurrentChunk();
+
+      if (state.typed === currentChunk && currentChunk.length > 0) {
+        moveToNextChunk();
+      } else {
+        updateStatsUI();
+      }
     }
 
     els.generateBtn.addEventListener('click', () => resetTest(true));
     els.typingInput.addEventListener('input', handleInput);
-    els.typingText.addEventListener('click', () => els.typingInput.focus());
+    els.previousLine.addEventListener('click', () => els.typingInput.focus());
+    els.currentLine.addEventListener('click', () => els.typingInput.focus());
+    els.nextLine.addEventListener('click', () => els.typingInput.focus());
 
     renderFlags();
     renderSelectedCountry();
     renderGenres();
+    renderModes();
     resetTest(true);
   </script>
 </body>
