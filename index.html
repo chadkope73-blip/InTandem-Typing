@@ -118,10 +118,6 @@
       flex: 0 0 auto;
     }
 
-    .brand-text {
-      min-width: 0;
-    }
-
     .brand-title {
       font-size: clamp(1.55rem, 1.9vw, 2rem);
       font-weight: 800;
@@ -200,81 +196,16 @@
       color: var(--text-soft);
       font-size: 0.95rem;
       line-height: 1.5;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items: center;
+      display: grid;
+      gap: 8px;
     }
 
-    .hero-copy .pill-dot { color: rgba(110, 168, 168, 0.7); }
     .hero-copy strong { color: var(--accent); font-weight: 700; }
 
     .toolbar, .statusbar {
       padding: 14px 16px;
       margin-bottom: 16px;
     }
-
-    .flag-wrap,
-    .genre-wrap,
-    .mode-wrap {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .flag-btn, .genre-btn, .mode-btn, .action-btn {
-      appearance: none;
-      border: 1px solid var(--line-soft);
-      background: rgba(61, 53, 93, 0.34);
-      color: var(--text-soft);
-      border-radius: 999px;
-      cursor: pointer;
-      transition: 180ms ease;
-      font: inherit;
-    }
-
-    .flag-btn:hover, .genre-btn:hover, .mode-btn:hover, .action-btn:hover,
-    .flag-btn:focus-visible, .genre-btn:focus-visible, .mode-btn:focus-visible, .action-btn:focus-visible {
-      outline: none;
-      transform: translateY(-1px);
-      border-color: var(--line);
-      color: var(--text-main);
-      background: rgba(61, 53, 93, 0.58);
-    }
-
-    .flag-btn {
-      min-width: 50px;
-      height: 42px;
-      padding: 0 12px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.2rem;
-    }
-
-    .flag-btn.featured { font-size: 1.45rem; min-width: 58px; }
-
-    .flag-btn.active,
-    .genre-btn.active,
-    .mode-btn.active {
-      color: var(--accent);
-      border-color: rgba(209, 160, 75, 0.46);
-      background: rgba(209, 160, 75, 0.12);
-      box-shadow: inset 0 0 0 1px rgba(209,160,75,0.12);
-    }
-
-    .selected-country {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin: 10px 0 14px;
-      color: var(--text-soft);
-      font-size: 0.95rem;
-    }
-
-    .selected-country .big-flag { font-size: 1.55rem; }
-    .selected-country .country-name { color: var(--text-main); font-weight: 700; }
 
     .toolbar-stack {
       display: grid;
@@ -289,6 +220,13 @@
       justify-content: space-between;
     }
 
+    .toolbar-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
     .toolbar-label {
       color: var(--text-soft);
       font-size: 0.8rem;
@@ -297,34 +235,76 @@
       min-width: max-content;
     }
 
-    .toolbar-group {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
+    select, .mode-btn, .genre-btn, .action-btn {
+      appearance: none;
+      border: 1px solid var(--line-soft);
+      background: rgba(61, 53, 93, 0.34);
+      color: var(--text-soft);
+      border-radius: 14px;
+      font: inherit;
+      transition: 180ms ease;
     }
 
-    .genre-btn, .mode-btn {
-      border-radius: 14px;
+    select {
+      min-width: 270px;
+      padding: 10px 14px;
+      cursor: pointer;
+    }
+
+    select:focus,
+    .mode-btn:hover, .genre-btn:hover, .action-btn:hover,
+    .mode-btn:focus-visible, .genre-btn:focus-visible, .action-btn:focus-visible {
+      outline: none;
+      border-color: var(--line);
+      color: var(--text-main);
+      background: rgba(61, 53, 93, 0.58);
+    }
+
+    .mode-wrap, .genre-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .mode-btn, .genre-btn {
       padding: 10px 14px;
       font-weight: 600;
+      cursor: pointer;
+    }
+
+    .mode-btn.active,
+    .genre-btn.active {
+      color: var(--accent);
+      border-color: rgba(209, 160, 75, 0.46);
+      background: rgba(209, 160, 75, 0.12);
+      box-shadow: inset 0 0 0 1px rgba(209,160,75,0.12);
+    }
+
+    .selected-country {
+      color: var(--text-soft);
+      font-size: 0.95rem;
+    }
+
+    .selected-country strong {
+      color: var(--text-main);
     }
 
     .action-btn {
-      border-radius: 14px;
       padding: 11px 16px;
       font-weight: 700;
       color: #1e2430;
       border-color: rgba(209, 160, 75, 0.55);
       background: linear-gradient(180deg, #f1bf68, #d79f46);
       box-shadow: 0 10px 24px rgba(209, 160, 75, 0.18);
-      flex: 0 0 auto;
+      cursor: pointer;
     }
 
     .action-btn:hover,
     .action-btn:focus-visible {
       color: #1e2430;
       background: linear-gradient(180deg, #f7cb79, #e0aa54);
+      transform: translateY(-1px);
     }
 
     .metrics {
@@ -388,20 +368,15 @@
       scrollbar-color: rgba(209,160,75,0.65) rgba(110,168,168,0.12);
     }
 
-    .typing-text::-webkit-scrollbar {
-      width: 10px;
-    }
-
+    .typing-text::-webkit-scrollbar { width: 10px; }
     .typing-text::-webkit-scrollbar-track {
       background: rgba(110,168,168,0.12);
       border-radius: 999px;
     }
-
     .typing-text::-webkit-scrollbar-thumb {
       background: rgba(209,160,75,0.72);
       border-radius: 999px;
     }
-
     .typing-text::-webkit-scrollbar-thumb:hover {
       background: rgba(209,160,75,0.9);
     }
@@ -442,7 +417,7 @@
       width: 100%;
       min-height: 92px;
       max-height: 120px;
-      resize: vertical;
+      resize: none;
       border: 1px solid var(--line);
       border-radius: var(--radius-lg);
       background: var(--bg-panel-strong);
@@ -506,15 +481,14 @@
         flex-direction: column;
         align-items: stretch;
       }
-
       .stats {
         justify-content: flex-start;
       }
-
       .stat { text-align: left; }
       .toolbar-line { align-items: flex-start; }
       .statusbar { flex-direction: column; align-items: flex-start; }
       .typing-text { min-height: 200px; max-height: 300px; }
+      select { min-width: 100%; }
     }
 
     @media (max-width: 560px) {
@@ -563,25 +537,29 @@
 
     <section class="hero panel">
       <div class="hero-copy">
-        <strong>Field tool</strong>
-        <span class="pill-dot">•</span>
-        <span>Learn about AI while reading and typing.</span>
-        <span class="pill-dot">•</span>
-        <span>Built for learners, builders, students, and modern makers.</span>
+        <strong>Learn about AI while reading and typing.</strong>
+        <div>Human-developed, AI-assisted online learning tool built by InTandem ToolWorks using OpenAI and Meta Llama technologies.</div>
+        <div>Built for learners, builders, students, and modern makers.</div>
       </div>
     </section>
 
     <section class="toolbar panel">
-      <div class="flag-wrap" id="flagWrap" aria-label="Country selector"></div>
-      <div class="selected-country" id="selectedCountry"></div>
-
       <div class="toolbar-stack">
+        <div class="toolbar-line">
+          <div class="toolbar-group">
+            <div class="toolbar-label">Country / Language</div>
+            <select id="countrySelect" aria-label="Country and language"></select>
+          </div>
+          <button class="action-btn" id="generateBtn" type="button">Generate New Passage</button>
+        </div>
+
+        <div class="selected-country" id="selectedCountry"></div>
+
         <div class="toolbar-line">
           <div class="toolbar-group">
             <div class="toolbar-label">Mode</div>
             <div class="mode-wrap" id="modeWrap"></div>
           </div>
-          <button class="action-btn" id="generateBtn" type="button">Generate New Passage</button>
         </div>
 
         <div class="toolbar-line">
@@ -620,8 +598,8 @@
     </section>
 
     <section class="statusbar panel">
-      <div id="progressText">Progress 0%</div>
-      <div id="languageText">🇺🇸 English • AI Learning story mode • 1 min</div>
+      <div id="progressText">Time Left 60s</div>
+      <div id="languageText">🇺🇸 United States — English • AI Learning • 1 min</div>
     </section>
 
     <section class="result panel" id="resultBox">
@@ -643,26 +621,45 @@
 
   <script>
     const COUNTRY_OPTIONS = [
-      { code: "us", name: "United States", language: "English", flag: "🇺🇸", featured: true },
-      { code: "gb", name: "United Kingdom", language: "English", flag: "🇬🇧" },
-      { code: "ca", name: "Canada", language: "English / French", flag: "🇨🇦" },
-      { code: "fr", name: "France", language: "French", flag: "🇫🇷" },
-      { code: "de", name: "Germany", language: "German", flag: "🇩🇪" },
-      { code: "it", name: "Italy", language: "Italian", flag: "🇮🇹" },
-      { code: "es", name: "Spain", language: "Spanish", flag: "🇪🇸" },
-      { code: "pl", name: "Poland", language: "Polish", flag: "🇵🇱" },
-      { code: "nl", name: "Netherlands", language: "Dutch", flag: "🇳🇱" },
-      { code: "dk", name: "Denmark", language: "Danish", flag: "🇩🇰" },
-      { code: "no", name: "Norway", language: "Norwegian", flag: "🇳🇴" },
-      { code: "pt", name: "Portugal", language: "Portuguese", flag: "🇵🇹" },
-      { code: "cz", name: "Czech Republic", language: "Czech", flag: "🇨🇿" },
-      { code: "ro", name: "Romania", language: "Romanian", flag: "🇷🇴" },
-      { code: "gr", name: "Greece", language: "Greek", flag: "🇬🇷" },
-      { code: "tr", name: "Turkey", language: "Turkish", flag: "🇹🇷" },
-      { code: "jp", name: "Japan", language: "Japanese", flag: "🇯🇵" },
-      { code: "kr", name: "South Korea", language: "Korean", flag: "🇰🇷" },
-      { code: "au", name: "Australia", language: "English", flag: "🇦🇺" },
-      { code: "nz", name: "New Zealand", language: "English", flag: "🇳🇿" }
+      { code: "us", name: "United States", language: "English", flag: "🇺🇸" },
+      { code: "al", name: "Albania", language: "Albanian" },
+      { code: "be", name: "Belgium", language: "Dutch / French / German" },
+      { code: "bg", name: "Bulgaria", language: "Bulgarian" },
+      { code: "ca", name: "Canada", language: "English / French" },
+      { code: "hr", name: "Croatia", language: "Croatian" },
+      { code: "cz", name: "Czech Republic", language: "Czech" },
+      { code: "dk", name: "Denmark", language: "Danish" },
+      { code: "ee", name: "Estonia", language: "Estonian" },
+      { code: "fi", name: "Finland", language: "Finnish" },
+      { code: "fr", name: "France", language: "French" },
+      { code: "de", name: "Germany", language: "German" },
+      { code: "gr", name: "Greece", language: "Greek" },
+      { code: "hu", name: "Hungary", language: "Hungarian" },
+      { code: "is", name: "Iceland", language: "Icelandic" },
+      { code: "it", name: "Italy", language: "Italian" },
+      { code: "lv", name: "Latvia", language: "Latvian" },
+      { code: "lt", name: "Lithuania", language: "Lithuanian" },
+      { code: "lu", name: "Luxembourg", language: "Luxembourgish / French / German" },
+      { code: "me", name: "Montenegro", language: "Montenegrin" },
+      { code: "nl", name: "Netherlands", language: "Dutch" },
+      { code: "mk", name: "North Macedonia", language: "Macedonian" },
+      { code: "no", name: "Norway", language: "Norwegian" },
+      { code: "pl", name: "Poland", language: "Polish" },
+      { code: "pt", name: "Portugal", language: "Portuguese" },
+      { code: "ro", name: "Romania", language: "Romanian" },
+      { code: "sk", name: "Slovakia", language: "Slovak" },
+      { code: "si", name: "Slovenia", language: "Slovene" },
+      { code: "es", name: "Spain", language: "Spanish" },
+      { code: "se", name: "Sweden", language: "Swedish" },
+      { code: "tr", name: "Turkey", language: "Turkish" },
+      { code: "gb", name: "United Kingdom", language: "English" },
+      { code: "au", name: "Australia", language: "English" },
+      { code: "il", name: "Israel", language: "Hebrew" },
+      { code: "jp", name: "Japan", language: "Japanese" },
+      { code: "nz", name: "New Zealand", language: "English" },
+      { code: "ph", name: "Philippines", language: "English / Filipino" },
+      { code: "kr", name: "South Korea", language: "Korean" },
+      { code: "th", name: "Thailand", language: "Thai" }
     ];
 
     const MODE_OPTIONS = [
@@ -675,57 +672,38 @@
       aiLearning: { label: "AI Learning" }
     };
 
-    const STORY_VARIANTS = {
-      english: [
-        [
-          "Beyond the observation glass, a graduate student watched a moonlit station drift over a violet world and realized that artificial intelligence was not a ghost in the machine. It was a tool built from mathematics, data, and human intention. The old fear that AI was some unknowable magic began to fade, replaced by a more useful truth: these systems learn patterns, respond to prompts, and become valuable only when guided by people who know what they are trying to build.",
-          "The deeper the student read, the more the system began to resemble a good companion in a long campaign rather than a rival in a dark prophecy. A language model could summarize a paper, explain code, compare ideas, generate practice questions, and help turn confusion into momentum. But it did not replace judgment. It still needed direction, evaluation, and ethics. Human beings remained the ones who set the quest, checked the map, and decided which path was worth following.",
-          "That was the hopeful turn in the story. AI did not have to be a machine for fear. It could be a field tool for learning, prototyping, research, and disciplined imagination. For builders, students, and curious adventurers, the real power was not surrendering thought to the model, but pairing human purpose with machine speed. Once that clicked, the future looked less like a warning and more like an open road."
-        ],
-        [
-          "At the edge of a forgotten archive, a young builder found an old terminal still glowing with fragments of machine lore. The records explained that AI was not intelligence in the mythic sense, but a system trained to detect structure in enormous oceans of language and data. That distinction mattered. It meant the machine was not wise by default. It became useful only when people asked clear questions, gave it strong context, and checked its answers against reality.",
-          "As the builder kept reading, the lesson became practical. Prompts shaped responses. Training data shaped capabilities. Evaluation exposed weaknesses. Guardrails mattered because speed without direction could drift into error. Yet when the tool was used well, it became a serious ally. It could help a student understand a hard concept, help a creator organize a project, help a programmer prototype a feature, and help a researcher explore a field without losing momentum between questions.",
-          "By the time dawn reached the high windows, the builder understood why so many people were drawn to these systems. AI made effort compound faster. It did not erase the need for discipline, curiosity, or integrity. It amplified them. In that light, the future of AI felt less like a machine replacing people and more like people gaining a better set of instruments for the journey ahead."
-        ],
-        [
-          "On the long road between cities, a group of students argued about whether AI belonged in the same category as fantasy artifacts, starship computers, or ordinary tools. Their instructor smiled and told them the answer was simpler and more demanding than all three. AI was a system that predicted useful next steps from learned patterns. That made it powerful, but not all-knowing. It could generate, explain, and reorganize. It could not care, choose values, or define a worthy mission on its own.",
-          "That answer changed the tone of the journey. The students stopped asking whether the tool was magical and started asking better questions. How do prompts change output quality? Why does training data matter? What is hallucination, and how do you catch it? Why do evaluation and verification remain essential? The lessons became more exciting once the mystery gave way to mechanics, because the mechanics made the power usable.",
-          "By nightfall, the road no longer felt like a passage into danger, but into capability. AI could help people learn faster, draft more clearly, test more ideas, and reach farther than they could alone. The point was not to fear the tool or worship it. The point was to understand it well enough to use it responsibly, creatively, and with purpose."
-        ]
-      ]
-    };
-
     const els = {
-      flagWrap: document.getElementById('flagWrap'),
-      selectedCountry: document.getElementById('selectedCountry'),
-      genreWrap: document.getElementById('genreWrap'),
-      modeWrap: document.getElementById('modeWrap'),
-      generateBtn: document.getElementById('generateBtn'),
-      typingText: document.getElementById('typingText'),
-      typingInput: document.getElementById('typingInput'),
-      progressText: document.getElementById('progressText'),
-      languageText: document.getElementById('languageText'),
-      topWpm: document.getElementById('topWpm'),
-      topAcc: document.getElementById('topAcc'),
-      metricWpm: document.getElementById('metricWpm'),
-      metricAcc: document.getElementById('metricAcc'),
-      resultBox: document.getElementById('resultBox'),
-      resultWpm: document.getElementById('resultWpm'),
-      resultAcc: document.getElementById('resultAcc'),
-      timeRailFill: document.getElementById('timeRailFill')
+      countrySelect: document.getElementById("countrySelect"),
+      selectedCountry: document.getElementById("selectedCountry"),
+      genreWrap: document.getElementById("genreWrap"),
+      modeWrap: document.getElementById("modeWrap"),
+      generateBtn: document.getElementById("generateBtn"),
+      typingText: document.getElementById("typingText"),
+      typingInput: document.getElementById("typingInput"),
+      progressText: document.getElementById("progressText"),
+      languageText: document.getElementById("languageText"),
+      topWpm: document.getElementById("topWpm"),
+      topAcc: document.getElementById("topAcc"),
+      metricWpm: document.getElementById("metricWpm"),
+      metricAcc: document.getElementById("metricAcc"),
+      resultBox: document.getElementById("resultBox"),
+      resultWpm: document.getElementById("resultWpm"),
+      resultAcc: document.getElementById("resultAcc"),
+      timeRailFill: document.getElementById("timeRailFill")
     };
 
     const state = {
-      countryCode: 'us',
-      genreKey: 'aiLearning',
-      modeKey: '1',
+      countryCode: "us",
+      genreKey: "aiLearning",
+      modeKey: "1",
       timeLimit: 60,
-      passage: '',
-      typed: '',
+      passage: "",
+      typed: "",
       startedAt: null,
       elapsed: 0,
       timer: null,
-      finished: false
+      finished: false,
+      abortController: null
     };
 
     function selectedCountry() {
@@ -734,43 +712,6 @@
 
     function selectedMode() {
       return MODE_OPTIONS.find(mode => mode.key === state.modeKey) || MODE_OPTIONS[0];
-    }
-
-    function getLanguageKey(countryCode) {
-      const map = {
-        us: 'english',
-        gb: 'english',
-        ca: 'english',
-        au: 'english',
-        nz: 'english',
-        fr: 'english',
-        de: 'english',
-        it: 'english',
-        es: 'english',
-        pl: 'english',
-        nl: 'english',
-        dk: 'english',
-        no: 'english',
-        pt: 'english',
-        cz: 'english',
-        ro: 'english',
-        gr: 'english',
-        tr: 'english',
-        jp: 'english',
-        kr: 'english'
-      };
-      return map[countryCode] || 'english';
-    }
-
-    function randomItem(arr) {
-      return arr[Math.floor(Math.random() * arr.length)];
-    }
-
-    function buildPassage() {
-      const languageKey = getLanguageKey(state.countryCode);
-      const stories = STORY_VARIANTS[languageKey] || STORY_VARIANTS.english;
-      const selectedStory = randomItem(stories);
-      return selectedStory.join("\n\n");
     }
 
     function calculateStats() {
@@ -782,47 +723,33 @@
       }
       const accuracy = typed.length ? Math.max(0, Math.round((correct / typed.length) * 100)) : 100;
       const wpm = state.elapsed > 0 ? Math.round(((typed.length / 5) / state.elapsed) * 60) : 0;
-      const progress = target.length ? Math.min(100, Math.round((typed.length / target.length) * 100)) : 0;
-      return { accuracy, wpm, progress };
+      return { accuracy, wpm };
     }
 
-    function renderFlags() {
-      els.flagWrap.innerHTML = '';
+    function renderCountryOptions() {
+      els.countrySelect.innerHTML = "";
       COUNTRY_OPTIONS.forEach(country => {
-        const button = document.createElement('button');
-        button.type = 'button';
-        button.className = `flag-btn ${country.featured ? 'featured' : ''} ${country.code === state.countryCode ? 'active' : ''}`;
-        button.textContent = country.flag;
-        button.title = `${country.name} — ${country.language}`;
-        button.addEventListener('click', () => {
-          state.countryCode = country.code;
-          renderFlags();
-          renderSelectedCountry();
-          updateStatus();
-          resetTest(true);
-        });
-        els.flagWrap.appendChild(button);
+        const option = document.createElement("option");
+        option.value = country.code;
+        option.textContent = `${country.name} — ${country.language}`;
+        if (country.code === state.countryCode) option.selected = true;
+        els.countrySelect.appendChild(option);
       });
     }
 
     function renderSelectedCountry() {
       const country = selectedCountry();
-      els.selectedCountry.innerHTML = `
-        <span class="big-flag">${country.flag}</span>
-        <span class="country-name">${country.name}</span>
-        <span>•</span>
-        <span>${country.language}</span>
-      `;
+      els.selectedCountry.innerHTML = `<strong>${country.flag || "🌐"} ${country.name}</strong> • ${country.language}`;
     }
 
     function renderGenres() {
-      els.genreWrap.innerHTML = '';
+      els.genreWrap.innerHTML = "";
       Object.entries(GENRE_BANK).forEach(([key, genre]) => {
-        const button = document.createElement('button');
-        button.type = 'button';
-        button.className = `genre-btn ${key === state.genreKey ? 'active' : ''}`;
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = `genre-btn ${key === state.genreKey ? "active" : ""}`;
         button.textContent = genre.label;
-        button.addEventListener('click', () => {
+        button.addEventListener("click", () => {
           state.genreKey = key;
           renderGenres();
           resetTest(true);
@@ -832,13 +759,13 @@
     }
 
     function renderModes() {
-      els.modeWrap.innerHTML = '';
+      els.modeWrap.innerHTML = "";
       MODE_OPTIONS.forEach(mode => {
-        const button = document.createElement('button');
-        button.type = 'button';
-        button.className = `mode-btn ${mode.key === state.modeKey ? 'active' : ''}`;
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = `mode-btn ${mode.key === state.modeKey ? "active" : ""}`;
         button.textContent = mode.label;
-        button.addEventListener('click', () => {
+        button.addEventListener("click", () => {
           state.modeKey = mode.key;
           state.timeLimit = mode.seconds;
           renderModes();
@@ -850,25 +777,39 @@
     }
 
     function renderPassage() {
-      els.typingText.innerHTML = '';
+      els.typingText.innerHTML = "";
       for (let i = 0; i < state.passage.length; i++) {
         const ch = state.passage[i];
-
-        if (ch === '\n') {
-          els.typingText.appendChild(document.createElement('br'));
+        if (ch === "\n") {
+          els.typingText.appendChild(document.createElement("br"));
           continue;
         }
-
-        const span = document.createElement('span');
-        span.className = 'char pending';
-
+        const span = document.createElement("span");
+        span.className = "char pending";
         const typedChar = state.typed[i];
         if (typedChar != null) {
-          span.className = typedChar === ch ? 'char correct' : 'char incorrect';
+          span.className = typedChar === ch ? "char correct" : "char incorrect";
         }
-
         span.textContent = ch;
         els.typingText.appendChild(span);
+      }
+      scrollCurrentCharIntoView();
+    }
+
+    function scrollCurrentCharIntoView() {
+      const currentIndex = state.typed.length;
+      const spans = els.typingText.querySelectorAll("span");
+      if (!spans.length) return;
+      const target = spans[Math.min(currentIndex, spans.length - 1)];
+      if (!target) return;
+
+      const containerRect = els.typingText.getBoundingClientRect();
+      const targetRect = target.getBoundingClientRect();
+
+      if (targetRect.bottom > containerRect.bottom - 30) {
+        els.typingText.scrollTop += targetRect.bottom - containerRect.bottom + 30;
+      } else if (targetRect.top < containerRect.top + 20) {
+        els.typingText.scrollTop -= containerRect.top - targetRect.top + 20;
       }
     }
 
@@ -877,7 +818,6 @@
 
       els.topWpm.textContent = stats.wpm;
       els.topAcc.textContent = `${stats.accuracy}%`;
-
       els.metricWpm.textContent = stats.wpm;
       els.metricAcc.textContent = `${stats.accuracy}%`;
 
@@ -888,18 +828,20 @@
       els.progressText.textContent = `Time Left ${remaining}s`;
 
       if (state.finished) {
-        els.resultBox.classList.add('show');
+        els.resultBox.classList.add("show");
         els.resultWpm.textContent = stats.wpm;
         els.resultAcc.textContent = `${stats.accuracy}%`;
+        els.typingInput.disabled = true;
       } else {
-        els.resultBox.classList.remove('show');
+        els.resultBox.classList.remove("show");
+        els.typingInput.disabled = false;
       }
     }
 
     function updateStatus() {
       const country = selectedCountry();
       const mode = selectedMode();
-      els.languageText.textContent = `${country.flag} ${country.language} • AI Learning story mode • ${mode.label}`;
+      els.languageText.textContent = `${country.flag || "🌐"} ${country.name} — ${country.language} • AI Learning • ${mode.label}`;
     }
 
     function stopTimer() {
@@ -914,29 +856,64 @@
       state.startedAt = Date.now() - (state.elapsed * 1000);
       state.timer = setInterval(() => {
         state.elapsed = (Date.now() - state.startedAt) / 1000;
-
         if (state.elapsed >= state.timeLimit) {
           state.elapsed = state.timeLimit;
           state.finished = true;
           stopTimer();
         }
-
         updateStatsUI();
       }, 100);
     }
 
-    function resetTest(makeNewPassage = false) {
+    async function fetchPassage() {
+      if (state.abortController) state.abortController.abort();
+      state.abortController = new AbortController();
+
+      const country = selectedCountry();
+      const mode = selectedMode();
+
+      const response = await fetch("/api/story", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        signal: state.abortController.signal,
+        body: JSON.stringify({
+          countryCode: state.countryCode,
+          countryName: country.name,
+          language: country.language,
+          topic: "AI Learning",
+          minutes: mode.seconds / 60
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error("Story request failed");
+      }
+
+      const data = await response.json();
+      if (!data.story || typeof data.story !== "string") {
+        throw new Error("Invalid story response");
+      }
+      return data.story.trim();
+    }
+
+    async function resetTest(makeNewPassage = false) {
       stopTimer();
-      state.typed = '';
+      state.typed = "";
       state.startedAt = null;
       state.elapsed = 0;
       state.finished = false;
+      els.typingInput.value = "";
+      els.typingInput.disabled = false;
 
       if (makeNewPassage || !state.passage) {
-        state.passage = buildPassage();
+        els.typingText.textContent = "Generating a new passage…";
+        try {
+          state.passage = await fetchPassage();
+        } catch (error) {
+          state.passage = "The story generator is unavailable right now. Please try again in a moment.";
+        }
       }
 
-      els.typingInput.value = '';
       renderPassage();
       updateStatsUI();
       updateStatus();
@@ -945,23 +922,29 @@
 
     function handleInput(event) {
       if (state.finished) return;
-
       const value = event.target.value;
       if (!state.startedAt && value.length > 0) startTimer();
-
       state.typed = value;
       renderPassage();
       updateStatsUI();
     }
 
-    els.generateBtn.addEventListener('click', () => resetTest(true));
-    els.typingInput.addEventListener('input', handleInput);
-    els.typingText.addEventListener('click', () => els.typingInput.focus());
+    els.countrySelect.addEventListener("change", () => {
+      state.countryCode = els.countrySelect.value;
+      renderSelectedCountry();
+      updateStatus();
+      resetTest(true);
+    });
 
-    renderFlags();
+    els.generateBtn.addEventListener("click", () => resetTest(true));
+    els.typingInput.addEventListener("input", handleInput);
+    els.typingText.addEventListener("click", () => els.typingInput.focus());
+
+    renderCountryOptions();
     renderSelectedCountry();
     renderGenres();
     renderModes();
+    updateStatus();
     resetTest(true);
   </script>
 </body>
