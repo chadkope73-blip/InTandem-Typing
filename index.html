@@ -15,12 +15,14 @@
       --text-main: #f2eee5;
       --text-soft: #b8d2cf;
       --accent: #d1a04b;
+      --accent-soft: rgba(209, 160, 75, 0.22);
       --pending: rgba(184, 210, 207, 0.42);
       --correct: #f2eee5;
       --incorrect: #f4c980;
       --shadow: 0 18px 50px rgba(0, 0, 0, 0.22);
       --radius-xl: 28px;
       --radius-lg: 20px;
+      --radius-md: 14px;
     }
 
     * { box-sizing: border-box; }
@@ -116,7 +118,9 @@
       flex: 0 0 auto;
     }
 
-    .brand-text { min-width: 0; }
+    .brand-text {
+      min-width: 0;
+    }
 
     .brand-title {
       font-size: clamp(1.55rem, 1.9vw, 2rem);
@@ -180,6 +184,11 @@
       color: var(--accent);
       font-size: clamp(1.35rem, 2vw, 2rem);
       font-weight: 800;
+      font-variant-numeric: tabular-nums;
+      font-feature-settings: "tnum" 1;
+      min-width: 4.6ch;
+      display: inline-block;
+      text-align: right;
     }
 
     .hero {
@@ -262,14 +271,12 @@
       margin: 10px 0 4px;
       color: var(--text-soft);
       font-size: 0.95rem;
-      flex-wrap: wrap;
     }
 
     .selected-country .big-flag { font-size: 1.55rem; }
     .selected-country .country-name { color: var(--text-main); font-weight: 700; }
 
-    .genre-bar,
-    .mode-bar {
+    .genre-bar {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
@@ -278,15 +285,15 @@
       margin-top: 14px;
     }
 
-    .genre-group,
-    .mode-group {
+    .genre-group {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
       flex: 1 1 auto;
     }
 
-    .genre-btn, .mode-btn {
+    .genre-btn,
+    .mode-btn {
       border-radius: 14px;
       padding: 10px 14px;
       font-weight: 600;
@@ -333,6 +340,10 @@
       font-size: clamp(2.1rem, 5vw, 3.2rem);
       font-weight: 800;
       line-height: 1;
+      font-variant-numeric: tabular-nums;
+      font-feature-settings: "tnum" 1;
+      min-width: 4.6ch;
+      display: inline-block;
     }
 
     .metric .label {
@@ -344,50 +355,22 @@
     }
 
     .typing-shell {
-      padding: 18px;
+      padding: 22px;
       margin-bottom: 16px;
+      position: relative;
+      overflow: hidden;
     }
 
-    .story-window {
-      display: grid;
-      gap: 10px;
-      min-height: 214px;
-      padding: 16px;
-      border: 1px solid rgba(110,168,168,0.22);
-      border-radius: var(--radius-lg);
-      background: rgba(20, 26, 38, 0.18);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
-    }
-
-    .story-line {
-      border-radius: 14px;
-      padding: 12px 14px;
-      line-height: 1.75;
-      transition: 180ms ease;
-      word-break: break-word;
+    .typing-text {
+      min-height: 280px;
+      font-size: clamp(1.3rem, 2vw, 1.7rem);
+      line-height: 1.88;
+      letter-spacing: 0.01em;
+      user-select: none;
+      cursor: text;
       white-space: pre-wrap;
-    }
-
-    .story-line.previous {
-      color: rgba(184, 210, 207, 0.52);
-      font-size: 0.98rem;
-      background: rgba(255,255,255,0.025);
-      min-height: 56px;
-    }
-
-    .story-line.current {
-      color: var(--text-main);
-      font-size: clamp(1.16rem, 2vw, 1.45rem);
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(110,168,168,0.2);
-      min-height: 82px;
-    }
-
-    .story-line.next {
-      color: rgba(184, 210, 207, 0.72);
-      font-size: 1rem;
-      background: rgba(255,255,255,0.02);
-      min-height: 56px;
+      word-break: break-word;
+      padding-right: 24px;
     }
 
     .char.pending { color: var(--pending); }
@@ -397,20 +380,17 @@
       border-bottom: 2px solid rgba(209, 160, 75, 0.65);
     }
 
-    .input-wrap {
-      margin-top: 14px;
-      position: relative;
-    }
+    .input-wrap { margin-top: 14px; }
 
     .typing-input {
       width: 100%;
-      min-height: 120px;
+      min-height: 140px;
       resize: vertical;
       border: 1px solid var(--line);
       border-radius: var(--radius-lg);
       background: var(--bg-panel-strong);
       color: var(--text-main);
-      padding: 16px 30px 16px 18px;
+      padding: 16px 18px;
       font: inherit;
       font-size: 1rem;
       line-height: 1.6;
@@ -427,46 +407,25 @@
 
     .time-rail {
       position: absolute;
-      top: 12px;
-      right: 10px;
-      bottom: 12px;
+      top: 22px;
+      right: 12px;
       width: 6px;
+      height: calc(100% - 44px);
       border-radius: 999px;
-      background: rgba(255,255,255,0.08);
+      background: rgba(110, 168, 168, 0.16);
       overflow: hidden;
       pointer-events: none;
-      transition: opacity 180ms ease;
     }
 
     .time-rail-fill {
       position: absolute;
       left: 0;
-      right: 0;
       bottom: 0;
-      height: 100%;
+      width: 100%;
+      height: 0%;
       border-radius: 999px;
-      background: linear-gradient(
-        to top,
-        #cc4b37 0%,
-        #d1a04b 45%,
-        #61c27d 100%
-      );
-      opacity: 0.72;
-      transition: height 100ms linear, opacity 180ms ease;
-    }
-
-    .time-rail.hidden {
-      opacity: 0;
-    }
-
-    .time-rail.warning .time-rail-fill {
-      opacity: 0.95;
-      box-shadow: 0 0 10px rgba(209, 160, 75, 0.35);
-    }
-
-    .time-rail.danger .time-rail-fill {
-      opacity: 1;
-      box-shadow: 0 0 12px rgba(204, 75, 55, 0.42);
+      background: linear-gradient(180deg, rgba(209,160,75,0.85), rgba(110,168,168,0.85));
+      transition: height 100ms linear;
     }
 
     .statusbar {
@@ -476,7 +435,6 @@
       gap: 14px;
       color: var(--text-soft);
       font-size: 0.94rem;
-      flex-wrap: wrap;
     }
 
     .result {
@@ -501,11 +459,6 @@
       gap: 22px;
     }
 
-    .result .action-btn {
-      width: 100%;
-      max-width: 260px;
-    }
-
     .footer-note {
       color: var(--text-soft);
       text-align: center;
@@ -525,9 +478,10 @@
       }
 
       .stat { text-align: left; }
-      .genre-bar, .mode-bar { align-items: stretch; }
+      .genre-bar { align-items: stretch; }
       .action-btn { width: 100%; }
       .statusbar { flex-direction: column; align-items: flex-start; }
+      .typing-text { min-height: 240px; }
     }
 
     @media (max-width: 560px) {
@@ -535,11 +489,8 @@
       .brand img { width: 48px; height: 48px; }
       .brand-title { font-size: 1.35rem; }
       .typing-shell, .metrics, .toolbar, .statusbar, .hero { padding: 14px; }
-      .story-window { min-height: 200px; padding: 12px; }
-      .story-line.current { font-size: 1.08rem; line-height: 1.7; }
-      .story-line.previous,
-      .story-line.next { font-size: 0.95rem; line-height: 1.65; }
-      .typing-input { min-height: 110px; }
+      .typing-text { font-size: 1.16rem; line-height: 1.8; }
+      .time-rail { top: 14px; right: 10px; height: calc(100% - 28px); }
     }
   </style>
 </head>
@@ -588,13 +539,14 @@
       <div class="flag-wrap" id="flagWrap" aria-label="Country selector"></div>
       <div class="selected-country" id="selectedCountry"></div>
 
-      <div class="genre-bar">
+      <div class="genre-bar" style="margin-bottom:10px;">
         <div class="genre-group" id="genreWrap" aria-label="Genre selector"></div>
-        <button class="action-btn" id="generateBtn" type="button">Generate New Story</button>
+        <div class="mode-wrap" id="modeWrap" aria-label="Mode selector"></div>
       </div>
 
-      <div class="mode-bar">
-        <div class="mode-group" id="modeWrap" aria-label="Mode selector"></div>
+      <div class="genre-bar">
+        <div></div>
+        <button class="action-btn" id="generateBtn" type="button">Generate New Passage</button>
       </div>
     </section>
 
@@ -617,24 +569,20 @@
     </section>
 
     <section class="typing-shell panel">
-      <div class="story-window" id="storyWindow" tabindex="0" aria-label="Typing story window">
-        <div class="story-line previous" id="previousLine">Previous line will appear here.</div>
-        <div class="story-line current" id="currentLine"></div>
-        <div class="story-line next" id="nextLine">Next line preview will appear here.</div>
+      <div class="time-rail" aria-hidden="true">
+        <div id="timeRailFill" class="time-rail-fill"></div>
       </div>
+
+      <div id="typingText" class="typing-text" tabindex="0" aria-label="Typing passage"></div>
 
       <div class="input-wrap">
         <textarea id="typingInput" class="typing-input" placeholder="Click here and start typing" spellcheck="false" autocapitalize="off" autocorrect="off"></textarea>
-        <div class="time-rail hidden" id="timeRail" aria-hidden="true">
-          <div class="time-rail-fill" id="timeRailFill"></div>
-        </div>
       </div>
     </section>
 
     <section class="statusbar panel">
       <div id="progressText">Progress 0%</div>
-      <div id="languageText">🇺🇸 English • AI Learning</div>
-      <div id="modeText">Mode: Story</div>
+      <div id="languageText">🇺🇸 English • AI Learning story mode</div>
     </section>
 
     <section class="result panel" id="resultBox">
@@ -652,9 +600,6 @@
           <div class="label">Time</div>
           <div class="value" id="resultTime">0.0s</div>
         </div>
-      </div>
-      <div style="margin-top:16px;">
-        <button class="action-btn" id="restartBtn" type="button">Restart Test</button>
       </div>
     </section>
 
@@ -726,7 +671,7 @@
       polish: [[
         "Za szybą obserwacyjną student patrzył, jak stacja dryfuje nad fioletowym światem, i zrozumiał, że sztuczna inteligencja nie jest duchem w maszynie. To narzędzie zbudowane z matematyki, danych i ludzkiej intencji. Dawny lęk przed nieznaną magią zaczął ustępować miejsca bardziej użytecznej prawdzie: takie systemy uczą się wzorców, reagują na polecenia i stają się naprawdę wartościowe dopiero wtedy, gdy kierują nimi ludzie wiedzący, co chcą zbudować.",
         "Im głębiej student czytał, tym bardziej system przypominał dobrego towarzysza długiej wyprawy, a nie mrocznego rywala. Model językowy potrafił streścić artykuł, wyjaśnić kod, porównać pomysły, wygenerować pytania do ćwiczeń i zamienić niepewność w postęp. Nie zastępował jednak osądu. Nadal potrzebne były kierunek, ocena i etyka. To człowiek wyznaczał misję, sprawdzał mapę i decydował, którą drogą warto pójść.",
-        "W tym tkwił budujący zwrot całej opowieści. AI nie musiała być maszyną strachu. Mogła stać się narzędziem terenowym do nauki, prototypowania, badań i zdyscyplinowanej wyobraźni. Dla twórców, studentów i ciekawych świata wędrowców prawdziwa siła nie polega na oddaniu myślenia modelowi, lecz na połączeniu ludzkiego celu z szybkością maszyny. Od tej chwili przyszłość wydawała się mniej ostrzeżeniem, a bardziej otwartą drogą."
+        "W tym tkwił budujący zwrot całej opowieści. AI nie musiała być maszyną strachu. Mogła stać się narzędziem terenowym do nauki, prototypowania, badań i zdyscyplinowanej wyobraźni. Dla twórców, studentów i ciekawych świata wędrowców prawdziwa siła nie polegała na oddaniu myślenia modelowi, lecz na połączeniu ludzkiego celu z szybkością maszyny. Od tej chwili przyszłość wydawała się mniej ostrzeżeniem, a bardziej otwartą drogą."
       ]],
       dutch: [[
         "Achter het observatieglas keek een student naar een station dat boven een paarse wereld dreef en begreep dat kunstmatige intelligentie geen geest in een machine was. Het was een hulpmiddel, opgebouwd uit wiskunde, data en menselijke bedoeling. De oude angst voor onbegrijpelijke magie begon te verdwijnen en maakte plaats voor een nuttigere waarheid: zulke systemen leren patronen, reageren op aanwijzingen en worden pas echt waardevol wanneer mensen met een duidelijk doel ze sturen.",
@@ -780,30 +725,16 @@
       ]]
     };
 
-    const GENRE_BANK = {
-      aiLearning: { label: "AI Learning" }
-    };
-
-    const MODE_BANK = {
-      story: { label: "Story", duration: null },
-      timed60: { label: "1 min", duration: 60 },
-      timed180: { label: "3 min", duration: 180 },
-      timed300: { label: "5 min", duration: 300 }
-    };
-
     const els = {
       flagWrap: document.getElementById('flagWrap'),
       selectedCountry: document.getElementById('selectedCountry'),
       genreWrap: document.getElementById('genreWrap'),
       modeWrap: document.getElementById('modeWrap'),
       generateBtn: document.getElementById('generateBtn'),
-      previousLine: document.getElementById('previousLine'),
-      currentLine: document.getElementById('currentLine'),
-      nextLine: document.getElementById('nextLine'),
+      typingText: document.getElementById('typingText'),
       typingInput: document.getElementById('typingInput'),
       progressText: document.getElementById('progressText'),
       languageText: document.getElementById('languageText'),
-      modeText: document.getElementById('modeText'),
       topWpm: document.getElementById('topWpm'),
       topAcc: document.getElementById('topAcc'),
       topTime: document.getElementById('topTime'),
@@ -814,27 +745,30 @@
       resultWpm: document.getElementById('resultWpm'),
       resultAcc: document.getElementById('resultAcc'),
       resultTime: document.getElementById('resultTime'),
-      restartBtn: document.getElementById('restartBtn'),
-      timeRail: document.getElementById('timeRail'),
       timeRailFill: document.getElementById('timeRailFill')
     };
 
     const state = {
       countryCode: 'us',
       genreKey: 'aiLearning',
-      modeKey: 'story',
-      storyText: '',
-      chunks: [],
-      chunkIndex: 0,
+      passage: '',
       typed: '',
       startedAt: null,
       elapsed: 0,
       timer: null,
       finished: false,
-      totalTypedChars: 0,
-      totalCorrectChars: 0,
-      totalCompletedChars: 0
+      timedMode: false,
+      timeLimit: 60
     };
+
+    const GENRE_BANK = {
+      aiLearning: { label: "AI Learning" }
+    };
+
+    const MODES = [
+      { key: 'story', label: 'Story Mode' },
+      { key: 'timed', label: 'Timed 60s' }
+    ];
 
     function selectedCountry() {
       return COUNTRY_OPTIONS.find(country => country.code === state.countryCode) || COUNTRY_OPTIONS[0];
@@ -870,272 +804,24 @@
       return arr[Math.floor(Math.random() * arr.length)];
     }
 
-    function buildStory() {
+    function buildPassage() {
       const languageKey = getLanguageKey(state.countryCode);
       const stories = STORY_VARIANTS[languageKey] || STORY_VARIANTS.english;
       const selectedStory = randomItem(stories);
-      return selectedStory.join(" ");
-    }
-
-    function splitIntoSentences(text) {
-      const normalized = text.replace(/\s+/g, ' ').trim();
-      if (!normalized) return [];
-      const parts = normalized.match(/[^.!?]+[.!?]+|[^.!?]+$/g) || [];
-      return parts.map(part => part.trim()).filter(Boolean);
-    }
-
-    function splitLongSentence(sentence, maxLength = 150) {
-      if (sentence.length <= maxLength) return [sentence];
-
-      const words = sentence.split(' ');
-      const chunks = [];
-      let current = '';
-
-      for (const word of words) {
-        const candidate = current ? `${current} ${word}` : word;
-        if (candidate.length <= maxLength) {
-          current = candidate;
-        } else {
-          if (current) chunks.push(current.trim());
-          current = word;
-        }
-      }
-
-      if (current) chunks.push(current.trim());
-      return chunks;
-    }
-
-    function buildChunks(text) {
-      const sentences = splitIntoSentences(text);
-      const chunks = [];
-      for (const sentence of sentences) {
-        chunks.push(...splitLongSentence(sentence, 150));
-      }
-      return chunks;
-    }
-
-    function escapeHtml(value) {
-      return value
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;');
-    }
-
-    function countCorrectChars(typed, target) {
-      let correct = 0;
-      const len = Math.min(typed.length, target.length);
-      for (let i = 0; i < len; i++) {
-        if (typed[i] === target[i]) correct++;
-      }
-      return correct;
-    }
-
-    function renderCurrentChunk() {
-      const chunk = state.chunks[state.chunkIndex] || '';
-      const typed = state.typed;
-      let html = '';
-
-      for (let i = 0; i < chunk.length; i++) {
-        const ch = chunk[i];
-        const typedChar = typed[i];
-        let className = 'char pending';
-
-        if (typedChar != null) {
-          className = typedChar === ch ? 'char correct' : 'char incorrect';
-        }
-
-        html += `<span class="${className}">${escapeHtml(ch)}</span>`;
-      }
-
-      els.currentLine.innerHTML = html || 'Story complete.';
-    }
-
-    function renderStoryWindow() {
-      els.previousLine.textContent = state.chunkIndex > 0
-        ? state.chunks[state.chunkIndex - 1]
-        : 'Previous line will appear here.';
-
-      els.nextLine.textContent = state.chunkIndex < state.chunks.length - 1
-        ? state.chunks[state.chunkIndex + 1]
-        : 'Next line preview will appear here.';
-
-      renderCurrentChunk();
+      return selectedStory.join("\n\n");
     }
 
     function calculateStats() {
-      const currentChunk = state.chunks[state.chunkIndex] || '';
-      const liveCorrect = countCorrectChars(state.typed, currentChunk);
-      const totalTyped = state.totalTypedChars + state.typed.length;
-      const totalCorrect = state.totalCorrectChars + liveCorrect;
-      const accuracy = totalTyped ? Math.max(0, Math.round((totalCorrect / totalTyped) * 100)) : 100;
-      const wpm = state.elapsed > 0 ? Math.round(((totalCorrect / 5) / state.elapsed) * 60) : 0;
-
-      const totalLength = state.chunks.reduce((sum, chunk) => sum + chunk.length, 0);
-      const liveProgress = state.totalCompletedChars + Math.min(state.typed.length, currentChunk.length);
-      const progress = totalLength ? Math.min(100, Math.round((liveProgress / totalLength) * 100)) : 0;
-
+      const target = state.passage;
+      const typed = state.typed;
+      let correct = 0;
+      for (let i = 0; i < typed.length; i++) {
+        if (typed[i] === target[i]) correct += 1;
+      }
+      const accuracy = typed.length ? Math.max(0, Math.round((correct / typed.length) * 100)) : 100;
+      const wpm = state.elapsed > 0 ? Math.round(((typed.length / 5) / state.elapsed) * 60) : 0;
+      const progress = target.length ? Math.min(100, Math.round((typed.length / target.length) * 100)) : 0;
       return { accuracy, wpm, progress };
-    }
-
-    function formatTimeDisplay() {
-      const mode = MODE_BANK[state.modeKey];
-      if (mode.duration == null) return `${state.elapsed.toFixed(1)}s`;
-      const remaining = Math.max(0, mode.duration - state.elapsed);
-      return `${remaining.toFixed(1)}s`;
-    }
-
-    function updateTimeRail() {
-      const mode = MODE_BANK[state.modeKey];
-
-      if (mode.duration == null) {
-        els.timeRail.classList.add('hidden');
-        els.timeRail.classList.remove('warning', 'danger');
-        els.timeRailFill.style.height = '100%';
-        return;
-      }
-
-      els.timeRail.classList.remove('hidden');
-
-      const remaining = Math.max(0, mode.duration - state.elapsed);
-      const pct = Math.max(0, Math.min(100, (remaining / mode.duration) * 100));
-
-      els.timeRailFill.style.height = `${pct}%`;
-
-      els.timeRail.classList.remove('warning', 'danger');
-
-      if (remaining <= 10 && remaining > 5) {
-        els.timeRail.classList.add('warning');
-      } else if (remaining <= 5) {
-        els.timeRail.classList.add('danger');
-      }
-    }
-
-    function updateStatsUI() {
-      const stats = calculateStats();
-      const timeText = formatTimeDisplay();
-
-      els.topWpm.textContent = stats.wpm;
-      els.topAcc.textContent = `${stats.accuracy}%`;
-      els.topTime.textContent = timeText;
-
-      els.metricWpm.textContent = stats.wpm;
-      els.metricAcc.textContent = `${stats.accuracy}%`;
-      els.metricTime.textContent = timeText;
-
-      els.progressText.textContent = `Progress ${stats.progress}%`;
-
-      if (state.finished) {
-        els.resultBox.classList.add('show');
-        els.resultWpm.textContent = stats.wpm;
-        els.resultAcc.textContent = `${stats.accuracy}%`;
-        els.resultTime.textContent = MODE_BANK[state.modeKey].duration == null
-          ? `${state.elapsed.toFixed(1)}s`
-          : `${Math.max(0, MODE_BANK[state.modeKey].duration - state.elapsed).toFixed(1)}s`;
-      } else {
-        els.resultBox.classList.remove('show');
-      }
-
-      updateTimeRail();
-    }
-
-    function updateStatus() {
-      const country = selectedCountry();
-      const mode = MODE_BANK[state.modeKey];
-      els.languageText.textContent = `${country.flag} ${country.language} • AI Learning`;
-      els.modeText.textContent = `Mode: ${mode.label}`;
-    }
-
-    function stopTimer() {
-      if (state.timer) {
-        clearInterval(state.timer);
-        state.timer = null;
-      }
-    }
-
-    function finishTest() {
-      if (state.finished) return;
-
-      state.finished = true;
-      stopTimer();
-      els.typingInput.blur();
-      updateStatsUI();
-      renderStoryWindow();
-
-      requestAnimationFrame(() => {
-        setTimeout(() => {
-          els.resultBox.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }, 180);
-      });
-    }
-
-    function startTimer() {
-      if (state.timer || state.finished) return;
-
-      state.startedAt = Date.now() - (state.elapsed * 1000);
-      state.timer = setInterval(() => {
-        state.elapsed = (Date.now() - state.startedAt) / 1000;
-
-        const mode = MODE_BANK[state.modeKey];
-        if (mode.duration != null && state.elapsed >= mode.duration) {
-          state.elapsed = mode.duration;
-          finishTest();
-          return;
-        }
-
-        updateStatsUI();
-      }, 100);
-    }
-
-    function moveToNextChunk(carryOver = '') {
-      const currentChunk = state.chunks[state.chunkIndex] || '';
-      const exactTypedForChunk = state.typed.slice(0, currentChunk.length);
-      const correctInChunk = countCorrectChars(exactTypedForChunk, currentChunk);
-
-      state.totalTypedChars += exactTypedForChunk.length;
-      state.totalCorrectChars += correctInChunk;
-      state.totalCompletedChars += currentChunk.length;
-
-      state.chunkIndex += 1;
-      state.typed = carryOver;
-
-      if (state.chunkIndex >= state.chunks.length) {
-        state.typed = '';
-        els.typingInput.value = '';
-        finishTest();
-        return;
-      }
-
-      els.typingInput.value = state.typed;
-      renderStoryWindow();
-      updateStatsUI();
-    }
-
-    function resetTest(makeNewStory = false) {
-      stopTimer();
-
-      state.chunkIndex = 0;
-      state.typed = '';
-      state.startedAt = null;
-      state.elapsed = 0;
-      state.finished = false;
-      state.totalTypedChars = 0;
-      state.totalCorrectChars = 0;
-      state.totalCompletedChars = 0;
-
-      if (makeNewStory || !state.storyText) {
-        state.storyText = buildStory();
-        state.chunks = buildChunks(state.storyText);
-      }
-
-      els.typingInput.value = '';
-      renderStoryWindow();
-      updateStatus();
-      updateStatsUI();
-
-      requestAnimationFrame(() => els.typingInput.focus());
     }
 
     function renderFlags() {
@@ -1186,53 +872,139 @@
 
     function renderModes() {
       els.modeWrap.innerHTML = '';
-      Object.entries(MODE_BANK).forEach(([key, mode]) => {
+      MODES.forEach(mode => {
         const button = document.createElement('button');
         button.type = 'button';
-        button.className = `mode-btn ${key === state.modeKey ? 'active' : ''}`;
+        const active = (mode.key === 'timed' && state.timedMode) || (mode.key === 'story' && !state.timedMode);
+        button.className = `mode-btn ${active ? 'active' : ''}`;
         button.textContent = mode.label;
         button.addEventListener('click', () => {
-          state.modeKey = key;
+          state.timedMode = mode.key === 'timed';
           renderModes();
           updateStatus();
-          resetTest(false);
+          resetTest(true);
         });
         els.modeWrap.appendChild(button);
       });
     }
 
+    function renderPassage() {
+      els.typingText.innerHTML = '';
+      for (let i = 0; i < state.passage.length; i++) {
+        const ch = state.passage[i];
+        if (ch === '\n') {
+          els.typingText.appendChild(document.createElement('br'));
+          continue;
+        }
+        const span = document.createElement('span');
+        span.className = 'char pending';
+        const typedChar = state.typed[i];
+        if (typedChar != null) {
+          span.className = typedChar === ch ? 'char correct' : 'char incorrect';
+        }
+        span.textContent = ch;
+        els.typingText.appendChild(span);
+      }
+    }
+
+    function updateStatsUI() {
+      const stats = calculateStats();
+      const timeText = `${state.elapsed.toFixed(1)}s`;
+
+      els.topWpm.textContent = stats.wpm;
+      els.topAcc.textContent = `${stats.accuracy}%`;
+      els.topTime.textContent = timeText;
+
+      els.metricWpm.textContent = stats.wpm;
+      els.metricAcc.textContent = `${stats.accuracy}%`;
+      els.metricTime.textContent = timeText;
+
+      els.progressText.textContent = state.timedMode
+        ? `Time ${(Math.max(0, state.timeLimit - state.elapsed)).toFixed(1)}s remaining`
+        : `Progress ${stats.progress}%`;
+
+      const railPercent = state.timedMode
+        ? Math.max(0, Math.min(100, (state.elapsed / state.timeLimit) * 100))
+        : stats.progress;
+
+      if (els.timeRailFill) {
+        els.timeRailFill.style.height = `${railPercent}%`;
+        els.timeRailFill.style.opacity = state.timedMode ? '1' : '0.7';
+      }
+
+      if (state.finished) {
+        els.resultBox.classList.add('show');
+        els.resultWpm.textContent = stats.wpm;
+        els.resultAcc.textContent = `${stats.accuracy}%`;
+        els.resultTime.textContent = timeText;
+      } else {
+        els.resultBox.classList.remove('show');
+      }
+    }
+
+    function updateStatus() {
+      const country = selectedCountry();
+      els.languageText.textContent = `${country.flag} ${country.language} • ${state.timedMode ? 'Timed mode' : 'AI Learning story mode'}`;
+    }
+
+    function stopTimer() {
+      if (state.timer) {
+        clearInterval(state.timer);
+        state.timer = null;
+      }
+    }
+
+    function startTimer() {
+      if (state.timer || state.finished) return;
+      state.startedAt = Date.now();
+      state.timer = setInterval(() => {
+        state.elapsed = (Date.now() - state.startedAt) / 1000;
+        if (state.timedMode && state.elapsed >= state.timeLimit) {
+          state.elapsed = state.timeLimit;
+          state.finished = true;
+          stopTimer();
+        }
+        updateStatsUI();
+      }, 100);
+    }
+
+    function resetTest(makeNewPassage = false) {
+      stopTimer();
+      state.typed = '';
+      state.startedAt = null;
+      state.elapsed = 0;
+      state.finished = false;
+
+      if (makeNewPassage || !state.passage) {
+        state.passage = buildPassage();
+      }
+
+      els.typingInput.value = '';
+      renderPassage();
+      updateStatsUI();
+      updateStatus();
+      requestAnimationFrame(() => els.typingInput.focus());
+    }
+
     function handleInput(event) {
       if (state.finished) return;
+      const value = event.target.value;
+      if (!state.startedAt && value.length > 0) startTimer();
 
-      if (!state.startedAt && event.target.value.length > 0) {
-        startTimer();
+      state.typed = value;
+      renderPassage();
+
+      if (!state.timedMode && state.typed === state.passage && state.passage.length > 0) {
+        state.finished = true;
+        stopTimer();
       }
 
-      state.typed = event.target.value;
-      let currentChunk = state.chunks[state.chunkIndex] || '';
-
-      while (currentChunk && state.typed.length >= currentChunk.length) {
-        const typedForChunk = state.typed.slice(0, currentChunk.length);
-
-        if (typedForChunk === currentChunk) {
-          const remainder = state.typed.slice(currentChunk.length);
-          moveToNextChunk(remainder);
-          currentChunk = state.chunks[state.chunkIndex] || '';
-        } else {
-          break;
-        }
-      }
-
-      renderCurrentChunk();
       updateStatsUI();
     }
 
     els.generateBtn.addEventListener('click', () => resetTest(true));
-    els.restartBtn.addEventListener('click', () => resetTest(false));
     els.typingInput.addEventListener('input', handleInput);
-    els.previousLine.addEventListener('click', () => els.typingInput.focus());
-    els.currentLine.addEventListener('click', () => els.typingInput.focus());
-    els.nextLine.addEventListener('click', () => els.typingInput.focus());
+    els.typingText.addEventListener('click', () => els.typingInput.focus());
 
     renderFlags();
     renderSelectedCountry();
