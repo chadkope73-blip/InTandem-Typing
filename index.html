@@ -215,15 +215,14 @@
     }
 
     .flag-wrap,
-    .genre-wrap,
-    .mode-wrap {
+    .genre-wrap {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
       align-items: center;
     }
 
-    .flag-btn, .genre-btn, .mode-btn, .action-btn {
+    .flag-btn, .genre-btn, .action-btn {
       appearance: none;
       border: 1px solid var(--line-soft);
       background: rgba(61, 53, 93, 0.34);
@@ -234,8 +233,8 @@
       font: inherit;
     }
 
-    .flag-btn:hover, .genre-btn:hover, .mode-btn:hover, .action-btn:hover,
-    .flag-btn:focus-visible, .genre-btn:focus-visible, .mode-btn:focus-visible, .action-btn:focus-visible {
+    .flag-btn:hover, .genre-btn:hover, .action-btn:hover,
+    .flag-btn:focus-visible, .genre-btn:focus-visible, .action-btn:focus-visible {
       outline: none;
       transform: translateY(-1px);
       border-color: var(--line);
@@ -256,8 +255,7 @@
     .flag-btn.featured { font-size: 1.45rem; min-width: 58px; }
 
     .flag-btn.active,
-    .genre-btn.active,
-    .mode-btn.active {
+    .genre-btn.active {
       color: var(--accent);
       border-color: rgba(209, 160, 75, 0.46);
       background: rgba(209, 160, 75, 0.12);
@@ -292,8 +290,7 @@
       flex: 1 1 auto;
     }
 
-    .genre-btn,
-    .mode-btn {
+    .genre-btn {
       border-radius: 14px;
       padding: 10px 14px;
       font-weight: 600;
@@ -363,6 +360,8 @@
 
     .typing-text {
       min-height: 280px;
+      max-height: 360px;
+      overflow-y: auto;
       font-size: clamp(1.3rem, 2vw, 1.7rem);
       line-height: 1.88;
       letter-spacing: 0.01em;
@@ -370,7 +369,27 @@
       cursor: text;
       white-space: pre-wrap;
       word-break: break-word;
-      padding-right: 24px;
+      padding-right: 18px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(209,160,75,0.65) rgba(110,168,168,0.12);
+    }
+
+    .typing-text::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    .typing-text::-webkit-scrollbar-track {
+      background: rgba(110,168,168,0.12);
+      border-radius: 999px;
+    }
+
+    .typing-text::-webkit-scrollbar-thumb {
+      background: rgba(209,160,75,0.72);
+      border-radius: 999px;
+    }
+
+    .typing-text::-webkit-scrollbar-thumb:hover {
+      background: rgba(209,160,75,0.9);
     }
 
     .char.pending { color: var(--pending); }
@@ -381,29 +400,6 @@
     }
 
     .input-wrap { margin-top: 14px; }
-
-    .typing-input {
-      width: 100%;
-      min-height: 140px;
-      resize: vertical;
-      border: 1px solid var(--line);
-      border-radius: var(--radius-lg);
-      background: var(--bg-panel-strong);
-      color: var(--text-main);
-      padding: 16px 18px;
-      font: inherit;
-      font-size: 1rem;
-      line-height: 1.6;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
-    }
-
-    .typing-input::placeholder { color: var(--text-soft); }
-
-    .typing-input:focus {
-      outline: none;
-      border-color: rgba(209, 160, 75, 0.56);
-      box-shadow: 0 0 0 4px rgba(209,160,75,0.12);
-    }
 
     .time-rail {
       position: absolute;
@@ -426,6 +422,29 @@
       border-radius: 999px;
       background: linear-gradient(180deg, rgba(209,160,75,0.85), rgba(110,168,168,0.85));
       transition: height 100ms linear;
+    }
+
+    .typing-input {
+      width: 100%;
+      min-height: 140px;
+      resize: vertical;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: var(--bg-panel-strong);
+      color: var(--text-main);
+      padding: 16px 18px;
+      font: inherit;
+      font-size: 1rem;
+      line-height: 1.6;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
+    }
+
+    .typing-input::placeholder { color: var(--text-soft); }
+
+    .typing-input:focus {
+      outline: none;
+      border-color: rgba(209, 160, 75, 0.56);
+      box-shadow: 0 0 0 4px rgba(209,160,75,0.12);
     }
 
     .statusbar {
@@ -481,7 +500,7 @@
       .genre-bar { align-items: stretch; }
       .action-btn { width: 100%; }
       .statusbar { flex-direction: column; align-items: flex-start; }
-      .typing-text { min-height: 240px; }
+      .typing-text { min-height: 240px; max-height: 320px; }
     }
 
     @media (max-width: 560px) {
@@ -489,8 +508,12 @@
       .brand img { width: 48px; height: 48px; }
       .brand-title { font-size: 1.35rem; }
       .typing-shell, .metrics, .toolbar, .statusbar, .hero { padding: 14px; }
-      .typing-text { font-size: 1.16rem; line-height: 1.8; }
-      .time-rail { top: 14px; right: 10px; height: calc(100% - 28px); }
+      .typing-text { font-size: 1.16rem; line-height: 1.8; max-height: 300px; }
+      .time-rail {
+        top: 14px;
+        right: 10px;
+        height: calc(100% - 28px);
+      }
     }
   </style>
 </head>
@@ -518,10 +541,6 @@
           <div class="stat-label">ACC</div>
           <div class="stat-value" id="topAcc">100%</div>
         </div>
-        <div class="stat">
-          <div class="stat-label">TIME</div>
-          <div class="stat-value" id="topTime">0.0s</div>
-        </div>
       </div>
     </header>
 
@@ -539,13 +558,8 @@
       <div class="flag-wrap" id="flagWrap" aria-label="Country selector"></div>
       <div class="selected-country" id="selectedCountry"></div>
 
-      <div class="genre-bar" style="margin-bottom:10px;">
-        <div class="genre-group" id="genreWrap" aria-label="Genre selector"></div>
-        <div class="mode-wrap" id="modeWrap" aria-label="Mode selector"></div>
-      </div>
-
       <div class="genre-bar">
-        <div></div>
+        <div class="genre-group" id="genreWrap" aria-label="Genre selector"></div>
         <button class="action-btn" id="generateBtn" type="button">Generate New Passage</button>
       </div>
     </section>
@@ -560,10 +574,6 @@
         <div class="metric">
           <div class="label">Accuracy</div>
           <div class="value" id="metricAcc">100%</div>
-        </div>
-        <div class="metric">
-          <div class="label">Time</div>
-          <div class="value" id="metricTime">0.0s</div>
         </div>
       </div>
     </section>
@@ -596,10 +606,6 @@
           <div class="label">Accuracy</div>
           <div class="value" id="resultAcc">100%</div>
         </div>
-        <div class="metric">
-          <div class="label">Time</div>
-          <div class="value" id="resultTime">0.0s</div>
-        </div>
       </div>
     </section>
 
@@ -629,6 +635,10 @@
       { code: "au", name: "Australia", language: "English", flag: "🇦🇺" },
       { code: "nz", name: "New Zealand", language: "English", flag: "🇳🇿" }
     ];
+
+    const GENRE_BANK = {
+      aiLearning: { label: "AI Learning" }
+    };
 
     const STORY_VARIANTS = {
       english: [
@@ -729,7 +739,6 @@
       flagWrap: document.getElementById('flagWrap'),
       selectedCountry: document.getElementById('selectedCountry'),
       genreWrap: document.getElementById('genreWrap'),
-      modeWrap: document.getElementById('modeWrap'),
       generateBtn: document.getElementById('generateBtn'),
       typingText: document.getElementById('typingText'),
       typingInput: document.getElementById('typingInput'),
@@ -737,14 +746,11 @@
       languageText: document.getElementById('languageText'),
       topWpm: document.getElementById('topWpm'),
       topAcc: document.getElementById('topAcc'),
-      topTime: document.getElementById('topTime'),
       metricWpm: document.getElementById('metricWpm'),
       metricAcc: document.getElementById('metricAcc'),
-      metricTime: document.getElementById('metricTime'),
       resultBox: document.getElementById('resultBox'),
       resultWpm: document.getElementById('resultWpm'),
       resultAcc: document.getElementById('resultAcc'),
-      resultTime: document.getElementById('resultTime'),
       timeRailFill: document.getElementById('timeRailFill')
     };
 
@@ -756,19 +762,8 @@
       startedAt: null,
       elapsed: 0,
       timer: null,
-      finished: false,
-      timedMode: false,
-      timeLimit: 60
+      finished: false
     };
-
-    const GENRE_BANK = {
-      aiLearning: { label: "AI Learning" }
-    };
-
-    const MODES = [
-      { key: 'story', label: 'Story Mode' },
-      { key: 'timed', label: 'Timed 60s' }
-    ];
 
     function selectedCountry() {
       return COUNTRY_OPTIONS.find(country => country.code === state.countryCode) || COUNTRY_OPTIONS[0];
@@ -870,38 +865,24 @@
       });
     }
 
-    function renderModes() {
-      els.modeWrap.innerHTML = '';
-      MODES.forEach(mode => {
-        const button = document.createElement('button');
-        button.type = 'button';
-        const active = (mode.key === 'timed' && state.timedMode) || (mode.key === 'story' && !state.timedMode);
-        button.className = `mode-btn ${active ? 'active' : ''}`;
-        button.textContent = mode.label;
-        button.addEventListener('click', () => {
-          state.timedMode = mode.key === 'timed';
-          renderModes();
-          updateStatus();
-          resetTest(true);
-        });
-        els.modeWrap.appendChild(button);
-      });
-    }
-
     function renderPassage() {
       els.typingText.innerHTML = '';
       for (let i = 0; i < state.passage.length; i++) {
         const ch = state.passage[i];
+
         if (ch === '\n') {
           els.typingText.appendChild(document.createElement('br'));
           continue;
         }
+
         const span = document.createElement('span');
         span.className = 'char pending';
+
         const typedChar = state.typed[i];
         if (typedChar != null) {
           span.className = typedChar === ch ? 'char correct' : 'char incorrect';
         }
+
         span.textContent = ch;
         els.typingText.appendChild(span);
       }
@@ -909,34 +890,23 @@
 
     function updateStatsUI() {
       const stats = calculateStats();
-      const timeText = `${state.elapsed.toFixed(1)}s`;
 
       els.topWpm.textContent = stats.wpm;
       els.topAcc.textContent = `${stats.accuracy}%`;
-      els.topTime.textContent = timeText;
 
       els.metricWpm.textContent = stats.wpm;
       els.metricAcc.textContent = `${stats.accuracy}%`;
-      els.metricTime.textContent = timeText;
 
-      els.progressText.textContent = state.timedMode
-        ? `Time ${(Math.max(0, state.timeLimit - state.elapsed)).toFixed(1)}s remaining`
-        : `Progress ${stats.progress}%`;
-
-      const railPercent = state.timedMode
-        ? Math.max(0, Math.min(100, (state.elapsed / state.timeLimit) * 100))
-        : stats.progress;
+      els.progressText.textContent = `Progress ${stats.progress}%`;
 
       if (els.timeRailFill) {
-        els.timeRailFill.style.height = `${railPercent}%`;
-        els.timeRailFill.style.opacity = state.timedMode ? '1' : '0.7';
+        els.timeRailFill.style.height = `${stats.progress}%`;
       }
 
       if (state.finished) {
         els.resultBox.classList.add('show');
         els.resultWpm.textContent = stats.wpm;
         els.resultAcc.textContent = `${stats.accuracy}%`;
-        els.resultTime.textContent = timeText;
       } else {
         els.resultBox.classList.remove('show');
       }
@@ -944,7 +914,7 @@
 
     function updateStatus() {
       const country = selectedCountry();
-      els.languageText.textContent = `${country.flag} ${country.language} • ${state.timedMode ? 'Timed mode' : 'AI Learning story mode'}`;
+      els.languageText.textContent = `${country.flag} ${country.language} • AI Learning story mode`;
     }
 
     function stopTimer() {
@@ -959,11 +929,6 @@
       state.startedAt = Date.now();
       state.timer = setInterval(() => {
         state.elapsed = (Date.now() - state.startedAt) / 1000;
-        if (state.timedMode && state.elapsed >= state.timeLimit) {
-          state.elapsed = state.timeLimit;
-          state.finished = true;
-          stopTimer();
-        }
         updateStatsUI();
       }, 100);
     }
@@ -988,13 +953,14 @@
 
     function handleInput(event) {
       if (state.finished) return;
+
       const value = event.target.value;
       if (!state.startedAt && value.length > 0) startTimer();
 
       state.typed = value;
       renderPassage();
 
-      if (!state.timedMode && state.typed === state.passage && state.passage.length > 0) {
+      if (state.typed === state.passage && state.passage.length > 0) {
         state.finished = true;
         stopTimer();
       }
@@ -1009,7 +975,6 @@
     renderFlags();
     renderSelectedCountry();
     renderGenres();
-    renderModes();
     resetTest(true);
   </script>
 </body>
