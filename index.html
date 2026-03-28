@@ -8,18 +8,18 @@
   <style>
     :root {
       --bg-deep: #1f3f50;
-      --bg-panel: rgba(61, 53, 93, 0.62);
-      --bg-panel-strong: rgba(61, 53, 93, 0.82);
-      --line: rgba(110, 168, 168, 0.55);
-      --line-soft: rgba(110, 168, 168, 0.28);
+      --bg-panel: rgba(61, 53, 93, 0.68);
+      --bg-panel-strong: rgba(61, 53, 93, 0.84);
+      --line: rgba(110, 168, 168, 0.60);
+      --line-soft: rgba(110, 168, 168, 0.30);
       --text-main: #f2eee5;
-      --text-soft: #b8d2cf;
+      --text-soft: #c2d7d4;
       --accent: #d1a04b;
-      --accent-soft: rgba(209, 160, 75, 0.22);
-      --pending: rgba(184, 210, 207, 0.42);
+      --accent-soft: rgba(209, 160, 75, 0.20);
+      --pending: rgba(184, 210, 207, 0.44);
       --correct: #f2eee5;
       --incorrect: #f4c980;
-      --shadow: 0 18px 50px rgba(0, 0, 0, 0.22);
+      --shadow: 0 18px 50px rgba(0, 0, 0, 0.24);
       --radius-xl: 28px;
       --radius-lg: 20px;
       --radius-md: 14px;
@@ -31,38 +31,31 @@
       margin: 0;
       min-height: 100%;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background:
-        radial-gradient(circle at 18% 22%, rgba(184,210,207,0.18), transparent 18%),
-        radial-gradient(circle at 78% 18%, rgba(209,160,75,0.25), transparent 20%),
-        radial-gradient(circle at 78% 78%, rgba(130, 93, 145, 0.28), transparent 24%),
-        linear-gradient(135deg, #1f3f50 0%, #26485a 26%, #3d355d 56%, #6c4a63 78%, #7d643f 100%);
       color: var(--text-main);
+      background:
+        linear-gradient(rgba(15, 28, 45, 0.68), rgba(24, 31, 53, 0.78)),
+        radial-gradient(circle at 18% 22%, rgba(184,210,207,0.14), transparent 20%),
+        radial-gradient(circle at 78% 18%, rgba(209,160,75,0.18), transparent 22%),
+        radial-gradient(circle at 76% 78%, rgba(130,93,145,0.22), transparent 26%),
+        url("bizcard-bg.jpg"),
+        linear-gradient(135deg, #1f3f50 0%, #26485a 26%, #3d355d 56%, #6c4a63 78%, #7d643f 100%);
+      background-size: cover, auto, auto, auto, cover, cover;
+      background-position: center center, center, center, center, center center, center;
+      background-attachment: fixed, fixed, fixed, fixed, fixed, fixed;
     }
 
-    body::before,
-    body::after {
+    body::before {
       content: "";
       position: fixed;
       inset: 0;
       pointer-events: none;
       z-index: 0;
-    }
-
-    body::before {
-      opacity: 0.22;
-      background-image:
-        radial-gradient(circle at 12% 68%, rgba(255,255,255,0.08) 0 1px, transparent 1px),
-        radial-gradient(circle at 80% 20%, rgba(255,255,255,0.08) 0 1px, transparent 1px),
-        radial-gradient(circle at 74% 78%, rgba(255,255,255,0.06) 0 1px, transparent 1px);
-      background-size: 18px 18px, 22px 22px, 24px 24px;
-    }
-
-    body::after {
-      opacity: 0.18;
-      background-image:
-        repeating-radial-gradient(circle at 10% 50%, transparent 0 16px, rgba(255,255,255,0.06) 16px 17px, transparent 17px 34px),
-        repeating-radial-gradient(circle at 82% 28%, transparent 0 22px, rgba(255,255,255,0.05) 22px 23px, transparent 23px 42px);
-      mix-blend-mode: screen;
+      opacity: 0.12;
+      background:
+        radial-gradient(circle at 14% 70%, rgba(255,255,255,0.06) 0 1px, transparent 1px),
+        radial-gradient(circle at 80% 18%, rgba(255,255,255,0.05) 0 1px, transparent 1px),
+        radial-gradient(circle at 74% 82%, rgba(255,255,255,0.05) 0 1px, transparent 1px);
+      background-size: 22px 22px, 24px 24px, 26px 26px;
     }
 
     .topo {
@@ -70,9 +63,10 @@
       inset: 0;
       pointer-events: none;
       z-index: 0;
-      opacity: 0.22;
+      opacity: 0.32;
+      mix-blend-mode: screen;
       background-image:
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='1000' viewBox='0 0 1600 1000'%3E%3Cg fill='none' stroke='%23f2eee5' stroke-opacity='0.38' stroke-width='1.2'%3E%3Cpath d='M0 740 C160 680, 250 790, 390 720 S700 610, 860 690 S1210 820, 1600 720'/%3E%3Cpath d='M0 780 C170 720, 260 830, 400 760 S710 650, 870 730 S1230 860, 1600 760'/%3E%3Cpath d='M0 700 C150 640, 260 750, 400 680 S700 570, 860 650 S1210 780, 1600 680'/%3E%3Cpath d='M560 0 C650 110, 720 170, 840 150 S1060 70, 1180 140 S1400 270, 1600 180'/%3E%3Cpath d='M520 40 C620 150, 700 210, 820 190 S1050 110, 1160 180 S1380 310, 1600 220'/%3E%3Cpath d='M100 140 C220 100, 280 170, 360 140 S540 70, 620 120'/%3E%3C/g%3E%3C/svg%3E");
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='1000' viewBox='0 0 1600 1000'%3E%3Cg fill='none' stroke='%23f2eee5' stroke-opacity='0.52' stroke-width='1.35'%3E%3Cpath d='M0 740 C160 680, 250 790, 390 720 S700 610, 860 690 S1210 820, 1600 720'/%3E%3Cpath d='M0 780 C170 720, 260 830, 400 760 S710 650, 870 730 S1230 860, 1600 760'/%3E%3Cpath d='M0 700 C150 640, 260 750, 400 680 S700 570, 860 650 S1210 780, 1600 680'/%3E%3Cpath d='M560 0 C650 110, 720 170, 840 150 S1060 70, 1180 140 S1400 270, 1600 180'/%3E%3Cpath d='M520 40 C620 150, 700 210, 820 190 S1050 110, 1160 180 S1380 310, 1600 220'/%3E%3Cpath d='M100 140 C220 100, 280 170, 360 140 S540 70, 620 120'/%3E%3Cpath d='M940 520 C1020 470, 1120 560, 1210 520 S1390 470, 1490 510'/%3E%3Cpath d='M920 560 C1010 510, 1110 600, 1200 560 S1380 510, 1485 550'/%3E%3C/g%3E%3C/svg%3E");
       background-size: cover;
       background-position: center;
     }
@@ -90,8 +84,8 @@
       border: 1px solid var(--line);
       border-radius: var(--radius-xl);
       box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
     }
 
     .row {
@@ -200,7 +194,10 @@
       gap: 8px;
     }
 
-    .hero-copy strong { color: var(--accent); font-weight: 700; }
+    .hero-copy strong {
+      color: var(--accent);
+      font-weight: 700;
+    }
 
     .toolbar, .statusbar {
       padding: 14px 16px;
@@ -235,10 +232,10 @@
       min-width: max-content;
     }
 
-    select, .mode-btn, .genre-btn, .action-btn {
+    select, .mode-btn, .genre-btn, .action-btn, .beta-btn {
       appearance: none;
       border: 1px solid var(--line-soft);
-      background: rgba(61, 53, 93, 0.34);
+      background: rgba(61, 53, 93, 0.36);
       color: var(--text-soft);
       border-radius: 14px;
       font: inherit;
@@ -246,28 +243,29 @@
     }
 
     select {
-      min-width: 270px;
+      min-width: 290px;
       padding: 10px 14px;
       cursor: pointer;
     }
 
     select:focus,
-    .mode-btn:hover, .genre-btn:hover, .action-btn:hover,
-    .mode-btn:focus-visible, .genre-btn:focus-visible, .action-btn:focus-visible {
+    .mode-btn:hover, .genre-btn:hover, .action-btn:hover, .beta-btn:hover,
+    .mode-btn:focus-visible, .genre-btn:focus-visible, .action-btn:focus-visible, .beta-btn:focus-visible {
       outline: none;
       border-color: var(--line);
       color: var(--text-main);
       background: rgba(61, 53, 93, 0.58);
+      transform: translateY(-1px);
     }
 
-    .mode-wrap, .genre-wrap {
+    .mode-wrap, .genre-wrap, .utility-wrap {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
       align-items: center;
     }
 
-    .mode-btn, .genre-btn {
+    .mode-btn, .genre-btn, .beta-btn {
       padding: 10px 14px;
       font-weight: 600;
       cursor: pointer;
@@ -279,15 +277,6 @@
       border-color: rgba(209, 160, 75, 0.46);
       background: rgba(209, 160, 75, 0.12);
       box-shadow: inset 0 0 0 1px rgba(209,160,75,0.12);
-    }
-
-    .selected-country {
-      color: var(--text-soft);
-      font-size: 0.95rem;
-    }
-
-    .selected-country strong {
-      color: var(--text-main);
     }
 
     .action-btn {
@@ -304,7 +293,19 @@
     .action-btn:focus-visible {
       color: #1e2430;
       background: linear-gradient(180deg, #f7cb79, #e0aa54);
-      transform: translateY(-1px);
+    }
+
+    .beta-btn {
+      border-style: dashed;
+    }
+
+    .selected-country {
+      color: var(--text-soft);
+      font-size: 0.95rem;
+    }
+
+    .selected-country strong {
+      color: var(--text-main);
     }
 
     .metrics {
@@ -516,7 +517,7 @@
       <div class="brand">
         <img src="logo.png" alt="In Tandem ToolWorks logo" onerror="this.style.display='none'; document.getElementById('brandFallback').style.display='inline-block';" />
         <div id="brandFallback" style="display:none; width:58px; height:58px; border-radius:12px; background:rgba(209,160,75,0.15); border:1px solid rgba(209,160,75,0.35);"></div>
-        <div class="brand-text">
+        <div>
           <div class="brand-title"><span class="accent">InTandem</span> Typing</div>
           <div class="brand-subtitle">Learning tools for the field.</div>
           <a class="back-link" href="https://navgenie.ittworks.com">← Back to Navgenie</a>
@@ -539,7 +540,7 @@
       <div class="hero-copy">
         <strong>Learn about AI while reading and typing.</strong>
         <div>Human-developed, AI-assisted online learning tool built by InTandem ToolWorks using OpenAI and Meta Llama technologies.</div>
-        <div>Built for learners, builders, students, and modern makers.</div>
+        <div>Current version uses a curated passage library for reliable public access, with on-device AI generation planned as an optional browser-side feature.</div>
       </div>
     </section>
 
@@ -550,7 +551,10 @@
             <div class="toolbar-label">Country / Language</div>
             <select id="countrySelect" aria-label="Country and language"></select>
           </div>
-          <button class="action-btn" id="generateBtn" type="button">Generate New Passage</button>
+          <div class="utility-wrap">
+            <button class="beta-btn" id="deviceAiBtn" type="button">Generate on This Device (Beta)</button>
+            <button class="action-btn" id="generateBtn" type="button">Generate New Passage</button>
+          </div>
         </div>
 
         <div class="selected-country" id="selectedCountry"></div>
@@ -565,7 +569,7 @@
         <div class="toolbar-line">
           <div class="toolbar-group">
             <div class="toolbar-label">Topic</div>
-            <div class="genre-wrap" id="genreWrap" aria-label="Genre selector"></div>
+            <div class="genre-wrap" id="genreWrap" aria-label="Topic selector"></div>
           </div>
         </div>
       </div>
@@ -616,50 +620,50 @@
       </div>
     </section>
 
-    <div class="footer-note">Built for the InTandem ToolWorks chain • topo-inspired palette • hopeful future-facing tone</div>
+    <div class="footer-note">Built for the InTandem ToolWorks chain • topo-inspired field aesthetic • practical AI learning</div>
   </main>
 
   <script>
     const COUNTRY_OPTIONS = [
-      { code: "us", name: "United States", language: "English", flag: "🇺🇸" },
-      { code: "al", name: "Albania", language: "Albanian" },
-      { code: "be", name: "Belgium", language: "Dutch / French / German" },
-      { code: "bg", name: "Bulgaria", language: "Bulgarian" },
-      { code: "ca", name: "Canada", language: "English / French" },
-      { code: "hr", name: "Croatia", language: "Croatian" },
-      { code: "cz", name: "Czech Republic", language: "Czech" },
-      { code: "dk", name: "Denmark", language: "Danish" },
-      { code: "ee", name: "Estonia", language: "Estonian" },
-      { code: "fi", name: "Finland", language: "Finnish" },
-      { code: "fr", name: "France", language: "French" },
-      { code: "de", name: "Germany", language: "German" },
-      { code: "gr", name: "Greece", language: "Greek" },
-      { code: "hu", name: "Hungary", language: "Hungarian" },
-      { code: "is", name: "Iceland", language: "Icelandic" },
-      { code: "it", name: "Italy", language: "Italian" },
-      { code: "lv", name: "Latvia", language: "Latvian" },
-      { code: "lt", name: "Lithuania", language: "Lithuanian" },
-      { code: "lu", name: "Luxembourg", language: "Luxembourgish / French / German" },
-      { code: "me", name: "Montenegro", language: "Montenegrin" },
-      { code: "nl", name: "Netherlands", language: "Dutch" },
-      { code: "mk", name: "North Macedonia", language: "Macedonian" },
-      { code: "no", name: "Norway", language: "Norwegian" },
-      { code: "pl", name: "Poland", language: "Polish" },
-      { code: "pt", name: "Portugal", language: "Portuguese" },
-      { code: "ro", name: "Romania", language: "Romanian" },
-      { code: "sk", name: "Slovakia", language: "Slovak" },
-      { code: "si", name: "Slovenia", language: "Slovene" },
-      { code: "es", name: "Spain", language: "Spanish" },
-      { code: "se", name: "Sweden", language: "Swedish" },
-      { code: "tr", name: "Turkey", language: "Turkish" },
-      { code: "gb", name: "United Kingdom", language: "English" },
-      { code: "au", name: "Australia", language: "English" },
-      { code: "il", name: "Israel", language: "Hebrew" },
-      { code: "jp", name: "Japan", language: "Japanese" },
-      { code: "nz", name: "New Zealand", language: "English" },
-      { code: "ph", name: "Philippines", language: "English / Filipino" },
-      { code: "kr", name: "South Korea", language: "Korean" },
-      { code: "th", name: "Thailand", language: "Thai" }
+      { code: "us", name: "United States", language: "English", flag: "🇺🇸", group: "english" },
+      { code: "al", name: "Albania", language: "Albanian", flag: "🇦🇱", group: "english" },
+      { code: "be", name: "Belgium", language: "French / Dutch / German", flag: "🇧🇪", group: "french" },
+      { code: "bg", name: "Bulgaria", language: "Bulgarian", flag: "🇧🇬", group: "english" },
+      { code: "ca", name: "Canada", language: "English / French", flag: "🇨🇦", group: "english" },
+      { code: "hr", name: "Croatia", language: "Croatian", flag: "🇭🇷", group: "english" },
+      { code: "cz", name: "Czech Republic", language: "Czech", flag: "🇨🇿", group: "english" },
+      { code: "dk", name: "Denmark", language: "Danish", flag: "🇩🇰", group: "english" },
+      { code: "ee", name: "Estonia", language: "Estonian", flag: "🇪🇪", group: "english" },
+      { code: "fi", name: "Finland", language: "Finnish", flag: "🇫🇮", group: "english" },
+      { code: "fr", name: "France", language: "French", flag: "🇫🇷", group: "french" },
+      { code: "de", name: "Germany", language: "German", flag: "🇩🇪", group: "german" },
+      { code: "gr", name: "Greece", language: "Greek", flag: "🇬🇷", group: "english" },
+      { code: "hu", name: "Hungary", language: "Hungarian", flag: "🇭🇺", group: "english" },
+      { code: "is", name: "Iceland", language: "Icelandic", flag: "🇮🇸", group: "english" },
+      { code: "it", name: "Italy", language: "Italian", flag: "🇮🇹", group: "italian" },
+      { code: "lv", name: "Latvia", language: "Latvian", flag: "🇱🇻", group: "english" },
+      { code: "lt", name: "Lithuania", language: "Lithuanian", flag: "🇱🇹", group: "english" },
+      { code: "lu", name: "Luxembourg", language: "French / German / Luxembourgish", flag: "🇱🇺", group: "french" },
+      { code: "me", name: "Montenegro", language: "Montenegrin", flag: "🇲🇪", group: "english" },
+      { code: "nl", name: "Netherlands", language: "Dutch", flag: "🇳🇱", group: "english" },
+      { code: "mk", name: "North Macedonia", language: "Macedonian", flag: "🇲🇰", group: "english" },
+      { code: "no", name: "Norway", language: "Norwegian", flag: "🇳🇴", group: "english" },
+      { code: "pl", name: "Poland", language: "Polish", flag: "🇵🇱", group: "english" },
+      { code: "pt", name: "Portugal", language: "Portuguese", flag: "🇵🇹", group: "portuguese" },
+      { code: "ro", name: "Romania", language: "Romanian", flag: "🇷🇴", group: "english" },
+      { code: "sk", name: "Slovakia", language: "Slovak", flag: "🇸🇰", group: "english" },
+      { code: "si", name: "Slovenia", language: "Slovene", flag: "🇸🇮", group: "english" },
+      { code: "es", name: "Spain", language: "Spanish", flag: "🇪🇸", group: "spanish" },
+      { code: "se", name: "Sweden", language: "Swedish", flag: "🇸🇪", group: "english" },
+      { code: "tr", name: "Turkey", language: "Turkish", flag: "🇹🇷", group: "english" },
+      { code: "gb", name: "United Kingdom", language: "English", flag: "🇬🇧", group: "english" },
+      { code: "au", name: "Australia", language: "English", flag: "🇦🇺", group: "english" },
+      { code: "il", name: "Israel", language: "Hebrew", flag: "🇮🇱", group: "english" },
+      { code: "jp", name: "Japan", language: "Japanese", flag: "🇯🇵", group: "english" },
+      { code: "nz", name: "New Zealand", language: "English", flag: "🇳🇿", group: "english" },
+      { code: "ph", name: "Philippines", language: "English / Filipino", flag: "🇵🇭", group: "english" },
+      { code: "kr", name: "South Korea", language: "Korean", flag: "🇰🇷", group: "english" },
+      { code: "th", name: "Thailand", language: "Thai", flag: "🇹🇭", group: "english" }
     ];
 
     const MODE_OPTIONS = [
@@ -672,12 +676,93 @@
       aiLearning: { label: "AI Learning" }
     };
 
+    const PASSAGES = {
+      english: {
+        short: [
+          "A student on a quiet overnight train learned that AI is most useful when it helps people ask better questions. The model could explain concepts, compare ideas, and summarize difficult material, but the human still set the direction. That was the real lesson: safe collaboration with AI begins when people stay responsible for judgment, goals, and outcomes.",
+
+          "In a small workshop at the edge of town, a builder discovered that AI was not magic but a useful tool for drafting plans, testing options, and learning faster. The system could move quickly, yet speed alone was not wisdom. Progress came from combining machine assistance with human discipline, curiosity, and clear intent.",
+
+          "An instructor told her class that AI should be treated like a capable assistant, not a replacement for thought. It could help organize information, explain new topics, and create first drafts, but every answer still needed review. Once the class understood that balance, the technology felt less threatening and more practical."
+        ],
+        medium: [
+          "Beyond the station windows, a violet horizon turned slowly beneath the research deck while a graduate student worked through her notes on artificial intelligence. At first she had treated AI like an unknowable force, something that either solved everything or threatened everything. The deeper she studied, the more ordinary and powerful it became. AI was not a mystical mind in a machine. It was a system shaped by data, prompts, constraints, and human intention.\n\nOnce that clicked, the work changed. She began using AI to summarize dense material, explain difficult terms, and compare competing ideas without losing momentum between questions. It saved time, but it did not replace judgment. The quality of the results still depended on the clarity of the task, the quality of the review, and the willingness to correct mistakes. Safe collaboration meant keeping the human role active, not passive.\n\nBy the end of the shift, the student understood why the future would belong to people who could work with intelligent tools without surrendering their own thinking. AI could extend reach, speed, and iteration. Human beings still had to supply ethics, direction, and purpose. That was not a disappointment. It was the whole point.",
+
+          "At the edge of an old digital archive, a builder found a terminal full of training notes, prompt experiments, and design sketches for practical AI systems. What interested him most was not the hype but the pattern. Everywhere he looked, the strongest results came from people who treated AI like a working partner. They gave it structure, reviewed its output, and used it to move from rough idea to usable draft faster than they could alone.\n\nHe realized that many fears about AI came from misunderstanding the relationship. People imagined either total replacement or total failure, when the reality was more useful. AI could help a student study, help a mechanic learn a new workflow, help a founder draft copy, or help a researcher organize large amounts of information. It was a multiplier, not a moral agent. The person still had to choose what mattered.\n\nThat was why AI literacy mattered. The competitive future would not belong only to the richest organizations. It would also belong to people who learned how to work with tools intelligently, responsibly, and with purpose. The machine could accelerate effort. It could not decide what kind of future was worth building."
+        ],
+        long: [
+          "On the long route between two mountain cities, a group of adult learners gathered in a rail car that had been turned into a mobile classroom. Their teacher began the session with a simple question: what makes collaboration with AI safe and useful? At first the answers came out in extremes. Some thought AI was basically magic in a polished interface. Others thought it was an unstable shortcut that only created confusion. The instructor let the debate breathe before narrowing the focus. AI, she explained, is most useful when people understand what it is good at, where it can fail, and how to remain responsible for what comes next.\n\nThat shifted the tone of the room. The students stopped arguing about fear in the abstract and started talking about real tasks. Could AI explain a technical concept in simpler language? Yes. Could it compare options, summarize a report, or generate a first draft? Yes. Could it replace judgment, ethics, and local context? No. The class learned that good prompts create better outputs, but verification still matters. They learned that strong results come from iteration, not blind trust. They learned that AI can help people move faster, but only if people remain active in the loop.\n\nOne student who worked in the trades described how useful it would be to learn new systems faster without being buried in manuals. Another talked about using AI to organize research for returning to school. A third saw how it could support public learning tools that narrowed the distance between complex technology and ordinary people. The instructor smiled because that was the real lesson hiding underneath the exercises. AI was not only a technical subject. It was a workforce subject, an access subject, and a future-readiness subject.\n\nBy the time the train reached the next station, the learners had moved past hype and into capability. They understood that the future would favor people who could collaborate with AI practically, responsibly, and without losing their own agency. The machine could accelerate drafting, search, summarization, and comparison. Human beings still had to decide what was true, what was useful, and what should be built. Once that relationship became clear, the technology stopped feeling like a threat from nowhere and started feeling like a tool that could be used with discipline, purpose, and hope."
+        ]
+      },
+
+      french: {
+        short: [
+          "Un étudiant a compris que l’IA devient utile quand l’être humain garde la direction. Elle peut expliquer, résumer et organiser, mais le jugement reste humain. C’est ainsi que la collaboration avec l’IA devient sûre et réellement pratique."
+        ],
+        medium: [
+          "Au-delà des vitres de la station, un étudiant relisait ses notes sur l’intelligence artificielle. Au début, l’IA lui semblait mystérieuse, presque magique. En étudiant davantage, il a compris qu’il s’agissait surtout d’un outil façonné par les données, les consignes et l’intention humaine.\n\nIl a commencé à l’utiliser pour résumer des textes difficiles, comparer des idées et clarifier certains concepts. Pourtant, il a vite vu que la rapidité n’était pas la même chose que la vérité. Les meilleurs résultats venaient de la vérification, de la révision et d’un jugement humain actif.\n\nÀ la fin, la leçon était claire. L’avenir appartiendra aux personnes capables de collaborer avec l’IA sans abandonner leur propre réflexion. L’outil peut accélérer le travail. L’humain doit encore définir le but, la qualité et la responsabilité."
+        ],
+        long: [
+          "Dans une salle d’étude silencieuse, un groupe d’apprenants adultes discutait de l’intelligence artificielle et de son rôle dans leur avenir professionnel. Beaucoup avaient entendu parler de peur, d’automatisation et de remplacement, mais peu avaient appris à collaborer avec l’outil de manière concrète. Leur formateur a commencé simplement: l’IA peut soutenir l’apprentissage, la rédaction, l’organisation d’informations et la comparaison d’idées, mais elle ne remplace ni la responsabilité ni le jugement.\n\nAu fil de la séance, les participants ont découvert qu’une bonne collaboration avec l’IA dépendait de plusieurs choses: des consignes claires, des objectifs précis, une relecture attentive et la capacité de corriger les erreurs. L’outil pouvait faire gagner du temps, mais il ne décidait pas à leur place. Cette différence était essentielle. L’IA pouvait accélérer l’effort. Elle ne définissait pas ce qui comptait réellement.\n\nÀ mesure que leur compréhension grandissait, la peur reculait. Les participants commençaient à voir comment l’IA pouvait les aider à apprendre plus vite, à mieux communiquer et à rester utiles dans un monde qui change. Ils ne quittaient pas la salle avec des réponses parfaites. Ils repartaient avec quelque chose de plus important: une méthode. Collaborer avec l’IA de manière sûre, humaine et responsable devenait une compétence d’avenir."
+        ]
+      },
+
+      german: {
+        short: [
+          "Ein Student erkannte, dass KI dann am nützlichsten ist, wenn der Mensch die Richtung vorgibt. Sie kann erklären, ordnen und zusammenfassen, aber Urteil und Verantwortung bleiben menschlich. So wird Zusammenarbeit mit KI sicher und praktisch."
+        ],
+        medium: [
+          "Hinter dem Glas der Station las ein Student seine Notizen über künstliche Intelligenz. Anfangs wirkte KI auf ihn geheimnisvoll und schwer greifbar. Mit der Zeit verstand er jedoch, dass sie vor allem ein Werkzeug ist, das durch Daten, Vorgaben und menschliche Absicht geformt wird.\n\nEr begann, sie zu nutzen, um schwierige Inhalte zusammenzufassen, Ideen zu vergleichen und neue Themen schneller zu verstehen. Gleichzeitig lernte er, dass Geschwindigkeit nicht dasselbe ist wie Verlässlichkeit. Gute Ergebnisse brauchten weiterhin Prüfung, Korrektur und menschliches Denken.\n\nAm Ende war die wichtigste Erkenntnis klar. Die Zukunft gehört Menschen, die mit KI arbeiten können, ohne ihre eigene Verantwortung aufzugeben. Die Maschine kann Tempo liefern. Der Mensch muss weiterhin Zweck, Qualität und Richtung bestimmen."
+        ],
+        long: [
+          "In einem mobilen Lernraum diskutierte eine Gruppe erwachsener Lernender über künstliche Intelligenz und berufliche Zukunft. Viele hatten von Automatisierung und Unsicherheit gehört, aber nur wenige hatten geübt, wie man mit KI praktisch zusammenarbeitet. Die Kursleitung erklärte früh, dass KI besonders hilfreich sein kann, wenn Menschen verstehen, was sie kann und wo ihre Grenzen liegen.\n\nIm Verlauf der Arbeit merkten die Teilnehmenden, dass gute Ergebnisse nicht aus blindem Vertrauen entstehen. Sie entstehen aus klaren Anweisungen, Überprüfung, Korrektur und bewusstem Einsatz. KI konnte helfen, Informationen zu ordnen, schwierige Themen zu erklären und erste Entwürfe zu erstellen. Doch sie ersetzte weder Urteil noch Verantwortung. Die eigentlichen Entscheidungen blieben beim Menschen.\n\nDiese Einsicht veränderte den Blick auf die Technologie. Sie wirkte weniger wie eine Bedrohung und mehr wie ein Werkzeug, mit dem man lernen, arbeiten und sich weiterentwickeln kann. Wer mit KI verantwortungsvoll umgehen kann, gewinnt nicht nur Geschwindigkeit. Er gewinnt die Fähigkeit, in einer sich wandelnden Welt handlungsfähig zu bleiben. Genau darin lag der eigentliche Wert."
+        ]
+      },
+
+      italian: {
+        short: [
+          "Uno studente ha capito che l’IA è utile quando la persona mantiene la direzione. Può spiegare, riassumere e organizzare, ma il giudizio resta umano. Così la collaborazione con l’IA diventa sicura e concreta."
+        ],
+        medium: [
+          "Oltre il vetro della stazione, uno studente rileggeva i suoi appunti sull’intelligenza artificiale. All’inizio l’IA gli sembrava qualcosa di misterioso. Studiando meglio, comprese che si trattava soprattutto di uno strumento modellato da dati, istruzioni e intenzione umana.\n\nCominciò a usarla per riassumere testi difficili, confrontare idee e comprendere più in fretta nuovi argomenti. Tuttavia capì presto che velocità e qualità non sono la stessa cosa. I risultati migliori richiedevano sempre controllo, revisione e giudizio umano.\n\nAlla fine la lezione era chiara. Il futuro favorirà chi saprà collaborare con l’IA senza rinunciare al proprio pensiero. La macchina può accelerare il lavoro. La persona deve ancora definire lo scopo, la qualità e la responsabilità."
+        ],
+        long: [
+          "In una sala studio itinerante, un gruppo di adulti parlava di intelligenza artificiale e delle competenze necessarie per il futuro. Molti conoscevano le paure legate all’automazione, ma pochi avevano imparato a usare l’IA in modo pratico e responsabile. Il formatore iniziò con un punto semplice: l’IA può aiutare a imparare, scrivere, organizzare informazioni e confrontare opzioni, ma non sostituisce la responsabilità umana.\n\nDurante la lezione, i partecipanti scoprirono che una buona collaborazione con l’IA dipende da istruzioni chiare, obiettivi precisi e verifica attenta. L’IA poteva accelerare la ricerca, sintetizzare contenuti e offrire prime bozze utili, ma non decideva cosa fosse giusto o importante. Quel compito restava alle persone. Questa distinzione dava equilibrio all’intero processo.\n\nCon il tempo, la tecnologia appariva meno come una minaccia e più come un supporto concreto. I partecipanti capivano che imparare a collaborare con l’IA significava restare capaci, adattabili e utili in un mondo che cambia. Non si trattava di cedere controllo alla macchina, ma di usare uno strumento potente con disciplina, senso pratico e intenzione."
+        ]
+      },
+
+      spanish: {
+        short: [
+          "Un estudiante entendió que la IA es más útil cuando la persona mantiene la dirección. Puede explicar, resumir y organizar, pero el juicio sigue siendo humano. Así la colaboración con la IA se vuelve segura y útil."
+        ],
+        medium: [
+          "Más allá del cristal de la estación, un estudiante repasaba sus apuntes sobre inteligencia artificial. Al principio la IA parecía algo misterioso. Con más estudio comprendió que era, sobre todo, una herramienta moldeada por datos, instrucciones y propósito humano.\n\nEmpezó a usarla para resumir textos difíciles, comparar ideas y entender temas nuevos con mayor rapidez. Aun así, descubrió que velocidad no es lo mismo que calidad. Los mejores resultados seguían dependiendo de revisión, verificación y criterio humano.\n\nAl final la lección fue clara. El futuro favorecerá a quienes aprendan a colaborar con la IA sin renunciar a su propio pensamiento. La máquina puede acelerar el trabajo. La persona todavía define el propósito, la calidad y la responsabilidad."
+        ],
+        long: [
+          "En un aula móvil, un grupo de adultos hablaba sobre inteligencia artificial y preparación para el futuro. Muchos conocían los temores sobre automatización, pero pocos habían practicado cómo usar la IA de manera responsable y útil. La instructora comenzó con una idea sencilla: la IA puede apoyar el aprendizaje, la escritura, la organización de información y la comparación de opciones, pero no reemplaza el juicio humano.\n\nA medida que avanzó la clase, los participantes vieron que la buena colaboración con la IA depende de instrucciones claras, metas concretas y una revisión atenta. La herramienta podía ahorrar tiempo, generar borradores y resumir información compleja, pero no decidía qué era correcto o importante. Ese papel seguía siendo humano. Comprender esa diferencia hacía que la tecnología fuera más manejable y menos intimidante.\n\nAl final, los estudiantes salieron con una visión más práctica. La IA no era algo para admirar ciegamente ni para temer sin pensar. Era una herramienta poderosa que, usada con disciplina y responsabilidad, podía ayudar a las personas a seguir siendo capaces, útiles y competitivas en un mundo cambiante."
+        ]
+      },
+
+      portuguese: {
+        short: [
+          "Um estudante percebeu que a IA é mais útil quando a pessoa mantém a direção. Ela pode explicar, resumir e organizar, mas o julgamento continua humano. Assim a colaboração com a IA se torna segura e prática."
+        ],
+        medium: [
+          "Além do vidro da estação, um estudante revisava suas anotações sobre inteligência artificial. No início, a IA parecia algo misterioso. Com mais estudo, ele entendeu que era principalmente uma ferramenta moldada por dados, instruções e intenção humana.\n\nEle começou a usá-la para resumir textos difíceis, comparar ideias e compreender assuntos novos com mais rapidez. Mesmo assim, percebeu que velocidade não é o mesmo que qualidade. Os melhores resultados ainda dependiam de revisão, verificação e julgamento humano.\n\nNo fim, a lição ficou clara. O futuro favorece quem aprende a colaborar com a IA sem abrir mão do próprio pensamento. A máquina pode acelerar o trabalho. A pessoa ainda define o propósito, a qualidade e a responsabilidade."
+        ],
+        long: [
+          "Em uma sala de estudo itinerante, um grupo de adultos discutia inteligência artificial e preparação para o futuro. Muitos já tinham ouvido falar de automação e medo de substituição, mas poucos haviam aprendido a trabalhar com a IA de forma prática. O instrutor começou com uma ideia simples: a IA pode ajudar no aprendizado, na escrita, na organização de informações e na comparação de opções, mas não substitui a responsabilidade humana.\n\nAo longo da sessão, os participantes perceberam que bons resultados vinham de instruções claras, metas definidas e revisão cuidadosa. A ferramenta podia economizar tempo, produzir rascunhos e resumir conteúdos complexos, mas não decidia sozinha o que era correto ou importante. Essa parte ainda cabia às pessoas. Com isso, a tecnologia deixou de parecer distante e passou a parecer utilizável.\n\nNo fim, todos saíram com uma visão mais equilibrada. A IA não precisava ser vista como ameaça inevitável nem como solução mágica. Era um instrumento poderoso que, usado com disciplina, poderia ajudar pessoas a permanecerem capazes, adaptáveis e competitivas em um mundo em transformação."
+        ]
+      }
+    };
+
     const els = {
       countrySelect: document.getElementById("countrySelect"),
       selectedCountry: document.getElementById("selectedCountry"),
       genreWrap: document.getElementById("genreWrap"),
       modeWrap: document.getElementById("modeWrap"),
       generateBtn: document.getElementById("generateBtn"),
+      deviceAiBtn: document.getElementById("deviceAiBtn"),
       typingText: document.getElementById("typingText"),
       typingInput: document.getElementById("typingInput"),
       progressText: document.getElementById("progressText"),
@@ -703,7 +788,7 @@
       elapsed: 0,
       timer: null,
       finished: false,
-      abortController: null
+      lastPassageIndexByPool: {}
     };
 
     function selectedCountry() {
@@ -712,6 +797,40 @@
 
     function selectedMode() {
       return MODE_OPTIONS.find(mode => mode.key === state.modeKey) || MODE_OPTIONS[0];
+    }
+
+    function modeLengthKey() {
+      if (state.modeKey === "1") return "short";
+      if (state.modeKey === "3") return "medium";
+      return "long";
+    }
+
+    function getPassageGroup() {
+      return selectedCountry().group || "english";
+    }
+
+    function getPassagePool() {
+      const group = getPassageGroup();
+      const length = modeLengthKey();
+      const languageSet = PASSAGES[group] || PASSAGES.english;
+      return languageSet[length] || PASSAGES.english[length];
+    }
+
+    function pickNonRepeatingIndex(length, key) {
+      if (length <= 1) return 0;
+      let next = 0;
+      do {
+        next = Math.floor(Math.random() * length);
+      } while (next === state.lastPassageIndexByPool[key]);
+      state.lastPassageIndexByPool[key] = next;
+      return next;
+    }
+
+    function buildPassage() {
+      const pool = getPassagePool();
+      const poolKey = `${getPassageGroup()}-${modeLengthKey()}`;
+      const index = pickNonRepeatingIndex(pool.length, poolKey);
+      return pool[index];
     }
 
     function calculateStats() {
@@ -731,7 +850,7 @@
       COUNTRY_OPTIONS.forEach(country => {
         const option = document.createElement("option");
         option.value = country.code;
-        option.textContent = `${country.name} — ${country.language}`;
+        option.textContent = `${country.flag} ${country.name} — ${country.language}`;
         if (country.code === state.countryCode) option.selected = true;
         els.countrySelect.appendChild(option);
       });
@@ -739,7 +858,7 @@
 
     function renderSelectedCountry() {
       const country = selectedCountry();
-      els.selectedCountry.innerHTML = `<strong>${country.flag || "🌐"} ${country.name}</strong> • ${country.language}`;
+      els.selectedCountry.innerHTML = `<strong>${country.flag} ${country.name}</strong> • ${country.language}`;
     }
 
     function renderGenres() {
@@ -780,10 +899,12 @@
       els.typingText.innerHTML = "";
       for (let i = 0; i < state.passage.length; i++) {
         const ch = state.passage[i];
+
         if (ch === "\n") {
           els.typingText.appendChild(document.createElement("br"));
           continue;
         }
+
         const span = document.createElement("span");
         span.className = "char pending";
         const typedChar = state.typed[i];
@@ -797,10 +918,10 @@
     }
 
     function scrollCurrentCharIntoView() {
-      const currentIndex = state.typed.length;
       const spans = els.typingText.querySelectorAll("span");
       if (!spans.length) return;
-      const target = spans[Math.min(currentIndex, spans.length - 1)];
+      const currentIndex = Math.min(state.typed.length, spans.length - 1);
+      const target = spans[currentIndex];
       if (!target) return;
 
       const containerRect = els.typingText.getBoundingClientRect();
@@ -841,7 +962,7 @@
     function updateStatus() {
       const country = selectedCountry();
       const mode = selectedMode();
-      els.languageText.textContent = `${country.flag || "🌐"} ${country.name} — ${country.language} • AI Learning • ${mode.label}`;
+      els.languageText.textContent = `${country.flag} ${country.name} — ${country.language} • AI Learning • ${mode.label}`;
     }
 
     function stopTimer() {
@@ -856,47 +977,18 @@
       state.startedAt = Date.now() - (state.elapsed * 1000);
       state.timer = setInterval(() => {
         state.elapsed = (Date.now() - state.startedAt) / 1000;
+
         if (state.elapsed >= state.timeLimit) {
           state.elapsed = state.timeLimit;
           state.finished = true;
           stopTimer();
         }
+
         updateStatsUI();
       }, 100);
     }
 
-    async function fetchPassage() {
-      if (state.abortController) state.abortController.abort();
-      state.abortController = new AbortController();
-
-      const country = selectedCountry();
-      const mode = selectedMode();
-
-      const response = await fetch("/api/story", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        signal: state.abortController.signal,
-        body: JSON.stringify({
-          countryCode: state.countryCode,
-          countryName: country.name,
-          language: country.language,
-          topic: "AI Learning",
-          minutes: mode.seconds / 60
-        })
-      });
-
-      if (!response.ok) {
-        throw new Error("Story request failed");
-      }
-
-      const data = await response.json();
-      if (!data.story || typeof data.story !== "string") {
-        throw new Error("Invalid story response");
-      }
-      return data.story.trim();
-    }
-
-    async function resetTest(makeNewPassage = false) {
+    function resetTest(makeNewPassage = false) {
       stopTimer();
       state.typed = "";
       state.startedAt = null;
@@ -906,12 +998,7 @@
       els.typingInput.disabled = false;
 
       if (makeNewPassage || !state.passage) {
-        els.typingText.textContent = "Generating a new passage…";
-        try {
-          state.passage = await fetchPassage();
-        } catch (error) {
-          state.passage = "The story generator is unavailable right now. Please try again in a moment.";
-        }
+        state.passage = buildPassage();
       }
 
       renderPassage();
@@ -922,11 +1009,17 @@
 
     function handleInput(event) {
       if (state.finished) return;
+
       const value = event.target.value;
       if (!state.startedAt && value.length > 0) startTimer();
+
       state.typed = value;
       renderPassage();
       updateStatsUI();
+    }
+
+    function handleDeviceAiClick() {
+      alert("On-device AI Beta is planned for a future version. The current version uses a built-in rotating passage library to keep the app fast, stable, and free to run.");
     }
 
     els.countrySelect.addEventListener("change", () => {
@@ -937,6 +1030,7 @@
     });
 
     els.generateBtn.addEventListener("click", () => resetTest(true));
+    els.deviceAiBtn.addEventListener("click", handleDeviceAiClick);
     els.typingInput.addEventListener("input", handleInput);
     els.typingText.addEventListener("click", () => els.typingInput.focus());
 
