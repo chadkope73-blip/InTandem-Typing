@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>InTandem Typing</title>
   <meta name="description" content="InTandem Typing — learn about AI while reading and typing." />
-  
+
   <style>
     :root {
       --bg1: #1f3f50;
@@ -77,6 +77,18 @@
       background-position: center;
     }
 
+    #loadingScreen {
+      position: relative;
+      z-index: 2;
+      min-height: 100dvh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      color: var(--text);
+      text-align: center;
+      font-weight: 700;
+    }
+
     .app {
       position: relative;
       z-index: 1;
@@ -84,6 +96,7 @@
       margin: 0 auto;
       padding: 24px 0 36px;
       min-height: 100dvh;
+      display: none;
     }
 
     .panel {
@@ -103,7 +116,6 @@
       margin-bottom: 16px;
     }
 
-    /* --- BRANDING --- */
     .brand {
       display: flex;
       align-items: center;
@@ -121,7 +133,6 @@
       background: rgba(209,160,75,0.12);
       border: 1px solid rgba(209,160,75,0.35);
       box-shadow: 0 10px 24px rgba(0,0,0,0.18);
-      role: img;
     }
 
     .brand-title {
@@ -164,7 +175,6 @@
       transform: translateY(-1px);
     }
 
-    /* --- STATS --- */
     .stats {
       display: flex;
       gap: 24px;
@@ -195,7 +205,6 @@
       text-align: right;
     }
 
-    /* --- LAYOUT CONTAINERS --- */
     .hero,
     .toolbar,
     .statusbar,
@@ -219,7 +228,6 @@
       font-weight: 700;
     }
 
-    /* --- TOOLBAR --- */
     .toolbar-stack {
       display: grid;
       gap: 14px;
@@ -257,7 +265,6 @@
       align-items: center;
     }
 
-    /* BUTTON STYLING */
     .mode-btn,
     .topic-btn,
     .action-btn {
@@ -317,7 +324,6 @@
       color: var(--text);
     }
 
-    /* --- METRICS & RESULTS --- */
     .metrics-title,
     .result-title {
       color: var(--muted);
@@ -352,7 +358,6 @@
       margin-bottom: 8px;
     }
 
-    /* --- TYPING SHELL (Performance Focus Area) --- */
     .typing-shell {
       position: relative;
       overflow: hidden;
@@ -375,14 +380,36 @@
       scrollbar-color: rgba(209,160,75,0.65) rgba(110,168,168,0.12);
     }
 
-    .typing-text::-webkit-scrollbar { width: 10px; }
-    .typing-text::-webkit-scrollbar-track { background: rgba(110,168,168,0.12); border-radius: 999px; }
-    .typing-text::-webkit-scrollbar-thumb { background: rgba(209,160,75,0.72); border-radius: 999px; }
-    .typing-text::-webkit-scrollbar-thumb:hover { background: rgba(209,160,75,0.9); }
+    .typing-text::-webkit-scrollbar {
+      width: 10px;
+    }
 
-    .char.pending { color: var(--pending); }
-    .char.correct { color: var(--correct); }
-    .char.incorrect { color: var(--incorrect); border-bottom: 2px solid rgba(209, 160, 75, 0.65); }
+    .typing-text::-webkit-scrollbar-track {
+      background: rgba(110,168,168,0.12);
+      border-radius: 999px;
+    }
+
+    .typing-text::-webkit-scrollbar-thumb {
+      background: rgba(209,160,75,0.72);
+      border-radius: 999px;
+    }
+
+    .typing-text::-webkit-scrollbar-thumb:hover {
+      background: rgba(209,160,75,0.9);
+    }
+
+    .char.pending {
+      color: var(--pending);
+    }
+
+    .char.correct {
+      color: var(--correct);
+    }
+
+    .char.incorrect {
+      color: var(--incorrect);
+      border-bottom: 2px solid rgba(209, 160, 75, 0.65);
+    }
 
     .input-wrap {
       margin-top: 14px;
@@ -438,8 +465,7 @@
       position: relative;
       z-index: 2;
     }
-    
-    /* --- STATUS BAR --- */
+
     .statusbar {
       display: flex;
       align-items: center;
@@ -466,33 +492,80 @@
     }
 
     @media (max-width: 860px) {
-      .row { flex-direction: column; align-items: stretch; }
-      .stats { justify-content: flex-start; }
-      .stat { text-align: left; }
-      .toolbar-line { align-items: flex-start; }
-      .statusbar { flex-direction: column; align-items: flex-start; }
-      .typing-text { min-height: 200px; max-height: 300px; }
+      .row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .stats {
+        justify-content: flex-start;
+      }
+
+      .stat {
+        text-align: left;
+      }
+
+      .toolbar-line {
+        align-items: flex-start;
+      }
+
+      .statusbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .typing-text {
+        min-height: 200px;
+        max-height: 300px;
+      }
     }
 
     @media (max-width: 560px) {
-      .app { width: min(100% - 16px, 1100px); padding-top: 16px; }
-      .flag-badge { width: 48px; height: 48px; font-size: 1.5rem; }
-      .brand-title { font-size: 1.35rem; }
-      .typing-text { font-size: 1.08rem; line-height: 1.82; max-height: 280px; }
-      .typing-input { min-height: 84px; height: 84px; max-height: 84px; font-size: 16px; }
+      .app {
+        width: min(100% - 16px, 1100px);
+        padding-top: 16px;
+      }
+
+      .flag-badge {
+        width: 48px;
+        height: 48px;
+        font-size: 1.5rem;
+      }
+
+      .brand-title {
+        font-size: 1.35rem;
+      }
+
+      .typing-text {
+        font-size: 1.08rem;
+        line-height: 1.82;
+        max-height: 280px;
+      }
+
+      .typing-input {
+        min-height: 84px;
+        height: 84px;
+        max-height: 84px;
+        font-size: 16px;
+      }
     }
   </style>
 </head>
-<body class="loading-screen"> <!-- Added loading class for visual feedback -->
+
+<body>
   <div class="topo" aria-hidden="true"></div>
 
-  <main class="app" style="display: none;"> <!-- Hidden until data loads -->
+  <div id="loadingScreen">
+    Loading passages...
+  </div>
+
+  <main class="app" id="mainApp">
     <header class="row">
       <div class="brand">
-        <div class="flag-badge" role="img" aria-label="United States Flag">🇺🇸</div >
-        <div >
-          <div class="brand-title"><span class="accent">InTandem</span> Typing</div >
-          <div class="brand-subtitle">Learning tools for the field.</div >
+        <div class="flag-badge" role="img" aria-label="United States Flag">🇺🇸</div>
+        <div>
+          <div class="brand-title"><span class="accent">InTandem</span> Typing</div>
+          <div class="brand-subtitle">Learning tools for the field.</div>
           <a class="back-link" href="https://navgenie.ittworks.com" aria-label="Back to Navgenie">← Back to Navgenie</a>
         </div>
       </div>
@@ -533,7 +606,6 @@
           </div>
 
           <div class="utility-wrap">
-            <!-- Removed "Generate on This Device (Beta)" button -->
             <button class="action-btn" id="generateBtn" type="button">Generate New Passage</button>
           </div>
         </div>
@@ -598,8 +670,7 @@
   </main>
 
   <script>
-    // --- 1. GLOBAL DATA HOLDER (To be populated by fetch) ---
-    let PASSAGES = {}; 
+    let PASSAGES = {};
 
     const MODE_OPTIONS = [
       { key: "1", label: "1 min", seconds: 60, length: "short" },
@@ -611,313 +682,312 @@
       { key: "aiLearning", label: "AI Learning" }
     ];
 
-    // --- 2. STATE MANAGEMENT ---
     const AppState = {
-        modeKey: "1",
-        topicKey: "aiLearning",
-        timeLimit: 60,
-        passage: "",
-        typedText: "", 
-        startTime: null, 
-        elapsedTime: 0, 
-        timerInterval: null,
-        testFinished: false, 
-        lastIndexByLength: {}
+      modeKey: "1",
+      topicKey: "aiLearning",
+      timeLimit: 60,
+      passage: "",
+      typedText: "",
+      startTime: null,
+      elapsedTime: 0,
+      timerInterval: null,
+      testFinished: false,
+      lastIndexByLength: {}
     };
 
-    // --- 3. DOM REFERENCES ---
     const DOM = {
-        modeWrap: document.getElementById("modeWrap"),
-        topicWrap: document.getElementById("topicWrap"),
-        generateBtn: document.getElementById("generateBtn"),
-        typingText: document.getElementById("typingText"),
-        typingInput: document.getElementById("typingInput"),
-        progressText: document.getElementById("progressText"),
-        languageText: document.getElementById("languageText"),
-        topWpm: document.getElementById("topWpm"),
-        topAcc: document.getElementById("topAcc"),
-        metricWpm: document.getElementById("metricWpm"),
-        metricAcc: document.getElementById("metricAcc"),
-        resultBox: document.getElementById("resultBox"),
-        resultWpm: document.getElementById("resultWpm"),
-        resultAcc: document.getElementById("resultAcc"),
-        timeRailFill: document.getElementById("timeRailFill"),
-        mainApp: document.querySelector('.app'),
-        loadingScreen: document.querySelector('.loading-screen')
+      modeWrap: document.getElementById("modeWrap"),
+      topicWrap: document.getElementById("topicWrap"),
+      generateBtn: document.getElementById("generateBtn"),
+      typingText: document.getElementById("typingText"),
+      typingInput: document.getElementById("typingInput"),
+      progressText: document.getElementById("progressText"),
+      languageText: document.getElementById("languageText"),
+      topWpm: document.getElementById("topWpm"),
+      topAcc: document.getElementById("topAcc"),
+      metricWpm: document.getElementById("metricWpm"),
+      metricAcc: document.getElementById("metricAcc"),
+      resultBox: document.getElementById("resultBox"),
+      resultWpm: document.getElementById("resultWpm"),
+      resultAcc: document.getElementById("resultAcc"),
+      timeRailFill: document.getElementById("timeRailFill"),
+      mainApp: document.getElementById("mainApp"),
+      loadingScreen: document.getElementById("loadingScreen")
     };
 
-    // --- 4. UTILITY FUNCTIONS (Remain largely the same) ---
     function pickNonRepeatingIndex(lengthKey, count) {
-        if (count <= 1) return 0;
-        let next = 0;
-        do {
-            next = Math.floor(Math.random() * count);
-        } while (next === AppState.lastIndexByLength[lengthKey]);
-        AppState.lastIndexByLength[lengthKey] = next;
-        return next;
+      if (count <= 1) return 0;
+
+      let next = 0;
+
+      do {
+        next = Math.floor(Math.random() * count);
+      } while (next === AppState.lastIndexByLength[lengthKey]);
+
+      AppState.lastIndexByLength[lengthKey] = next;
+      return next;
     }
 
     function buildPassage() {
-        const lengthKey = MODE_OPTIONS.find(mode => mode.key === AppState.modeKey)?.length || "short";
-        const pool = PASSAGES[lengthKey] || PASSAGES.short;
-        const index = pickNonRepeatingIndex(lengthKey, pool.length);
-        return pool[index];
+      const mode = MODE_OPTIONS.find(mode => mode.key === AppState.modeKey) || MODE_OPTIONS[0];
+      const lengthKey = mode.length;
+      const pool = PASSAGES[lengthKey] || PASSAGES.short;
+
+      if (!Array.isArray(pool) || pool.length === 0) {
+        return "No passage data found. Check that passage.json contains short, medium, and long arrays.";
+      }
+
+      const index = pickNonRepeatingIndex(lengthKey, pool.length);
+      return pool[index];
     }
 
     function calculateStats() {
-        const target = AppState.passage;
-        const typed = AppState.typedText;
-        let correct = 0;
+      const target = AppState.passage;
+      const typed = AppState.typedText;
+      let correct = 0;
 
-        for (let i = 0; i < typed.length; i++) {
-            if (typed[i] === target[i]) correct += 1;
-        }
+      for (let i = 0; i < typed.length; i++) {
+        if (typed[i] === target[i]) correct += 1;
+      }
 
-        const accuracy = typed.length
-            ? Math.max(0, Math.round((correct / typed.length) * 100))
-            : 100;
+      const accuracy = typed.length
+        ? Math.max(0, Math.round((correct / typed.length) * 100))
+        : 100;
 
-        const minutesElapsed = AppState.elapsedTime / 60;
-        const wpm = AppState.elapsedTime > 0
-            ? Math.round(((typed.length / 5) / minutesElapsed) * 60)
-            : 0;
+      const minutesElapsed = AppState.elapsedTime / 60;
 
-        return { accuracy, wpm };
+      const wpm = AppState.elapsedTime > 0
+        ? Math.round((typed.length / 5) / minutesElapsed)
+        : 0;
+
+      return { accuracy, wpm };
     }
 
-    // --- 5. RENDERING FUNCTIONS (Remain largely the same) ---
     function renderPassage() {
-        const targetPassage = AppState.passage;
-        const typed = AppState.typedText;
-        
-        DOM.typingText.innerHTML = ''; 
+      const targetPassage = AppState.passage;
+      const typed = AppState.typedText;
 
-        for (let i = 0; i < targetPassage.length; i++) {
-            const ch = targetPassage[i];
+      DOM.typingText.innerHTML = "";
 
-            if (ch === "\n") {
-                DOM.typingText.appendChild(document.createElement("br"));
-                continue;
-            }
+      for (let i = 0; i < targetPassage.length; i++) {
+        const ch = targetPassage[i];
 
-            const span = document.createElement("span");
-            
-            let charClass = 'char pending';
-            if (i < typed.length) {
-                charClass = typed[i] === targetPassage[i] ? 'char correct' : 'char incorrect';
-            }
-            span.className = charClass;
-            span.textContent = ch;
-            
-            DOM.typingText.appendChild(span);
+        if (ch === "\n") {
+          DOM.typingText.appendChild(document.createElement("br"));
+          continue;
         }
-        
-        scrollCurrentCharIntoView();
+
+        const span = document.createElement("span");
+
+        let charClass = "char pending";
+
+        if (i < typed.length) {
+          charClass = typed[i] === targetPassage[i] ? "char correct" : "char incorrect";
+        }
+
+        span.className = charClass;
+        span.textContent = ch;
+
+        DOM.typingText.appendChild(span);
+      }
+
+      scrollCurrentCharIntoView();
     }
 
     function scrollCurrentCharIntoView() {
-        const spans = DOM.typingText.querySelectorAll("span");
-        if (!spans.length) return;
+      const spans = DOM.typingText.querySelectorAll("span");
+      if (!spans.length) return;
 
-        const currentIndex = Math.min(AppState.typedText.length, spans.length - 1);
-        const target = spans[currentIndex];
-        if (!target) return;
+      const currentIndex = Math.min(AppState.typedText.length, spans.length - 1);
+      const target = spans[currentIndex];
+      if (!target) return;
 
-        const containerRect = DOM.typingText.getBoundingClientRect();
-        const targetRect = target.getBoundingClientRect();
+      const containerRect = DOM.typingText.getBoundingClientRect();
+      const targetRect = target.getBoundingClientRect();
 
-        if (targetRect.bottom > containerRect.bottom - 30) {
-            DOM.typingText.scrollTop += (targetRect.bottom - containerRect.bottom + 30);
-        } else if (targetRect.top < containerRect.top + 20) {
-            DOM.typingText.scrollTop -= (containerRect.top - targetRect.top + 20);
-        }
+      if (targetRect.bottom > containerRect.bottom - 30) {
+        DOM.typingText.scrollTop += targetRect.bottom - containerRect.bottom + 30;
+      } else if (targetRect.top < containerRect.top + 20) {
+        DOM.typingText.scrollTop -= containerRect.top - targetRect.top + 20;
+      }
     }
 
     function updateStatsUI() {
-        const stats = calculateStats();
+      const stats = calculateStats();
 
-        DOM.topWpm.textContent = stats.wpm;
-        DOM.topAcc.textContent = `${stats.accuracy}%`;
-        DOM.metricWpm.textContent = stats.wpm;
-        DOM.metricAcc.textContent = `${stats.accuracy}%`;
+      DOM.topWpm.textContent = stats.wpm;
+      DOM.topAcc.textContent = `${stats.accuracy}%`;
+      DOM.metricWpm.textContent = stats.wpm;
+      DOM.metricAcc.textContent = `${stats.accuracy}%`;
 
-        const railPercent = Math.max(0, Math.min(100, (AppState.elapsedTime / AppState.timeLimit) * 100));
-        DOM.timeRailFill.style.height = `${railPercent}%`;
-        
-        const remaining = Math.max(0, Math.ceil(AppState.timeLimit - AppState.elapsedTime));
-        DOM.progressText.textContent = `Time Left ${remaining}s`;
+      const railPercent = Math.max(0, Math.min(100, (AppState.elapsedTime / AppState.timeLimit) * 100));
+      DOM.timeRailFill.style.height = `${railPercent}%`;
 
-        if (AppState.testFinished) {
-            DOM.resultBox.classList.add("show");
-            DOM.resultWpm.textContent = stats.wpm;
-            DOM.resultAcc.textContent = `${stats.accuracy}%`;
-            DOM.typingInput.disabled = true;
-            DOM.typingText.setAttribute('tabindex', '-1'); 
-        } else {
-            DOM.resultBox.classList.remove("show");
-            DOM.typingInput.disabled = false;
-            DOM.typingText.setAttribute('tabindex', '0'); 
-        }
+      const remaining = Math.max(0, Math.ceil(AppState.timeLimit - AppState.elapsedTime));
+      DOM.progressText.textContent = `Time Left ${remaining}s`;
+
+      if (AppState.testFinished) {
+        DOM.resultBox.classList.add("show");
+        DOM.resultWpm.textContent = stats.wpm;
+        DOM.resultAcc.textContent = `${stats.accuracy}%`;
+        DOM.typingInput.disabled = true;
+        DOM.typingText.setAttribute("tabindex", "-1");
+      } else {
+        DOM.resultBox.classList.remove("show");
+        DOM.typingInput.disabled = false;
+        DOM.typingText.setAttribute("tabindex", "0");
+      }
     }
 
     function updateStatusUI() {
-        const mode = MODE_OPTIONS.find(m => m.key === AppState.modeKey) || MODE_OPTIONS[0];
-        DOM.languageText.textContent = `🇺🇸 United States — English • AI Learning • ${mode.label}`;
+      const mode = MODE_OPTIONS.find(m => m.key === AppState.modeKey) || MODE_OPTIONS[0];
+      DOM.languageText.textContent = `🇺🇸 United States — English • AI Learning • ${mode.label}`;
     }
 
     function renderModes() {
-        DOM.modeWrap.innerHTML = "";
-        MODE_OPTIONS.forEach(mode => {
-            const button = document.createElement("button");
-            button.type = "button";
-            button.className = `mode-btn ${mode.key === AppState.modeKey ? "active" : ""}`;
-            button.textContent = mode.label;
-            button.addEventListener("click", () => {
-                AppState.modeKey = mode.key;
-                AppState.timeLimit = mode.seconds;
-                resetTest(true); 
-            });
-            DOM.modeWrap.appendChild(button);
+      DOM.modeWrap.innerHTML = "";
+
+      MODE_OPTIONS.forEach(mode => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = `mode-btn ${mode.key === AppState.modeKey ? "active" : ""}`;
+        button.textContent = mode.label;
+
+        button.addEventListener("click", () => {
+          AppState.modeKey = mode.key;
+          AppState.timeLimit = mode.seconds;
+          resetTest(true);
         });
+
+        DOM.modeWrap.appendChild(button);
+      });
     }
 
     function renderTopics() {
-        DOM.topicWrap.innerHTML = "";
-        TOPIC_OPTIONS.forEach(topic => {
-            const button = document.createElement("button");
-            button.type = "button";
-            button.className = `topic-btn ${topic.key === AppState.topicKey ? "active" : ""}`;
-            button.textContent = topic.label;
-            button.addEventListener("click", () => {
-                AppState.topicKey = topic.key;
-                resetTest(true);
-            });
-            DOM.topicWrap.appendChild(button);
+      DOM.topicWrap.innerHTML = "";
+
+      TOPIC_OPTIONS.forEach(topic => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = `topic-btn ${topic.key === AppState.topicKey ? "active" : ""}`;
+        button.textContent = topic.label;
+
+        button.addEventListener("click", () => {
+          AppState.topicKey = topic.key;
+          resetTest(true);
         });
+
+        DOM.topicWrap.appendChild(button);
+      });
     }
 
-    // --- 6. TIMING & CONTROL ---
     function stopTimer() {
-        if (AppState.timerInterval) {
-            clearInterval(AppState.timerInterval);
-            AppState.timerInterval = null;
-        }
+      if (AppState.timerInterval) {
+        clearInterval(AppState.timerInterval);
+        AppState.timerInterval = null;
+      }
     }
 
     function startTimer() {
-        if (AppState.timerInterval || AppState.testFinished) return;
+      if (AppState.timerInterval || AppState.testFinished) return;
 
-        // Adjust start time calculation to account for initial elapsed time
-        AppState.startTime = Date.now() - (AppState.elapsedTime * 1000);
-        
-        AppState.timerInterval = setInterval(() => {
-            AppState.elapsedTime = (Date.now() - AppState.startTime) / 1000;
+      AppState.startTime = Date.now() - (AppState.elapsedTime * 1000);
 
-            if (AppState.elapsedTime >= AppState.timeLimit) {
-                AppState.elapsedTime = AppState.timeLimit;
-                AppState.testFinished = true;
-                stopTimer();
-                updateStatsUI(); 
-            }
-            if (!AppState.testFinished) {
-                 updateStatsUI();
-            }
-        }, 100);
+      AppState.timerInterval = setInterval(() => {
+        AppState.elapsedTime = (Date.now() - AppState.startTime) / 1000;
+
+        if (AppState.elapsedTime >= AppState.timeLimit) {
+          AppState.elapsedTime = AppState.timeLimit;
+          AppState.testFinished = true;
+          stopTimer();
+        }
+
+        updateStatsUI();
+      }, 100);
     }
 
     function resetTest(forceNewPassage = false) {
-        stopTimer();
-        
-        AppState.typedText = "";
-        AppState.startTime = null;
-        AppState.elapsedTime = 0;
-        AppState.testFinished = false;
-        AppState.lastIndexByLength = {}; 
+      stopTimer();
 
-        DOM.typingInput.value = "";
-        DOM.typingInput.disabled = false;
-        DOM.typingText.innerHTML = ""; 
-        DOM.resultBox.classList.remove("show");
-        
-        if (forceNewPassage || !AppState.passage) {
-            AppState.passage = buildPassage();
+      AppState.typedText = "";
+      AppState.startTime = null;
+      AppState.elapsedTime = 0;
+      AppState.testFinished = false;
+
+      DOM.typingInput.value = "";
+      DOM.typingInput.disabled = false;
+      DOM.typingText.innerHTML = "";
+      DOM.resultBox.classList.remove("show");
+
+      if (forceNewPassage || !AppState.passage) {
+        AppState.passage = buildPassage();
+      }
+
+      renderPassage();
+      updateStatsUI();
+      updateStatusUI();
+      renderModes();
+      renderTopics();
+
+      requestAnimationFrame(() => {
+        DOM.typingInput.focus();
+      });
+    }
+
+    function handleInput(event) {
+      if (AppState.testFinished) return;
+
+      const value = event.target.value;
+
+      if (!AppState.startTime && value.length > 0) {
+        startTimer();
+      }
+
+      AppState.typedText = value;
+
+      renderPassage();
+      updateStatsUI();
+    }
+
+    async function initializeApp() {
+      try {
+        const response = await fetch("./passage.json", { cache: "no-store" });
+
+        if (!response.ok) {
+          throw new Error(`Could not load passage.json. HTTP status: ${response.status}`);
         }
 
-        renderPassage(); 
-        updateStatsUI();
+        PASSAGES = await response.json();
+
+        if (!PASSAGES.short || !PASSAGES.medium || !PASSAGES.long) {
+          throw new Error("passage.json must contain short, medium, and long arrays.");
+        }
+
+        renderModes();
+        renderTopics();
+        resetTest(true);
         updateStatusUI();
 
-        requestAnimationFrame(() => {
-            DOM.typingInput.focus();
-        });
+        DOM.loadingScreen.style.display = "none";
+        DOM.mainApp.style.display = "block";
+      } catch (error) {
+        console.error("Failed to load passages:", error);
+
+        DOM.loadingScreen.innerHTML = `
+          <div>
+            <div style="font-size: 1.2rem; margin-bottom: 8px;">Error loading practice passages.</div>
+            <div style="color: #c2d7d4; font-weight: 500;">
+              Make sure <strong>passage.json</strong> is in the same folder as <strong>index.html</strong>.
+            </div>
+          </div>
+        `;
+      }
     }
 
-    // --- 7. INPUT HANDLERS ---
-    function handleInput(event) {
-        if (AppState.testFinished) return;
-
-        const value = event.target.value;
-        
-        if (!AppState.startTime && value.length > 0) {
-            startTimer();
-        }
-
-        AppState.typedText = value; 
-        
-        const target = AppState.passage;
-        const typed = AppState.typedText;
-        const spans = DOM.typingText.querySelectorAll("span");
-        
-        // Update visual feedback for all characters
-        for (let i = 0; i < Math.min(typed.length, target.length); i++) {
-            const span = spans[i];
-            if (!span) continue;
-            span.className = typed[i] === target[i] ? 'char correct' : 'char incorrect';
-        }
-        
-        // Set the next character to pending
-        if (typed.length < target.length) {
-            const nextSpan = spans[typed.length];
-            if (nextSpan) nextSpan.className = 'char pending';
-        }
-        
-        updateStatsUI();
-        scrollCurrentCharIntoView();
-    }
-
-    // --- 8. INITIALIZATION & DATA FETCH ---
-    
-    async function initializeApp() {
-        try {
-            // Fetching data.json instead of passage.json to avoid iOS security warnings on Vercel
-            const response = await fetch('data.json');
-            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-            PASSAGES = await response.json();
-
-            // All data is loaded, now render UI and start the app
-            renderModes();
-            renderTopics();
-            resetTest(true); 
-            updateStatusUI();
-            
-            // Hide loading screen and show main app
-            DOM.loadingScreen.style.display = 'none';
-            DOM.mainApp.style.display = 'block';
-
-        } catch (error) {
-            console.error("Failed to load passages:", error);
-            // Display an error state on the loading screen
-            DOM.loadingScreen.innerHTML = '<div style="color: red; text-align: center; padding: 20px;">Error loading practice passages. Please ensure data.json is in the same directory.</div>';
-        }
-    }
-
-    // Event Listeners (Attached after DOM elements are available)
     DOM.generateBtn.addEventListener("click", () => resetTest(true));
     DOM.typingInput.addEventListener("input", handleInput);
     DOM.typingText.addEventListener("click", () => DOM.typingInput.focus());
 
-
-    // Start the application initialization process
     initializeApp();
   </script>
 </body>
