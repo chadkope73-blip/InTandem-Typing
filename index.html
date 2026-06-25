@@ -490,14 +490,14 @@
     }
   </style>
 </head>
-<body>
+<body class="loading-screen"> <!-- Added loading class for visual feedback -->
   <div class="topo" aria-hidden="true"></div>
 
-  <main class="app">
+  <main class="app" style="display: none;"> <!-- Hidden until data loads -->
     <header class="row">
       <div class="brand">
-        <div class="flag-badge" role="img" aria-label="United States Flag">🇺🇸</div>
-        <div>
+        <div class="flag-badge" role="img" aria-label="United States Flag">🇺🇸</div >
+        <div >
           <div class="brand-title"><span class="accent">InTandem</span> Typing</div >
           <div class="brand-subtitle">Learning tools for the field.</div >
           <a class="back-link" href="https://navgenie.ittworks.com" aria-label="Back to Navgenie">← Back to Navgenie</a>
@@ -524,7 +524,8 @@
           When free open-source AI generation is practical online, we'll upgrade it to the real deal.
           We wanted to show that we could first.
         </div>
-      </section>
+      </div>
+    </section>
 
     <section class="toolbar panel">
       <div class="toolbar-stack">
@@ -536,21 +537,21 @@
           <div class="toolbar-group">
             <div class="toolbar-label">Mode</div>
             <div class="mode-wrap" id="modeWrap"></div>
-          </div >
+          </div>
 
           <div class="utility-wrap">
             <button class="beta-btn" id="deviceAiBtn" type="button">Generate on This Device (Beta)</button>
             <button class="action-btn" id="generateBtn" type="button">Generate New Passage</button>
-          </div >
+          </div>
         </div>
 
         <div class="toolbar-line">
           <div class="toolbar-group">
             <div class="toolbar-label">Topic</div>
             <div class="topic-wrap" id="topicWrap"></div>
-          </div >
+          </div>
         </div>
-      </div >
+      </div>
     </section>
 
     <section class="metrics panel">
@@ -564,7 +565,7 @@
           <div class="label">Accuracy</div>
           <div class="value" id="metricAcc">100%</div>
         </div>
-      </div >
+      </div>
     </section>
 
     <section class="typing-shell panel" aria-label="Typing Practice Area">
@@ -600,330 +601,336 @@
 
     <div class="footer-note">
       Built for the InTandem ToolWorks chain • topo-inspired field aesthetic • practical AI learning
-    </div >
+    </div>
   </main>
 
   <script>
-// --- 1. CONSTANTS & DATA ---
-const MODE_OPTIONS = [
-  { key: "1", label: "1 min", seconds: 60, length: "short" },
-  { key: "3", label: "3 min", seconds: 180, length: "medium" },
-  { key: "5", label: "5 min", seconds: 300, length: "long" }
-];
+    // --- 1. GLOBAL DATA HOLDER (To be populated by fetch) ---
+    let PASSAGES = {}; 
 
-const TOPIC_OPTIONS = [
-  { key: "aiLearning", label: "AI Learning" }
-];
+    const MODE_OPTIONS = [
+      { key: "1", label: "1 min", seconds: 60, length: "short" },
+      { key: "3", label: "3 min", seconds: 180, length: "medium" },
+      { key: "5", label: "5 min", seconds: 300, length: "long" }
+    ];
 
-const PASSAGES = { 
-    short: [
-        "A student on a quiet overnight train learned that AI is most useful when it helps people ask better questions. The model could explain concepts, compare ideas, and summarize difficult material, but the human still set the direction. That was the real lesson: safe collaboration with AI begins when people stay responsible for judgment, goals, and outcomes.",
-        "In a small workshop at the edge of town, a builder discovered that AI was not magic but a useful tool for drafting plans, testing options, and learning faster. The system could move quickly, yet speed alone was not wisdom. Progress came from combining machine assistance with human discipline, curiosity, and clear intent.",
-        "An instructor told her class that AI should be treated like a capable assistant, not a replacement for thought. It could help organize information, explain new topics, and create first drafts, but every answer still needed review. Once the class understood that balance, the technology felt less threatening and more practical.",
-        "A traveler studying under dim cabin lights realized that AI worked best as a partner in the learning process. It could summarize information, suggest explanations, and make complex topics feel more approachable, but only when the user stayed attentive and thoughtful about the results.",
-        "In a quiet library corner, a returning student used AI to break a difficult topic into smaller parts. The system helped with structure and clarity, but the student still had to decide what was true, useful, and worth keeping. That balance made the tool valuable.",
-        "A builder working late discovered that AI was strongest when it reduced friction without removing responsibility. It could help with first drafts, comparisons, and explanations, but it could not replace human purpose. The more clearly he understood that, the more useful the tool became."
-    ],
-    medium: [
-        "Beyond the station windows, a violet horizon turned slowly beneath the research deck while a graduate student worked through her notes on artificial intelligence. At first she had treated AI like an unknowable force, something that either solved everything or threatened everything. The deeper she studied, the more ordinary and powerful it became. AI was not a mystical mind in a machine. It was a system shaped by data, prompts, constraints, and human intention.\n\nOnce that clicked, the work changed. She began using AI to summarize dense material, explain difficult terms, and compare competing ideas without losing momentum between questions. It saved time, but it did not replace judgment. The quality of the results still depended on the clarity of the task, the quality of the review, and the willingness to correct mistakes. Safe collaboration meant keeping the human role active, not passive.\n\nBy the end of the shift, the student understood why the future would belong to people who could work with intelligent tools without surrendering their own thinking. AI could extend reach, speed, and iteration. Human beings still had to supply ethics, direction, and purpose. That was not a disappointment. It was the whole point.",
-        "At the edge of an old digital archive, a builder found a terminal full of training notes, prompt experiments, and design sketches for practical AI systems. What interested him most was not the hype but the pattern. Everywhere he looked, the strongest results came from people who treated AI like a working partner. They gave it structure, reviewed its output, and used it to move from rough idea to usable draft faster than they could alone.\n\nHe realized that many fears about AI came from misunderstanding the relationship. People imagined either total replacement or total failure, when the reality was more useful. AI could help a student study, help a mechanic learn a new workflow, help a founder draft copy, or help a researcher organize large amounts of information. It was a multiplier, not a moral agent. The person still had to choose what mattered.\n\nThat was why AI literacy mattered. The competitive future would not belong only to the richest organizations. It would also belong to people who learned how to work with tools intelligently, responsibly, and with purpose. The machine could accelerate effort. It could not decide what kind of future was worth building.",
-        "A group of adult learners met after work in a small community lab to study modern digital tools. Many came in expecting artificial intelligence to be confusing or overhyped. Instead, they found that the most useful lessons were practical. AI could help summarize research, explain difficult concepts, draft ideas, and compare options, but only if the user stayed engaged and willing to check the results.\n\nThat changed how they thought about learning. The point was not to let the machine think for them. The point was to use the machine to move through the first layer of friction faster, then apply human judgment where it mattered most. Once the students understood that, the technology felt less like a threat and more like an instrument.\n\nBy the end of the evening, the room felt different. The learners were not dazzled by novelty. They were encouraged by usefulness. They could see how collaboration with AI might help them learn faster, adapt to changing work, and stay capable in a future that would favor people who knew how to work with advanced tools without surrendering responsibility."
-      ],
-      long: [
-        "On the long route between two mountain cities, a group of adult learners gathered in a rail car that had been turned into a mobile classroom. Their teacher began the session with a simple question: what makes collaboration with AI safe and useful? At first the answers came out in extremes. Some thought AI was basically magic in a polished interface. Others thought it was an unstable shortcut that only created confusion. The instructor let the debate breathe before narrowing the focus. AI, she explained, is most useful when people understand what it is good at, where it can fail, and how to remain responsible for what comes next.\n\nThat shifted the tone of the room. The students stopped arguing about fear in the abstract and started talking about real tasks. Could AI explain a technical concept in simpler language? Yes. Could it compare options, summarize a report, or generate a first draft? Yes. Could it replace judgment, ethics, and local context? No. The class learned that good prompts create better outputs, but verification still matters. They learned that strong results come from iteration, not blind trust. They learned that AI can help people move faster, but only if people remain active in the loop.\n\nOne student who worked in the trades described how useful it would be to learn new systems faster without being buried in manuals. Another talked about using AI to organize research for returning to school. A third saw how it could support public learning tools that narrowed the distance between complex technology and ordinary people. The instructor smiled because that was the real lesson hiding underneath the exercises. AI was not only a technical subject. It was a workforce subject, an access subject, and a future-readiness subject.\n\nBy the time the train reached the next station, the learners had moved past hype and into capability. They understood that the future would favor people who could collaborate with AI practically, responsibly, and without losing their own agency. The machine could accelerate drafting, search, summarization, and comparison. Human beings still had to decide what was true, what was useful, and what should be built. Once that relationship became clear, the technology stopped feeling like a threat from nowhere and started feeling like a tool that could be used with discipline, purpose, and hope.",
-        "In a converted workshop near the edge of town, a small evening class gathered around folding tables lit by warm task lamps and old monitor glow. Most of the students had jobs, responsibilities, and little spare time, which was exactly why they were there. They wanted tools that could help them learn faster without making them dependent or careless. Their instructor began by removing the mystery from the room. Artificial intelligence, he said, is not a replacement for human purpose. It is a system that can help generate, explain, organize, and compare, but the responsibility for quality and truth still belongs to the user.\n\nThat framing changed everything. Instead of asking whether AI was good or bad in the abstract, the group began asking practical questions. How do you write a better prompt? How do you verify a summary? How do you catch an answer that sounds smooth but is wrong? How do you use AI to understand a subject without letting it flatten your own thinking? Those questions led to better habits. Students started using the tool to break down complex topics, produce first drafts, and map out plans for learning, but they also learned to review, revise, and challenge what came back.\n\nOne mechanic used it to understand a new electrical concept. One student used it to structure research notes. One builder used it to turn a rough project idea into a more organized plan. In every case, the same principle held. AI was most valuable when it reduced friction while leaving judgment in human hands. It could accelerate the start of the work, but it could not decide what mattered, what was ethical, or what result was worth pursuing.\
-\nBy the end of the session, the room felt less like a class and more like a field lab for the future. People were not there to worship technology or fear it. They were there to learn how to use it well. That was the difference that mattered. In a changing world, the people who remain useful will be the ones who can combine tools, judgment, curiosity, and discipline. AI can widen the path. Human beings still choose the destination.",
-        "High above a quiet desert highway, the night sky looked almost close enough to touch as a group of returning learners stayed late inside a roadside study center. They were there for one reason: to understand how collaboration with AI could become a real skill instead of a vague promise. Their instructor began with a challenge. If AI can answer questions, summarize articles, and draft text in seconds, why do people still get weak results? The answer, he said, is simple. Speed is not the same thing as understanding, and output is not the same thing as judgment.\n\nThe group spent the first hour exploring how AI behaves under different instructions. Loose prompts created vague answers. Clear prompts improved structure. Follow-up questions often mattered more than the first one. Good results came from interaction, not one-shot dependence. That lesson mattered because many students had assumed AI would either solve the problem instantly or fail completely. Instead, they learned that it behaves more like a strong but imperfect assistant. It can help people move faster, but it still needs direction, review, and correction.\
-\nAs the discussion deepened, the class connected AI to real life. A parent returning to school saw how it could help summarize readings after long workdays. A tradesman saw how it could explain unfamiliar terminology without forcing him through layers of technical writing. A founder saw how it could speed up product notes, outlines, and research. A public-minded learner saw how tools like this could narrow the tech gap by helping people access knowledge more quickly and confidently. In every example, the real value came from collaboration, not surrender.\n\nNear midnight, the instructor closed with the point he most wanted them to remember. The future will not reward blind fear or blind trust. It will reward people who can work with advanced tools while staying grounded in purpose and responsibility. AI can widen human capability, but it does not replace the need for ethics, verification, and clear intent. Once the class understood that, the room no longer felt like a place reacting to change. It felt like a place preparing for it."
-    ]
-};
+    const TOPIC_OPTIONS = [
+      { key: "aiLearning", label: "AI Learning" }
+    ];
 
-// --- 2. STATE MANAGEMENT ---
-const AppState = {
-    modeKey: "1",
-    topicKey: "aiLearning",
-    timeLimit: 60,
-    passage: "",
-    typedText: "", 
-    startTime: null, 
-    elapsedTime: 0, 
-    timerInterval: null,
-    testFinished: false, 
-    lastIndexByLength: {}
-};
+    // --- 2. STATE MANAGEMENT ---
+    const AppState = {
+        modeKey: "1",
+        topicKey: "aiLearning",
+        timeLimit: 60,
+        passage: "",
+        typedText: "", 
+        startTime: null, 
+        elapsedTime: 0, 
+        timerInterval: null,
+        testFinished: false, 
+        lastIndexByLength: {}
+    };
 
-// --- 3. DOM REFERENCES ---
-const DOM = {
-    modeWrap: document.getElementById("modeWrap"),
-    topicWrap: document.getElementById("topicWrap"),
-    generateBtn: document.getElementById("generateBtn"),
-    deviceAiBtn: document.getElementById("deviceAiBtn"),
-    typingText: document.getElementById("typingText"),
-    typingInput: document.getElementById("typingInput"),
-    progressText: document.getElementById("progressText"),
-    languageText: document.getElementById("languageText"),
-    topWpm: document.getElementById("topWpm"),
-    topAcc: document.getElementById("topAcc"),
-    metricWpm: document.getElementById("metricWpm"),
-    metricAcc: document.getElementById("metricAcc"),
-    resultBox: document.getElementById("resultBox"),
-    resultWpm: document.getElementById("resultWpm"),
-    resultAcc: document.getElementById("resultAcc"),
-    timeRailFill: document.getElementById("timeRailFill")
-};
+    // --- 3. DOM REFERENCES ---
+    const DOM = {
+        modeWrap: document.getElementById("modeWrap"),
+        topicWrap: document.getElementById("topicWrap"),
+        generateBtn: document.getElementById("generateBtn"),
+        deviceAiBtn: document.getElementById("deviceAiBtn"),
+        typingText: document.getElementById("typingText"),
+        typingInput: document.getElementById("typingInput"),
+        progressText: document.getElementById("progressText"),
+        languageText: document.getElementById("languageText"),
+        topWpm: document.getElementById("topWpm"),
+        topAcc: document.getElementById("topAcc"),
+        metricWpm: document.getElementById("metricWpm"),
+        metricAcc: document.getElementById("metricAcc"),
+        resultBox: document.getElementById("resultBox"),
+        resultWpm: document.getElementById("resultWpm"),
+        resultAcc: document.getElementById("resultAcc"),
+        timeRailFill: document.getElementById("timeRailFill"),
+        mainApp: document.querySelector('.app'),
+        loadingScreen: document.querySelector('.loading-screen')
+    };
 
-// --- 4. UTILITY FUNCTIONS ---
-function pickNonRepeatingIndex(lengthKey, count) {
-    if (count <= 1) return 0;
-    let next = 0;
-    do {
-        next = Math.floor(Math.random() * count);
-    } while (next === AppState.lastIndexByLength[lengthKey]);
-    AppState.lastIndexByLength[lengthKey] = next;
-    return next;
-}
-
-function buildPassage() {
-    const lengthKey = MODE_OPTIONS.find(mode => mode.key === AppState.modeKey)?.length || "short";
-    const pool = PASSAGES[lengthKey] || PASSAGES.short;
-    const index = pickNonRepeatingIndex(lengthKey, pool.length);
-    return pool[index];
-}
-
-function calculateStats() {
-    const target = AppState.passage;
-    const typed = AppState.typedText;
-    let correct = 0;
-
-    for (let i = 0; i < typed.length; i++) {
-        if (typed[i] === target[i]) correct += 1;
+    // --- 4. UTILITY FUNCTIONS (Remain largely the same) ---
+    function pickNonRepeatingIndex(lengthKey, count) {
+        if (count <= 1) return 0;
+        let next = 0;
+        do {
+            next = Math.floor(Math.random() * count);
+        } while (next === AppState.lastIndexByLength[lengthKey]);
+        AppState.lastIndexByLength[lengthKey] = next;
+        return next;
     }
 
-    const accuracy = typed.length
-        ? Math.max(0, Math.round((correct / typed.length) * 100))
-        : 100;
+    function buildPassage() {
+        const lengthKey = MODE_OPTIONS.find(mode => mode.key === AppState.modeKey)?.length || "short";
+        const pool = PASSAGES[lengthKey] || PASSAGES.short;
+        const index = pickNonRepeatingIndex(lengthKey, pool.length);
+        return pool[index];
+    }
 
-    const minutesElapsed = AppState.elapsedTime / 60;
-    const wpm = AppState.elapsedTime > 0
-        ? Math.round(((typed.length / 5) / minutesElapsed) * 60)
-        : 0;
+    function calculateStats() {
+        const target = AppState.passage;
+        const typed = AppState.typedText;
+        let correct = 0;
 
-    return { accuracy, wpm };
-}
-
-// --- 5. RENDERING FUNCTIONS ---
-function renderPassage() {
-    const targetPassage = AppState.passage;
-    const typed = AppState.typedText;
-    
-    DOM.typingText.innerHTML = ''; 
-
-    for (let i = 0; i < targetPassage.length; i++) {
-        const ch = targetPassage[i];
-
-        if (ch === "\n") {
-            DOM.typingText.appendChild(document.createElement("br"));
-            continue;
+        for (let i = 0; i < typed.length; i++) {
+            if (typed[i] === target[i]) correct += 1;
         }
 
-        const span = document.createElement("span");
+        const accuracy = typed.length
+            ? Math.max(0, Math.round((correct / typed.length) * 100))
+            : 100;
+
+        const minutesElapsed = AppState.elapsedTime / 60;
+        const wpm = AppState.elapsedTime > 0
+            ? Math.round(((typed.length / 5) / minutesElapsed) * 60)
+            : 0;
+
+        return { accuracy, wpm };
+    }
+
+    // --- 5. RENDERING FUNCTIONS (Remain largely the same) ---
+    function renderPassage() {
+        const targetPassage = AppState.passage;
+        const typed = AppState.typedText;
         
-        let charClass = 'char pending';
-        if (i < typed.length) {
-            charClass = typed[i] === targetPassage[i] ? 'char correct' : 'char incorrect';
+        DOM.typingText.innerHTML = ''; 
+
+        for (let i = 0; i < targetPassage.length; i++) {
+            const ch = targetPassage[i];
+
+            if (ch === "\n") {
+                DOM.typingText.appendChild(document.createElement("br"));
+                continue;
+            }
+
+            const span = document.createElement("span");
+            
+            let charClass = 'char pending';
+            if (i < typed.length) {
+                charClass = typed[i] === targetPassage[i] ? 'char correct' : 'char incorrect';
+            }
+            span.className = charClass;
+            span.textContent = ch;
+            
+            DOM.typingText.appendChild(span);
         }
-        span.className = charClass;
-        span.textContent = ch;
         
-        DOM.typingText.appendChild(span);
+        scrollCurrentCharIntoView();
     }
-    
-    scrollCurrentCharIntoView();
-}
 
-function scrollCurrentCharIntoView() {
-    const spans = DOM.typingText.querySelectorAll("span");
-    if (!spans.length) return;
+    function scrollCurrentCharIntoView() {
+        const spans = DOM.typingText.querySelectorAll("span");
+        if (!spans.length) return;
 
-    const currentIndex = Math.min(AppState.typedText.length, spans.length - 1);
-    const target = spans[currentIndex];
-    if (!target) return;
+        const currentIndex = Math.min(AppState.typedText.length, spans.length - 1);
+        const target = spans[currentIndex];
+        if (!target) return;
 
-    const containerRect = DOM.typingText.getBoundingClientRect();
-    const targetRect = target.getBoundingClientRect();
+        const containerRect = DOM.typingText.getBoundingClientRect();
+        const targetRect = target.getBoundingClientRect();
 
-    if (targetRect.bottom > containerRect.bottom - 30) {
-        DOM.typingText.scrollTop += (targetRect.bottom - containerRect.bottom + 30);
-    } else if (targetRect.top < containerRect.top + 20) {
-        DOM.typingText.scrollTop -= (containerRect.top - targetRect.top + 20);
+        if (targetRect.bottom > containerRect.bottom - 30) {
+            DOM.typingText.scrollTop += (targetRect.bottom - containerRect.bottom + 30);
+        } else if (targetRect.top < containerRect.top + 20) {
+            DOM.typingText.scrollTop -= (containerRect.top - targetRect.top + 20);
+        }
     }
-}
 
-function updateStatsUI() {
-    const stats = calculateStats();
+    function updateStatsUI() {
+        const stats = calculateStats();
 
-    DOM.topWpm.textContent = stats.wpm;
-    DOM.topAcc.textContent = `${stats.accuracy}%`;
-    DOM.metricWpm.textContent = stats.wpm;
-    DOM.metricAcc.textContent = `${stats.accuracy}%`;
+        DOM.topWpm.textContent = stats.wpm;
+        DOM.topAcc.textContent = `${stats.accuracy}%`;
+        DOM.metricWpm.textContent = stats.wpm;
+        DOM.metricAcc.textContent = `${stats.accuracy}%`;
 
-    const railPercent = Math.max(0, Math.min(100, (AppState.elapsedTime / AppState.timeLimit) * 100));
-    DOM.timeRailFill.style.height = `${railPercent}%`;
-    
-    const remaining = Math.max(0, Math.ceil(AppState.timeLimit - AppState.elapsedTime));
-    DOM.progressText.textContent = `Time Left ${remaining}s`;
+        const railPercent = Math.max(0, Math.min(100, (AppState.elapsedTime / AppState.timeLimit) * 100));
+        DOM.timeRailFill.style.height = `${railPercent}%`;
+        
+        const remaining = Math.max(0, Math.ceil(AppState.timeLimit - AppState.elapsedTime));
+        DOM.progressText.textContent = `Time Left ${remaining}s`;
 
-    if (AppState.testFinished) {
-        DOM.resultBox.classList.add("show");
-        DOM.resultWpm.textContent = stats.wpm;
-        DOM.resultAcc.textContent = `${stats.accuracy}%`;
-        DOM.typingInput.disabled = true;
-        DOM.typingText.setAttribute('tabindex', '-1'); 
-    } else {
-        DOM.resultBox.classList.remove("show");
+        if (AppState.testFinished) {
+            DOM.resultBox.classList.add("show");
+            DOM.resultWpm.textContent = stats.wpm;
+            DOM.resultAcc.textContent = `${stats.accuracy}%`;
+            DOM.typingInput.disabled = true;
+            DOM.typingText.setAttribute('tabindex', '-1'); 
+        } else {
+            DOM.resultBox.classList.remove("show");
+            DOM.typingInput.disabled = false;
+            DOM.typingText.setAttribute('tabindex', '0'); 
+        }
+    }
+
+    function updateStatusUI() {
+        const mode = MODE_OPTIONS.find(m => m.key === AppState.modeKey) || MODE_OPTIONS[0];
+        DOM.languageText.textContent = `🇺🇸 United States — English • AI Learning • ${mode.label}`;
+    }
+
+    function renderModes() {
+        DOM.modeWrap.innerHTML = "";
+        MODE_OPTIONS.forEach(mode => {
+            const button = document.createElement("button");
+            button.type = "button";
+            button.className = `mode-btn ${mode.key === AppState.modeKey ? "active" : ""}`;
+            button.textContent = mode.label;
+            button.addEventListener("click", () => {
+                AppState.modeKey = mode.key;
+                AppState.timeLimit = mode.seconds;
+                resetTest(true); 
+            });
+            DOM.modeWrap.appendChild(button);
+        });
+    }
+
+    function renderTopics() {
+        DOM.topicWrap.innerHTML = "";
+        TOPIC_OPTIONS.forEach(topic => {
+            const button = document.createElement("button");
+            button.type = "button";
+            button.className = `topic-btn ${topic.key === AppState.topicKey ? "active" : ""}`;
+            button.textContent = topic.label;
+            button.addEventListener("click", () => {
+                AppState.topicKey = topic.key;
+                resetTest(true);
+            });
+            DOM.topicWrap.appendChild(button);
+        });
+    }
+
+    // --- 6. TIMING & CONTROL ---
+    function stopTimer() {
+        if (AppState.timerInterval) {
+            clearInterval(AppState.timerInterval);
+            AppState.timerInterval = null;
+        }
+    }
+
+    function startTimer() {
+        if (AppState.timerInterval || AppState.testFinished) return;
+
+        // Adjust start time calculation to account for initial elapsed time
+        AppState.startTime = Date.now() - (AppState.elapsedTime * 1000);
+        
+        AppState.timerInterval = setInterval(() => {
+            AppState.elapsedTime = (Date.now() - AppState.startTime) / 1000;
+
+            if (AppState.elapsedTime >= AppState.timeLimit) {
+                AppState.elapsedTime = AppState.timeLimit;
+                AppState.testFinished = true;
+                stopTimer();
+                updateStatsUI(); 
+            }
+            if (!AppState.testFinished) {
+                 updateStatsUI();
+            }
+        }, 100);
+    }
+
+    function resetTest(forceNewPassage = false) {
+        stopTimer();
+        
+        AppState.typedText = "";
+        AppState.startTime = null;
+        AppState.elapsedTime = 0;
+        AppState.testFinished = false;
+        AppState.lastIndexByLength = {}; 
+
+        DOM.typingInput.value = "";
         DOM.typingInput.disabled = false;
-        DOM.typingText.setAttribute('tabindex', '0'); 
+        DOM.typingText.innerHTML = ""; 
+        DOM.resultBox.classList.remove("show");
+        
+        if (forceNewPassage || !AppState.passage) {
+            AppState.passage = buildPassage();
+        }
+
+        renderPassage(); 
+        updateStatsUI();
+        updateStatusUI();
+
+        requestAnimationFrame(() => {
+            DOM.typingInput.focus();
+        });
     }
-}
 
-function updateStatusUI() {
-    const mode = MODE_OPTIONS.find(m => m.key === AppState.modeKey) || MODE_OPTIONS[0];
-    DOM.languageText.textContent = `🇺🇸 United States — English • AI Learning • ${mode.label}`;
-}
+    // --- 7. INPUT HANDLERS ---
+    function handleInput(event) {
+        if (AppState.testFinished) return;
 
-function renderModes() {
-    DOM.modeWrap.innerHTML = "";
-    MODE_OPTIONS.forEach(mode => {
-        const button = document.createElement("button");
-        button.type = "button";
-        button.className = `mode-btn ${mode.key === AppState.modeKey ? "active" : ""}`;
-        button.textContent = mode.label;
-        button.addEventListener("click", () => {
-            AppState.modeKey = mode.key;
-            AppState.timeLimit = mode.seconds;
+        const value = event.target.value;
+        
+        if (!AppState.startTime && value.length > 0) {
+            startTimer();
+        }
+
+        AppState.typedText = value; 
+        
+        const target = AppState.passage;
+        const typed = AppState.typedText;
+        const spans = DOM.typingText.querySelectorAll("span");
+        
+        // Update visual feedback for all characters
+        for (let i = 0; i < Math.min(typed.length, target.length); i++) {
+            const span = spans[i];
+            if (!span) continue;
+            span.className = typed[i] === target[i] ? 'char correct' : 'char incorrect';
+        }
+        
+        // Set the next character to pending
+        if (typed.length < target.length) {
+            const nextSpan = spans[typed.length];
+            if (nextSpan) nextSpan.className = 'char pending';
+        }
+        
+        updateStatsUI();
+        scrollCurrentCharIntoView();
+    }
+
+    function handleDeviceAiClick() {
+        alert("On-device AI Beta is planned for a future version. The current version uses a built-in rotating passage library to keep the app fast, stable, and free to run.");
+    }
+
+    // --- 8. INITIALIZATION & DATA FETCH ---
+    
+    async function initializeApp() {
+        try {
+            const response = await fetch('passage.json');
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            PASSAGES = await response.json();
+
+            // All data is loaded, now render UI and start the app
+            renderModes();
+            renderTopics();
             resetTest(true); 
-        });
-        DOM.modeWrap.appendChild(button);
-    });
-}
+            updateStatusUI();
+            
+            // Hide loading screen and show main app
+            DOM.loadingScreen.style.display = 'none';
+            DOM.mainApp.style.display = 'block';
 
-function renderTopics() {
-    DOM.topicWrap.innerHTML = "";
-    TOPIC_OPTIONS.forEach(topic => {
-        const button = document.createElement("button");
-        button.type = "button";
-        button.className = `topic-btn ${topic.key === AppState.topicKey ? "active" : ""}`;
-        button.textContent = topic.label;
-        button.addEventListener("click", () => {
-            AppState.topicKey = topic.key;
-            resetTest(true);
-        });
-        DOM.topicWrap.appendChild(button);
-    });
-}
-
-// --- 6. TIMING & CONTROL ---
-function stopTimer() {
-    if (AppState.timerInterval) {
-        clearInterval(AppState.timerInterval);
-        AppState.timerInterval = null;
-    }
-}
-
-function startTimer() {
-    if (AppState.timerInterval || AppState.testFinished) return;
-
-    AppState.startTime = Date.now() - (AppState.elapsedTime * 1000);
-    
-    AppState.timerInterval = setInterval(() => {
-        AppState.elapsedTime = (Date.now() - AppState.startTime) / 1000;
-
-        if (AppState.elapsedTime >= AppState.timeLimit) {
-            AppState.elapsedTime = AppState.timeLimit;
-            AppState.testFinished = true;
-            stopTimer();
-            updateStatsUI(); 
+        } catch (error) {
+            console.error("Failed to load passages:", error);
+            // Display an error state on the loading screen
+            DOM.loadingScreen.innerHTML = '<div style="color: red; text-align: center; padding: 20px;">Error loading practice passages. Please ensure passage.json is in the same directory.</div>';
         }
-        if (!AppState.testFinished) {
-             updateStatsUI();
-        }
-    }, 100);
-}
-
-function resetTest(forceNewPassage = false) {
-    stopTimer();
-    
-    AppState.typedText = "";
-    AppState.startTime = null;
-    AppState.elapsedTime = 0;
-    AppState.testFinished = false;
-    AppState.lastIndexByLength = {}; 
-
-    DOM.typingInput.value = "";
-    DOM.typingInput.disabled = false;
-    DOM.typingText.innerHTML = ""; 
-    DOM.resultBox.classList.remove("show");
-    
-    if (forceNewPassage || !AppState.passage) {
-        AppState.passage = buildPassage();
     }
 
-    renderPassage(); 
-    updateStatsUI();
-    updateStatusUI();
+    // Event Listeners (Attached after DOM elements are available)
+    DOM.generateBtn.addEventListener("click", () => resetTest(true));
+    DOM.deviceAiBtn.addEventListener("click", handleDeviceAiClick);
+    DOM.typingInput.addEventListener("input", handleInput);
+    DOM.typingText.addEventListener("click", () => DOM.typingInput.focus());
 
-    requestAnimationFrame(() => {
-        DOM.typingInput.focus();
-    });
-}
 
-// --- 7. INPUT HANDLERS ---
-function handleInput(event) {
-    if (AppState.testFinished) return;
-
-    const value = event.target.value;
-    
-    if (!AppState.startTime && value.length > 0) {
-        startTimer();
-    }
-
-    AppState.typedText = value; 
-    
-    const target = AppState.passage;
-    const typed = AppState.typedText;
-    const spans = DOM.typingText.querySelectorAll("span");
-    
-    // Update visual feedback for all characters
-    for (let i = 0; i < Math.min(typed.length, target.length); i++) {
-        const span = spans[i];
-        if (!span) continue;
-        span.className = typed[i] === target[i] ? 'char correct' : 'char incorrect';
-    }
-    
-    // Set the next character to pending
-    if (typed.length < target.length) {
-        const nextSpan = spans[typed.length];
-        if (nextSpan) nextSpan.className = 'char pending';
-    }
-    
-    updateStatsUI();
-    scrollCurrentCharIntoView();
-}
-
-function handleDeviceAiClick() {
-    alert("On-device AI Beta is planned for a future version. The current version uses a built-in rotating passage library to keep the app fast, stable, and free to run.");
-}
-
-// --- 8. INITIALIZATION ---
-DOM.generateBtn.addEventListener("click", () => resetTest(true));
-DOM.deviceAiBtn.addEventListener("click", handleDeviceAiClick);
-DOM.typingInput.addEventListener("input", handleInput);
-DOM.typingText.addEventListener("click", () => DOM.typingInput.focus());
-
-renderModes();
-renderTopics();
-resetTest(true); 
-updateStatusUI(); 
-</script>
+    // Start the application initialization process
+    initializeApp();
+  </script>
 </body>
 </html>
