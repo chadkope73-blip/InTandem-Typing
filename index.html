@@ -260,8 +260,7 @@
     /* BUTTON STYLING */
     .mode-btn,
     .topic-btn,
-    .action-btn,
-    .beta-btn {
+    .action-btn {
       appearance: none;
       border: 1px solid var(--line-soft);
       background: rgba(61, 53, 93, 0.36);
@@ -277,11 +276,9 @@
     .mode-btn:hover,
     .topic-btn:hover,
     .action-btn:hover,
-    .beta-btn:hover,
     .mode-btn:focus-visible,
     .topic-btn:focus-visible,
-    .action-btn:focus-visible,
-    .beta-btn:focus-visible {
+    .action-btn:focus-visible {
       outline: none;
       border-color: var(--line);
       color: var(--text);
@@ -309,10 +306,6 @@
     .action-btn:focus-visible {
       color: #1e2430;
       background: linear-gradient(180deg, #f7cb79, #e0aa54);
-    }
-
-    .beta-btn {
-      border-style: dashed;
     }
 
     .selected-country {
@@ -540,7 +533,7 @@
           </div>
 
           <div class="utility-wrap">
-            <button class="beta-btn" id="deviceAiBtn" type="button">Generate on This Device (Beta)</button>
+            <!-- Removed "Generate on This Device (Beta)" button -->
             <button class="action-btn" id="generateBtn" type="button">Generate New Passage</button>
           </div>
         </div>
@@ -637,7 +630,6 @@
         modeWrap: document.getElementById("modeWrap"),
         topicWrap: document.getElementById("topicWrap"),
         generateBtn: document.getElementById("generateBtn"),
-        deviceAiBtn: document.getElementById("deviceAiBtn"),
         typingText: document.getElementById("typingText"),
         typingInput: document.getElementById("typingInput"),
         progressText: document.getElementById("progressText"),
@@ -893,15 +885,12 @@
         scrollCurrentCharIntoView();
     }
 
-    function handleDeviceAiClick() {
-        alert("On-device AI Beta is planned for a future version. The current version uses a built-in rotating passage library to keep the app fast, stable, and free to run.");
-    }
-
     // --- 8. INITIALIZATION & DATA FETCH ---
     
     async function initializeApp() {
         try {
-            const response = await fetch('passage.json');
+            // Fetching data.json instead of passage.json to avoid iOS security warnings on Vercel
+            const response = await fetch('data.json');
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
             PASSAGES = await response.json();
 
@@ -918,13 +907,12 @@
         } catch (error) {
             console.error("Failed to load passages:", error);
             // Display an error state on the loading screen
-            DOM.loadingScreen.innerHTML = '<div style="color: red; text-align: center; padding: 20px;">Error loading practice passages. Please ensure passage.json is in the same directory.</div>';
+            DOM.loadingScreen.innerHTML = '<div style="color: red; text-align: center; padding: 20px;">Error loading practice passages. Please ensure data.json is in the same directory.</div>';
         }
     }
 
     // Event Listeners (Attached after DOM elements are available)
     DOM.generateBtn.addEventListener("click", () => resetTest(true));
-    DOM.deviceAiBtn.addEventListener("click", handleDeviceAiClick);
     DOM.typingInput.addEventListener("input", handleInput);
     DOM.typingText.addEventListener("click", () => DOM.typingInput.focus());
 
